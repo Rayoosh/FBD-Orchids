@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface SectionCardProps {
@@ -19,123 +18,69 @@ export function SectionCard({
   bgColor = "bg-white",
   isDark = false 
 }: SectionCardProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const updateDimensions = () => {
-      if (contentRef.current) {
-        setContentHeight(contentRef.current.scrollHeight);
+    const element = scrollContainerRef.current;
+    if (!element) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const { scrollTop, scrollHeight, clientHeight } = element;
+      const isScrollingDown = e.deltaY > 0;
+      const isScrollingUp = e.deltaY < 0;
+
+      // If scrolling down and not at bottom, scroll internally and prevent parent scroll
+      if (isScrollingDown && scrollTop + clientHeight < scrollHeight - 1) {
+        element.scrollTop += e.deltaY;
+        e.preventDefault();
       }
-      setViewportHeight(window.innerHeight);
+      // If scrolling up and not at top, scroll internally and prevent parent scroll
+      else if (isScrollingUp && scrollTop > 1) {
+        element.scrollTop += e.deltaY;
+        e.preventDefault();
+      }
     };
 
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    const timer = setTimeout(updateDimensions, 500);
-    
-    return () => {
-      window.removeEventListener("resize", updateDimensions);
-      clearTimeout(timer);
-    };
-  }, [children]);
+    // Use non-passive to allow stopPropagation/preventDefault if needed
+    // Actually stopPropagation on wheel might not stop the parent snap-container from reacting in some browsers
+    // but it's a good start.
+    element.addEventListener("wheel", handleWheel, { passive: false });
+    return () => element.removeEventListener("wheel", handleWheel);
+  }, []);
 
-    // Use full height to avoid "floating" look if not explicitly requested
-    const cardVisibleHeight = viewportHeight || 800; // Fallback for initial render
-    const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
-    
-    // Each card's scroll area is its own height + internal scroll + 100vh for the next card to slide over
-    const nextCardSpace = index === 3 ? 0 : cardVisibleHeight;
-    const totalContainerHeight = cardVisibleHeight + scrollDistance + nextCardSpace;
-  
-    // Track scroll progress within this card's container
-    const { scrollYProgress: containerProgress } = useScroll({
-      target: containerRef,
-      offset: ["start start", "end end"],
-    });
-
-    // We need to split the progress:
-    // 0 to (viewportHeight + scrollDistance) / totalHeight -> internal scroll
-    // (viewportHeight + scrollDistance) / totalHeight to 1 -> being covered by next card
-
-    const pinningEndBase = cardVisibleHeight + scrollDistance;
-    const pinningEndRatio = totalContainerHeight > 0 ? pinningEndBase / totalContainerHeight : 1;
-
-    // Internal content scroll: 0 to -scrollDistance
-    const contentY = useTransform(
-      containerProgress, 
-      [0, pinningEndRatio], 
-      [0, -scrollDistance]
-    );
-
-    // Animation when being covered by next card (only if not the last card)
-    const isLastCard = index === 3;
-    const animationStart = isLastCard ? 1 : pinningEndRatio;
-    const animationEnd = 1;
-
-    const scale = useTransform(
-      containerProgress,
-      [animationStart, animationEnd],
-      [1, isLastCard ? 1 : 0.95]
-    );
-    
-    const opacity = useTransform(
-      containerProgress,
-      [animationStart, animationEnd],
-      [1, isLastCard ? 1 : 0.8]
-    );
-
-    const blur = useTransform(
-      containerProgress,
-      [animationStart, animationEnd],
-      [0, isLastCard ? 0 : 4]
-    );
-
-    const zIndexValue = (index + 1) * 10;
-  
-    return (
+  return (
+    <section 
+      className="h-screen w-full snap-start sticky top-0 overflow-hidden flex flex-col shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.3)]"
+      style={{ zIndex: (index + 1) * 10 }}
+    >
       <div 
-        ref={containerRef} 
-        className="relative w-full"
-        style={{ 
-          height: totalContainerHeight,
-          zIndex: zIndexValue 
-        }}
+        ref={scrollContainerRef}
+        className={cn(
+          "flex-1 overflow-y-auto overscroll-behavior-y-contain p-4 md:p-6 transition-colors duration-700",
+          bgColor,
+          className
+        )}
       >
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center p-4 md:p-6 overflow-hidden">
-          <motion.div
-            style={{ 
-              scale,
-              opacity,
-              filter: `blur(${blur}px)`
-            }}
-            className={cn(
-              "relative w-full h-full overflow-hidden rounded-[40px] shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.5)] border border-white/5",
-              bgColor,
-              className
-            )}
-          >
-            {/* Section Index Indicator - Subtle and minimal */}
+        <div className="relative w-full h-full max-w-[1800px] mx-auto">
+          <div className={cn(
+            "relative w-full min-h-full rounded-[40px] shadow-2xl border border-white/5 flex flex-col",
+            bgColor
+          )}>
+            {/* Section Index Indicator */}
             <div className={cn(
-              "absolute top-8 left-10 z-50 flex items-center gap-4 pointer-events-none opacity-40",
+              "sticky top-8 left-10 z-50 flex items-center gap-4 pointer-events-none opacity-40",
               isDark ? "text-white" : "text-black"
             )}>
               <span className="font-display text-sm tracking-[0.3em]">0{index + 1}</span>
               <div className={cn("w-8 h-[1px]", isDark ? "bg-white/20" : "bg-black/10")} />
             </div>
-  
-            {/* Internal content wrapper */}
-            <motion.div 
-              ref={contentRef}
-              style={{ y: contentY }}
-              className="w-full flex flex-col"
-            >
+
+            <div className="w-full flex flex-col">
               {children}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
-    );
+    </section>
+  );
 }
