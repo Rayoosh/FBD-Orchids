@@ -76,7 +76,7 @@ export function Footer() {
             <Link href="#" className="hover:text-white transition-colors">Terms</Link>
             <Link href="#" className="hover:text-white transition-colors">Accessibility</Link>
           </div>
-          <p className="italic lowercase opacity-20">Art of Clinical Excellence</p>
+            <p className="italic lowercase opacity-20">Art of Clinical Mastery</p>
         </div>
       </div>
     </footer>

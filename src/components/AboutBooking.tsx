@@ -41,10 +41,10 @@ export function AboutBooking() {
               </div>
             </Reveal>
             
-              <TextReveal 
-                text="Affordable Excellence." 
-                className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.85] mb-12 tracking-tighter"
-              />
+                <TextReveal 
+                  text="Accessible Care." 
+                  className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.85] mb-12 tracking-tighter"
+                />
               
               <Reveal delay={0.4}>
                 <p className="text-xl text-slate-500 leading-relaxed mb-16 font-light max-w-lg">

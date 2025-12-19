@@ -28,7 +28,7 @@ const syne = Syne({
 
 export const metadata: Metadata = {
   title: "Freemans Bay Dental | Modern, Luxurious Dental Care",
-  description: "Experience clinical excellence and gentle care at Freemans Bay Dental. Same-day appointments available for anxious patients and busy professionals.",
+  description: "Experience clinical precision and gentle care at Freemans Bay Dental. Same-day appointments available for anxious patients and busy professionals.",
 };
 
 export default function RootLayout({

@@ -39,11 +39,11 @@ export function Hero() {
                 </div>
               </Reveal>
               
-              <TextReveal 
-                text="Affordable Dental Excellence" 
-                className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10"
-                delay={0.2}
-              />
+                <TextReveal 
+                  text="Elite Dental Excellence" 
+                  className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10"
+                  delay={0.2}
+                />
               
               <Reveal delay={0.6}>
                 <p className="text-xl md:text-2xl text-slate-600 max-w-xl mb-14 leading-relaxed font-light">

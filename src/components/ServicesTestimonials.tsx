@@ -22,7 +22,7 @@ const services = [
     image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800"
   },
   {
-    title: "Cosmetic Excellence",
+    title: "Cosmetic Artistry",
     description: "Transform your smile with porcelain veneers, professional whitening, and restorative crowns designed for a natural, healthy look.",
     icon: <Palette className="w-6 h-6" />,
     image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=800"
@@ -39,7 +39,7 @@ const testimonials = [
   {
     name: "Sarah Miller",
     role: "Ponsonby Local",
-    quote: "The team at Freemans Bay is amazing. Professional, affordable, and they always make me feel comfortable during my hygiene visits.",
+    quote: "The team at Freemans Bay is amazing. Professional, fairly priced, and they always make me feel comfortable during my hygiene visits.",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
   },
   {

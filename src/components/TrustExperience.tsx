@@ -7,7 +7,7 @@ import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
 
 const trustSignals = [
   { label: "General Care", icon: Heart },
-  { label: "Cosmetic Excellence", icon: Sparkles },
+  { label: "Cosmetic Brilliance", icon: Sparkles },
   { label: "Emergency Support", icon: Clock },
   { label: "ACC Registered", icon: ShieldCheck },
 ];

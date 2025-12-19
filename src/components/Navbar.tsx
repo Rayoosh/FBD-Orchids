@@ -17,7 +17,7 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Excellence", href: "#", icon: Shield },
+    { name: "Quality", href: "#", icon: Shield },
     { name: "Specialists", href: "#", icon: Users },
     { name: "Services", href: "#", icon: Stethoscope },
     { name: "Experience", href: "#", icon: Sparkles },
