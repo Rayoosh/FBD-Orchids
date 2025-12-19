@@ -16,22 +16,20 @@ export function CustomCursor() {
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-    const handleMouseMove = useCallback((e: MouseEvent) => {
-      requestAnimationFrame(() => {
-        mouseX.set(e.clientX);
-        mouseY.set(e.clientY);
-        
-        if (!isVisible) setIsVisible(true);
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+    
+    if (!isVisible) setIsVisible(true);
 
-        // Detect hoverable elements
-        const target = e.target as HTMLElement;
-        const isPointer = window.getComputedStyle(target).cursor === "pointer";
-        setIsHovered(isPointer || target.closest('button') !== null || target.closest('a') !== null);
-      });
-    }, [mouseX, mouseY, isVisible]);
+    // Detect hoverable elements
+    const target = e.target as HTMLElement;
+    const isPointer = window.getComputedStyle(target).cursor === "pointer";
+    setIsHovered(isPointer || target.closest('button') !== null || target.closest('a') !== null);
+  }, [mouseX, mouseY, isVisible]);
 
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
+  const handleMouseDown = () => setIsClicking(true);
+  const handleMouseUp = () => setIsClicking(false);
 
     useEffect(() => {
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -45,45 +43,48 @@ export function CustomCursor() {
       };
     }, [handleMouseMove]);
 
-  const scale = isClicking ? 0.8 : isHovered ? 2.5 : 1;
-  const opacity = isVisible ? 1 : 0;
-  
-    return (
-    <>
-      {/* Spotlight Glow */}
-      <motion.div
-        className="fixed top-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px] pointer-events-none z-[9997]"
-        style={{
-          x: smoothX,
-          y: smoothY,
-          translateX: "-50%",
-          translateY: "-50%",
-          opacity: isVisible ? 1 : 0,
-        }}
-      />
-      <motion.div
-        className="fixed top-0 left-0 w-4 h-4 bg-blue-500 rounded-full pointer-events-none z-[9999] mix-blend-difference"
-        style={{
-          x: smoothX,
-          y: smoothY,
-          translateX: "-50%",
-          translateY: "-50%",
-          scale,
-          opacity,
-        }}
-      />
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-blue-500/30 rounded-full pointer-events-none z-[9998]"
-        style={{
-          x: smoothX,
-          y: smoothY,
-          translateX: "-50%",
-          translateY: "-50%",
-          scale: isHovered ? 1.5 : 1,
-          opacity: isVisible ? 0.5 : 0,
-        }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      />
-    </>
-  );
+    const scale = isClicking ? 0.8 : isHovered ? 2.5 : 1;
+    const opacity = isVisible ? 1 : 0;
+    
+      return (
+      <>
+        {/* Spotlight Glow */}
+        <motion.div
+          className="fixed top-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px] pointer-events-none z-[9997]"
+          style={{
+            x: smoothX,
+            y: smoothY,
+            translateX: "-50%",
+            translateY: "-50%",
+            opacity: isVisible ? 1 : 0,
+            willChange: "transform, opacity"
+          }}
+        />
+        <motion.div
+          className="fixed top-0 left-0 w-4 h-4 bg-blue-500 rounded-full pointer-events-none z-[9999] mix-blend-difference"
+          style={{
+            x: smoothX,
+            y: smoothY,
+            translateX: "-50%",
+            translateY: "-50%",
+            scale,
+            opacity,
+            willChange: "transform, opacity"
+          }}
+        />
+        <motion.div
+          className="fixed top-0 left-0 w-8 h-8 border border-blue-500/30 rounded-full pointer-events-none z-[9998]"
+          style={{
+            x: smoothX,
+            y: smoothY,
+            translateX: "-50%",
+            translateY: "-50%",
+            scale: isHovered ? 1.5 : 1,
+            opacity: isVisible ? 0.5 : 0,
+            willChange: "transform, opacity"
+          }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        />
+      </>
+    );
 }

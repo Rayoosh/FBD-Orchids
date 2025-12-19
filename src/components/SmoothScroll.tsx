@@ -15,12 +15,11 @@ export function SmoothScroll({
   }, []);
 
     const options = useMemo(() => ({
-      lerp: 0.12, 
+      lerp: 0.08, 
       duration: 1.0,
       smoothWheel: true,
       wheelMultiplier: 1.0,
       touchMultiplier: 1.5,
-      syncTouch: true,
       infinite: false,
     }), []);
 

@@ -16,7 +16,7 @@ import { useEffect, useRef } from "react";
 export default function Home() {
   return (
     <SmoothScroll>
-      <main className="relative w-full bg-[#0a0a0b] selection:bg-brand-blue-100 selection:text-brand-blue-900">
+      <main className="relative w-full bg-white selection:bg-brand-blue-100 selection:text-brand-blue-900">
         <CustomCursor />
         <SpotlightOverlay />
         <div className="grain-overlay" />
@@ -28,7 +28,7 @@ export default function Home() {
             <Hero />
           </SectionCard>
 
-          <SectionCard index={1} bgColor="bg-white">
+          <SectionCard index={1} bgColor="bg-slate-50/50">
             <TrustExperience />
           </SectionCard>
 

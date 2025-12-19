@@ -25,23 +25,23 @@ export function SectionIndex({}: SectionIndexProps) {
         
         return (
           <div key={section.id} className="group flex items-center gap-6 justify-end cursor-pointer">
-                 <motion.span 
-                   initial={{ opacity: 0, x: 20 }}
-                   whileHover={{ opacity: 1, x: 0 }}
-                   className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 group-hover:text-white pointer-events-none transition-colors"
-                 >
-                   {section.label}
-                 </motion.span>
-                 
-                 <div className="relative w-12 h-[1px] bg-white/10 overflow-hidden">
-                    <motion.div 
-                      style={{ 
-                        scaleX: useTransform(scrollYProgress, [start, end], [0, 1]),
-                        transformOrigin: "left"
-                      }}
-                      className="absolute inset-0 bg-white"
-                    />
-                 </div>
+               <motion.span 
+                 initial={{ opacity: 0, x: 20 }}
+                 whileHover={{ opacity: 1, x: 0 }}
+                 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 group-hover:text-slate-900 pointer-events-none transition-colors"
+               >
+                 {section.label}
+               </motion.span>
+               
+               <div className="relative w-12 h-[1px] bg-slate-200 overflow-hidden">
+                  <motion.div 
+                    style={{ 
+                      scaleX: useTransform(scrollYProgress, [start, end], [0, 1]),
+                      transformOrigin: "left"
+                    }}
+                    className="absolute inset-0 bg-slate-900"
+                  />
+               </div>
           </div>
         );
       })}
