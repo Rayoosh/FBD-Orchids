@@ -48,21 +48,26 @@ export function SectionCard({
   const cardVisibleHeight = viewportHeight * 0.92;
   const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
   
-  // Faster transition distance (reduced from 100vh)
-  const transitionHeight = viewportHeight * 0.8; 
-  const totalContainerHeight = transitionHeight + scrollDistance;
+    // Total height = 100vh (for the entry transition) + scrollDistance (for pinning)
+    const totalContainerHeight = viewportHeight + scrollDistance;
 
-  // Entry: slides up from bottom
-  const { scrollYProgress: entryProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "start start"],
-  });
+    // Entry: slides up from bottom
+    // This starts when the container top is at the bottom of the viewport
+    // and ends when the container top is at the top of the viewport.
+    // This takes exactly 100vh of scroll.
+    const { scrollYProgress: entryProgress } = useScroll({
+      target: containerRef,
+      offset: ["start end", "start start"],
+    });
 
-  // Internal scroll: scrolls content while sticky
-  const { scrollYProgress: internalProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+    // Internal scroll: scrolls content while sticky
+    // This starts when the container top is at the top of the viewport
+    // and ends when the container bottom is at the bottom of the viewport.
+    // This takes exactly (totalContainerHeight - vh) = scrollDistance pixels of scroll.
+    const { scrollYProgress: internalProgress } = useScroll({
+      target: containerRef,
+      offset: ["start start", "end end"],
+    });
 
   // Exit: scales down/darkens as the NEXT card enters
   const { scrollYProgress: exitProgress } = useScroll({
