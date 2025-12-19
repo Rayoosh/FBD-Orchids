@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Shield, Users, Stethoscope, Sparkles } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
+import { NAV_DIMENSIONS } from "@/lib/nav-constants";
 
 interface NavbarProps {
   isScrolled?: boolean;
@@ -12,6 +13,14 @@ interface NavbarProps {
 export function Navbar({ isScrolled = false }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const navLinks = [
     { name: "Excellence", href: "#", icon: Shield },
@@ -20,29 +29,25 @@ export function Navbar({ isScrolled = false }: NavbarProps) {
     { name: "Experience", href: "#", icon: Sparkles },
   ];
 
-  const springConfig = {
-    type: "spring",
-    stiffness: 200,
-    damping: 30,
-    mass: 0.8
-  };
+  // Calculate width based on state to match NavHousing exactly
+  const expandedWidth = Math.min(windowWidth * NAV_DIMENSIONS.TOP.WIDTH_PERCENT, NAV_DIMENSIONS.TOP.WIDTH);
+  const collapsedWidth = NAV_DIMENSIONS.SCROLLED.WIDTH;
 
   return (
     <motion.nav 
       initial={false}
       animate={{
-        // Force shrink by using specific constraints if auto is misbehaving
-        width: isScrolled ? "fit-content" : "90%",
-        padding: isScrolled ? "8px 12px" : "16px 24px",
-        marginTop: isScrolled ? 16 : 24,
+        width: isScrolled ? collapsedWidth : expandedWidth,
+        height: isScrolled ? NAV_DIMENSIONS.SCROLLED.HEIGHT : NAV_DIMENSIONS.TOP.HEIGHT,
+        marginTop: isScrolled ? NAV_DIMENSIONS.SCROLLED.MARGIN_TOP : NAV_DIMENSIONS.TOP.MARGIN_TOP,
         backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.6)",
         backdropFilter: "blur(20px)",
         borderColor: isScrolled ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.3)",
       }}
-      transition={springConfig}
-      className="relative z-[100] mx-auto rounded-full border shadow-[0_8px_32px_0_rgba(0,0,0,0.05)] max-w-7xl flex items-center justify-between overflow-hidden"
+      transition={NAV_DIMENSIONS.SPRING}
+      className="relative z-[100] mx-auto rounded-full border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-between overflow-hidden px-6"
     >
-      <div className={`flex items-center transition-all duration-500 ${isScrolled ? "gap-4 px-2" : "gap-12 px-4"}`}>
+      <div className={`flex items-center w-full transition-all duration-500 ${isScrolled ? "gap-4" : "gap-12"}`}>
         <div className={isScrolled ? "hidden md:block" : "block"}>
           <Magnetic strength={0.1}>
             <a href="/" className="flex flex-col group">
@@ -56,7 +61,7 @@ export function Navbar({ isScrolled = false }: NavbarProps) {
           </Magnetic>
         </div>
 
-        <div className={`flex items-center ${isScrolled ? "gap-1" : "gap-4 lg:gap-6"}`}>
+        <div className={`flex items-center flex-1 justify-center ${isScrolled ? "gap-1" : "gap-4 lg:gap-6"}`}>
           {navLinks.map((link, index) => (
             <a 
               key={link.name} 
@@ -75,7 +80,7 @@ export function Navbar({ isScrolled = false }: NavbarProps) {
                   opacity: (!isScrolled || hoveredIndex === index) ? 1 : 0,
                   marginLeft: (!isScrolled || hoveredIndex === index) ? 4 : 0
                 }}
-                transition={springConfig}
+                transition={NAV_DIMENSIONS.SPRING}
                 className="overflow-hidden whitespace-nowrap text-[10px] font-bold uppercase tracking-widest"
               >
                 {link.name}
