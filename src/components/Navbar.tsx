@@ -27,18 +27,18 @@ export function Navbar() {
     <nav 
       className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 rounded-full border ${
         isScrolled 
-          ? "py-2 px-3 bg-white/40 backdrop-blur-xl border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.05)] w-auto" 
-          : "py-4 px-6 bg-white/10 backdrop-blur-md border-white/10 w-[90%] md:w-[85%] max-w-7xl"
+          ? "py-2 px-3 bg-white/80 backdrop-blur-xl border-white/50 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] w-auto" 
+          : "py-4 px-6 bg-white/40 backdrop-blur-lg border-white/30 w-[90%] md:w-[85%] max-w-7xl shadow-[0_8px_32px_0_rgba(0,0,0,0.05)]"
       }`}
     >
       <div className={`flex items-center justify-between ${isScrolled ? "gap-8" : ""}`}>
         <div className={isScrolled ? "hidden md:block" : "block"}>
           <Magnetic strength={0.1}>
             <a href="/" className="flex flex-col group">
-              <span className={`font-serif text-slate-900 tracking-tighter leading-none transition-all duration-500 ${isScrolled ? "text-lg" : "text-2xl"}`}>
+              <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 ${isScrolled ? "text-lg" : "text-2xl"}`}>
                 EASTSIDE
               </span>
-              <span className={`text-[7px] tracking-[0.4em] text-slate-400 font-bold uppercase transition-all duration-500 ${isScrolled ? "hidden" : "block"}`}>
+              <span className={`text-[7px] tracking-[0.4em] text-slate-500 font-bold uppercase transition-all duration-500 ${isScrolled ? "hidden" : "block"}`}>
                 Dental Studio
               </span>
             </a>
@@ -53,16 +53,16 @@ export function Navbar() {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               className={`relative flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                hoveredIndex === index ? "bg-slate-900/5 text-slate-900" : "text-slate-500"
+                hoveredIndex === index ? "bg-slate-900 text-white" : "text-slate-700"
               }`}
             >
               <link.icon className={`w-4 h-4 transition-transform duration-300 ${hoveredIndex === index ? "scale-110" : ""}`} />
               <motion.span 
                 initial={false}
                 animate={{ 
-                  width: hoveredIndex === index ? "auto" : 0,
-                  opacity: hoveredIndex === index ? 1 : 0,
-                  marginLeft: hoveredIndex === index ? 4 : 0
+                  width: (!isScrolled || hoveredIndex === index) ? "auto" : 0,
+                  opacity: (!isScrolled || hoveredIndex === index) ? 1 : 0,
+                  marginLeft: (!isScrolled || hoveredIndex === index) ? 4 : 0
                 }}
                 className="overflow-hidden whitespace-nowrap text-[10px] font-bold uppercase tracking-widest"
               >
