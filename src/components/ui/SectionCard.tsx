@@ -117,12 +117,14 @@ export function SectionCard({
                 willChange: "transform, opacity",
                 transform: "translateZ(0)"
               }}
-              className={cn(
-                "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.1)] border border-black/5",
-              isDark ? "border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)]" : "border-black/5",
-              bgColor,
-              className
-            )}
+                className={cn(
+                  "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] transition-shadow duration-500",
+                isDark 
+                  ? "border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)]" 
+                  : "border border-white/20 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]",
+                bgColor,
+                className
+              )}
           >
             {/* Premium Inner Glow */}
             <div className={cn(
