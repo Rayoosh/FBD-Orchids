@@ -93,10 +93,10 @@ export function TrustExperience() {
               <div className="absolute inset-0 bg-primary/5" />
             </motion.div>
 
-            <motion.div
-              style={{ y: y2 }}
-              className="lg:absolute -left-20 top-1/2 w-[60%] aspect-square bg-slate-900 p-12 text-white flex flex-col justify-center rounded-sm luxury-shadow"
-            >
+              <motion.div
+                style={{ y: y2 }}
+                className="lg:absolute -left-20 top-1/2 w-[60%] aspect-square bg-brand-blue-900 p-12 text-white flex flex-col justify-center rounded-sm luxury-shadow"
+              >
               <Star className="w-8 h-8 text-accent mb-6 fill-accent" />
               <p className="text-2xl font-serif italic mb-8 leading-relaxed">
                 "Their approach to patient care is fundamentally different. It's the first time I've felt truly understood by a clinician."

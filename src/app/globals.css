@@ -17,8 +17,9 @@
   --color-brand-blue-500: oklch(0.45 0.12 240);
   --color-brand-blue-900: oklch(0.25 0.08 240);
 
-  --color-gold: oklch(0.75 0.15 85);
-  --color-champagne: oklch(0.95 0.03 85);
+  /* Mapping old names to new blue palette to avoid breaking components */
+  --color-gold: oklch(0.45 0.12 240);
+  --color-champagne: oklch(0.96 0.02 240);
   --color-slate-900: oklch(0.15 0.05 240);
 
   --color-sidebar-ring: var(--sidebar-ring);
@@ -57,25 +58,25 @@
 }
 
 :root {
-  --radius: 0rem; /* Sharp edges for high-end look */
-  --background: oklch(0.98 0.01 240); /* Slightly off-white */
-  --foreground: oklch(0.15 0.02 240);
+  --radius: 0rem;
+  --background: oklch(0.99 0.005 240); /* Clean White */
+  --foreground: oklch(0.15 0.05 240); /* Deep Blue/Black */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.02 240);
+  --card-foreground: oklch(0.15 0.05 240);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.02 240);
-  --primary: oklch(0.15 0.05 240); /* Deep Slate/Blue */
-  --primary-foreground: oklch(0.98 0.01 240);
-  --secondary: oklch(0.95 0.03 85); /* Champagne */
+  --popover-foreground: oklch(0.15 0.05 240);
+  --primary: oklch(0.45 0.12 240); /* Medical Blue */
+  --primary-foreground: oklch(0.99 0.005 240);
+  --secondary: oklch(0.96 0.02 240); /* Soft Blue wash */
   --secondary-foreground: oklch(0.15 0.05 240);
   --muted: oklch(0.94 0.02 240);
   --muted-foreground: oklch(0.4 0.05 240);
-  --accent: oklch(0.75 0.15 85); /* Gold */
-  --accent-foreground: oklch(0.15 0.05 240);
+  --accent: oklch(0.55 0.15 240); /* Vibrant Blue */
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.6 0.2 25);
-  --border: oklch(0.9 0.01 240);
-  --input: oklch(0.9 0.01 240);
-  --ring: oklch(0.15 0.05 240);
+  --border: oklch(0.9 0.02 240);
+  --input: oklch(0.9 0.02 240);
+  --ring: oklch(0.45 0.12 240);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);

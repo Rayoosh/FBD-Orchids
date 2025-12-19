@@ -82,8 +82,8 @@ export function ServicesTestimonials() {
                   />
                   <div className="absolute inset-0 bg-primary/10 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                 </div>
-                {/* Decorative floating ID */}
-                <div className={`absolute -top-10 text-9xl font-serif font-black text-slate-900/5 select-none pointer-events-none ${
+                  {/* Decorative floating ID */}
+                  <div className={`absolute -top-10 text-9xl font-serif font-black text-primary/5 select-none pointer-events-none ${
                   index % 2 === 1 ? "-right-10" : "-left-10"
                 }`}>
                   {service.id}
@@ -137,8 +137,8 @@ export function ServicesTestimonials() {
                </div>
              </div>
 
-             <div className="relative lg:mt-32">
-               <div className="aspect-square bg-slate-900 rounded-sm p-16 flex flex-col justify-between text-white luxury-shadow relative overflow-hidden">
+               <div className="relative lg:mt-32">
+                 <div className="aspect-square bg-brand-blue-900 rounded-sm p-16 flex flex-col justify-between text-white luxury-shadow relative overflow-hidden">
                  <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 blur-[100px] rounded-full" />
                  
                  <div>

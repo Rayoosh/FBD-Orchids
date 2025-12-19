@@ -20,7 +20,7 @@ export function Hero() {
   return (
     <section ref={containerRef} className="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-6 overflow-hidden bg-background">
       {/* Editorial Decorative Text */}
-      <div className="absolute top-40 left-10 text-[15vw] font-serif font-black text-slate-900/5 leading-none select-none pointer-events-none uppercase">
+      <div className="absolute top-40 left-10 text-[15vw] font-serif font-black text-primary/5 leading-none select-none pointer-events-none uppercase">
         Mastery
       </div>
       
@@ -47,7 +47,7 @@ export function Hero() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Button asChild size="lg" className="bg-primary hover:bg-slate-900 text-white rounded-full h-16 px-10 text-lg group transition-all duration-500">
+                <Button asChild size="lg" className="bg-primary hover:bg-brand-blue-900 text-white rounded-full h-16 px-10 text-lg group transition-all duration-500">
                 <Link href="#booking" className="flex items-center">
                   Book Your Experience 
                   <motion.span

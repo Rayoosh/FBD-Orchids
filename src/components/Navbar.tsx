@@ -66,7 +66,7 @@ export function Navbar() {
           <Button asChild variant="ghost" className="text-[11px] font-display uppercase tracking-widest hover:bg-transparent hover:text-accent transition-colors">
             <Link href="#booking">Inquire</Link>
           </Button>
-          <Button asChild className="bg-primary hover:bg-slate-900 text-white rounded-full px-8 h-12 text-[11px] font-display uppercase tracking-[0.2em] transition-all duration-500">
+            <Button asChild className="bg-primary hover:bg-brand-blue-900 text-white rounded-full px-8 h-12 text-[11px] font-display uppercase tracking-[0.2em] transition-all duration-500">
             <Link href="#booking">Book Appointment</Link>
           </Button>
         </div>

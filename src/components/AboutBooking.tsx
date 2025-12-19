@@ -62,9 +62,9 @@ export function AboutBooking() {
           </motion.div>
         </div>
 
-        {/* High-End Booking Experience */}
-        <div id="booking" className="grid lg:grid-cols-[1fr_1.5fr] bg-slate-900 rounded-sm overflow-hidden luxury-shadow">
-          <div className="p-12 lg:p-20 bg-slate-900 text-white flex flex-col justify-between">
+          {/* High-End Booking Experience */}
+          <div id="booking" className="grid lg:grid-cols-[1fr_1.5fr] bg-brand-blue-900 rounded-sm overflow-hidden luxury-shadow">
+            <div className="p-12 lg:p-20 bg-brand-blue-900 text-white flex flex-col justify-between">
             <div>
               <h2 className="text-display text-[10px] text-accent mb-10 tracking-[0.4em]">Inquiry</h2>
               <h3 className="text-4xl md:text-5xl font-serif font-light leading-tight mb-12">
@@ -133,7 +133,7 @@ export function AboutBooking() {
                 <Textarea placeholder="How may we assist you?" className="border-0 border-b border-border rounded-none px-0 min-h-[100px] focus-visible:ring-0 focus-visible:border-accent transition-colors bg-transparent resize-none" />
               </div>
 
-              <Button className="w-full h-20 bg-primary hover:bg-slate-900 text-white rounded-none text-display text-xs transition-all duration-500 flex items-center justify-center space-x-4">
+                <Button className="w-full h-20 bg-primary hover:bg-brand-blue-900 text-white rounded-none text-display text-xs transition-all duration-500 flex items-center justify-center space-x-4">
                 <span>Submit Inquiry</span>
                 <ArrowUpRight className="w-5 h-5" />
               </Button>

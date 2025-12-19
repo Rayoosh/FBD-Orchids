@@ -5,7 +5,7 @@ import { Instagram, Facebook, Twitter, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-white pt-40 pb-20 overflow-hidden relative">
+    <footer className="bg-brand-blue-900 text-white pt-40 pb-20 overflow-hidden relative">
       <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-accent/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
