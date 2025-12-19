@@ -23,13 +23,26 @@ export function Navbar() {
     { name: "Experience", href: "#", icon: Sparkles },
   ];
 
+  const springConfig = {
+    type: "spring",
+    stiffness: 200,
+    damping: 30,
+    mass: 0.8
+  };
+
   return (
-    <nav 
-      className={`relative z-[100] mx-auto transition-all duration-700 rounded-full border ${
-        isScrolled 
-          ? "py-2 px-3 bg-white/80 backdrop-blur-xl border-white/50 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] w-auto mt-4" 
-          : "py-4 px-6 bg-white/40 backdrop-blur-lg border-white/30 w-[90%] md:w-[85%] max-w-7xl shadow-[0_8px_32px_0_rgba(0,0,0,0.05)] mt-6"
-      }`}
+    <motion.nav 
+      initial={false}
+      animate={{
+        width: isScrolled ? "auto" : "90%",
+        padding: isScrolled ? "8px 12px" : "16px 24px",
+        marginTop: isScrolled ? 16 : 24,
+        backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.8)" : "rgba(255, 255, 255, 0.4)",
+        backdropFilter: isScrolled ? "blur(20px)" : "blur(12px)",
+        borderColor: isScrolled ? "rgba(255, 255, 255, 0.5)" : "rgba(255, 255, 255, 0.3)",
+      }}
+      transition={springConfig}
+      className="relative z-[100] mx-auto rounded-full border shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] max-w-7xl"
     >
       <div className={`flex items-center justify-between ${isScrolled ? "gap-8" : ""}`}>
         <div className={isScrolled ? "hidden md:block" : "block"}>
@@ -64,6 +77,7 @@ export function Navbar() {
                   opacity: (!isScrolled || hoveredIndex === index) ? 1 : 0,
                   marginLeft: (!isScrolled || hoveredIndex === index) ? 4 : 0
                 }}
+                transition={springConfig}
                 className="overflow-hidden whitespace-nowrap text-[10px] font-bold uppercase tracking-widest"
               >
                 {link.name}
@@ -127,6 +141,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 }
