@@ -99,7 +99,7 @@ export function SectionCard({
         marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`
       }}
     >
-      <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
+      <div className="sticky top-0 h-screen w-full px-4 md:px-6 lg:px-8 pb-4 md:pb-6 lg:pb-8 overflow-hidden">
         <motion.div
           style={{ 
             y: index === 0 ? 0 : yEntry,
@@ -107,7 +107,7 @@ export function SectionCard({
             opacity 
           }}
           className={cn(
-            "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.3)]",
+            "relative w-full h-full overflow-hidden rounded-b-[32px] md:rounded-b-[48px] rounded-t-[12px] shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.3)]",
             bgColor,
             className
           )}
@@ -123,7 +123,7 @@ export function SectionCard({
           <motion.div 
             ref={contentRef}
             style={{ y: contentY }}
-            className="w-full flex flex-col"
+            className="w-full flex flex-col pt-32"
           >
             {children}
           </motion.div>

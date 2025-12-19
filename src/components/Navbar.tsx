@@ -26,28 +26,24 @@ export function Navbar() {
   return (
     <>
       {/* Shaped Indentation Dock */}
-      <div className="fixed top-0 left-0 w-full z-[90] pointer-events-none overflow-hidden h-48">
-        <svg width="100%" height="100%" preserveAspectRatio="none" className="drop-shadow-2xl">
+      <div className="fixed top-0 left-0 w-full z-[90] pointer-events-none overflow-hidden h-32">
+        <svg width="100%" height="100%" preserveAspectRatio="none">
           <defs>
             <mask id="nav-indentation-mask">
               <rect x="0" y="0" width="100%" height="100%" fill="white" />
               <motion.rect
                 initial={false}
                 animate={{
-                  width: isScrolled ? 480 : "94%",
-                  height: isScrolled ? 68 : 88,
-                  x: isScrolled ? "calc(50% - 240px)" : "3%",
-                  y: 18,
-                  rx: isScrolled ? 34 : 44,
+                  width: isScrolled ? 520 : "88%",
+                  height: isScrolled ? 76 : 96,
+                  x: isScrolled ? "calc(50% - 260px)" : "6%",
+                  y: 12,
+                  rx: isScrolled ? 38 : 48,
                 }}
                 transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
                 fill="black"
               />
             </mask>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="5" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
           </defs>
           <rect 
             width="100%" 
@@ -59,16 +55,16 @@ export function Navbar() {
           <motion.rect
             initial={false}
             animate={{
-              width: isScrolled ? 480 : "94%",
-              height: isScrolled ? 68 : 88,
-              x: isScrolled ? "calc(50% - 240px)" : "3%",
-              y: 18,
-              rx: isScrolled ? 34 : 44,
+              width: isScrolled ? 520 : "88%",
+              height: isScrolled ? 76 : 96,
+              x: isScrolled ? "calc(50% - 260px)" : "6%",
+              y: 12,
+              rx: isScrolled ? 38 : 48,
             }}
             transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
             fill="none"
             stroke="white"
-            strokeOpacity="0.05"
+            strokeOpacity="0.08"
             strokeWidth="1"
           />
         </svg>
