@@ -71,7 +71,7 @@
 }
 
 html {
-  background-color: #000; /* Dark fallback to test visibility */
+  background-color: #050505 !important;
 }
 
 @layer base {
@@ -80,7 +80,8 @@ html {
     outline-color: var(--ring);
   }
     body {
-      @apply bg-transparent text-foreground font-sans antialiased selection:bg-brand-blue-100 selection:text-brand-blue-900 overflow-x-hidden;
+      background-color: transparent !important;
+      @apply text-foreground font-sans antialiased selection:bg-brand-blue-100 selection:text-brand-blue-900 overflow-x-hidden;
     }
 
   h1, h2, h3, h4, h5, h6 {
