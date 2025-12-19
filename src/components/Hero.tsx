@@ -53,12 +53,12 @@ export function Hero() {
             
             <Reveal delay={0.8}>
               <div className="flex flex-wrap gap-8 items-center">
-                <Magnetic>
-                  <button className="px-12 py-6 bg-brand-blue-900 text-white rounded-xl font-medium hover:bg-black transition-all luxury-shadow flex items-center gap-3 group">
-                    Book Consultation
-                    <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </button>
-                </Magnetic>
+                  <Magnetic>
+                    <button className="px-12 py-6 bg-brand-blue-500 text-white rounded-xl font-medium hover:bg-brand-blue-600 transition-all luxury-shadow flex items-center gap-3 group">
+                      Book Consultation
+                      <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </button>
+                  </Magnetic>
                 
                   <Magnetic strength={0.2}>
                     <button className="px-10 py-6 border-b-2 border-brand-blue-100 text-brand-blue-900 font-medium hover:border-brand-blue-500 transition-all">

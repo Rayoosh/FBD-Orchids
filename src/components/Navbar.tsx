@@ -52,15 +52,15 @@ export function Navbar() {
 
         <div className={`flex items-center ${isScrolled ? "gap-2" : "gap-6 lg:gap-10"}`}>
           {navLinks.map((link, index) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className={`relative flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                hoveredIndex === index ? "bg-slate-900 text-white" : "text-slate-700"
-              }`}
-            >
+              <a 
+                key={link.name} 
+                href={link.href} 
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className={`relative flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
+                  hoveredIndex === index ? "bg-brand-blue-600 text-white" : "text-slate-700"
+                }`}
+              >
               <link.icon className={`w-4 h-4 transition-transform duration-300 ${hoveredIndex === index ? "scale-110" : ""}`} />
               <motion.span 
                 initial={false}
@@ -80,10 +80,10 @@ export function Navbar() {
         <div className={`hidden lg:flex items-center ${isScrolled ? "gap-4" : "gap-8"}`}>
             <div className={isScrolled ? "hidden xl:block" : "block"}>
               <Magnetic strength={0.2}>
-                <a href="tel:093613610" className="flex items-center gap-2 text-slate-900 group">
-                  <div className={`rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 ${isScrolled ? "w-7 h-7" : "w-8 h-8"}`}>
-                    <Phone className="w-3.5 h-3.5" />
-                  </div>
+                  <a href="tel:093613610" className="flex items-center gap-2 text-brand-blue-900 group">
+                    <div className={`rounded-full border border-brand-blue-200 flex items-center justify-center group-hover:bg-brand-blue-600 group-hover:text-white transition-all duration-500 ${isScrolled ? "w-7 h-7" : "w-8 h-8"}`}>
+                      <Phone className="w-3.5 h-3.5" />
+                    </div>
                   {!isScrolled && (
                     <span className="text-xs font-bold tracking-widest uppercase">(09) 361 3610</span>
                   )}
@@ -92,11 +92,11 @@ export function Navbar() {
             </div>
           <Magnetic>
             <button className={`relative overflow-hidden group rounded-full ${isScrolled ? "px-5 py-2" : "px-7 py-3"}`}>
-              <span className={`relative z-10 uppercase tracking-[0.2em] font-bold text-white transition-colors duration-500 group-hover:text-slate-900 ${isScrolled ? "text-[9px]" : "text-[10px]"}`}>
-                Book
-              </span>
-              <div className="absolute inset-0 bg-slate-900 transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-white translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
+                <span className={`relative z-10 uppercase tracking-[0.2em] font-bold text-white transition-colors duration-500 group-hover:text-brand-blue-900 ${isScrolled ? "text-[9px]" : "text-[10px]"}`}>
+                  Book
+                </span>
+                <div className="absolute inset-0 bg-brand-blue-600 transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-white translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
             </button>
           </Magnetic>
         </div>
