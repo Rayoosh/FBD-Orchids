@@ -9,6 +9,8 @@ import { SpotlightOverlay } from "@/components/SpotlightOverlay";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { SectionCard } from "@/components/ui/SectionCard";
 
+import { SectionIndex } from "@/components/ui/SectionIndex";
+
 export default function Home() {
   return (
     <SmoothScroll>
@@ -18,20 +20,21 @@ export default function Home() {
         <div className="grain-overlay" />
         <div className="vignette" />
         <Navbar />
+        <SectionIndex />
         
-        <SectionCard>
+        <SectionCard index={0} bgColor="bg-white">
           <Hero />
         </SectionCard>
 
-        <SectionCard>
+        <SectionCard index={1} bgColor="bg-slate-50/50">
           <TrustExperience />
         </SectionCard>
 
-        <SectionCard>
+        <SectionCard index={2} bgColor="bg-brand-blue-900" isDark>
           <ServicesTestimonials />
         </SectionCard>
 
-        <SectionCard>
+        <SectionCard index={3} bgColor="bg-white">
           <AboutBooking />
         </SectionCard>
 

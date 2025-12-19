@@ -52,21 +52,19 @@ const testimonials = [
 
 export function ServicesTestimonials() {
     return (
-      <section className="bg-transparent">
-        {/* Services Section - Luxury Vertical Scroll */}
-        <div className="py-32 md:py-48 px-6 md:px-24">
-
-        <div className="max-w-7xl mx-auto">
+      <section className="bg-transparent h-full overflow-y-auto no-scrollbar py-24 md:py-32 px-6 md:px-24">
+        {/* Services Section */}
+        <div className="max-w-7xl mx-auto mb-48">
           <div className="mb-32">
             <Reveal>
               <div className="inline-flex items-center gap-3 mb-8">
-                <div className="w-8 h-[1px] bg-blue-500" />
-                <span className="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em]">Curated Procedures</span>
+                <div className="w-8 h-[1px] bg-blue-400" />
+                <span className="text-[10px] text-blue-400 font-bold uppercase tracking-[0.3em]">Curated Procedures</span>
               </div>
             </Reveal>
             <TextReveal 
               text="Clinical Mastery. Artistically Delivered." 
-              className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.9] tracking-tighter"
+              className="text-6xl md:text-8xl font-serif text-white leading-[0.9] tracking-tighter"
             />
           </div>
 
@@ -77,28 +75,28 @@ export function ServicesTestimonials() {
                   <ImageReveal 
                     src={service.image} 
                     alt={service.title} 
-                    className="aspect-[16/9] md:aspect-[21/9] editorial-shadow"
+                    className="aspect-[16/9] md:aspect-[21/9] editorial-shadow grayscale hover:grayscale-0 transition-all duration-700"
                   />
                 </div>
                 <div className={`lg:col-span-5 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                   <Reveal delay={0.2}>
-                    <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center text-blue-500 mb-10 border border-black/5">
+                    <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-blue-400 mb-10 border border-white/10">
                       {service.icon}
                     </div>
                   </Reveal>
                   <Reveal delay={0.3}>
-                    <h3 className="text-4xl font-serif text-slate-900 mb-6 tracking-tight">{service.title}</h3>
+                    <h3 className="text-4xl font-serif text-white mb-6 tracking-tight">{service.title}</h3>
                   </Reveal>
                   <Reveal delay={0.4}>
-                    <p className="text-slate-500 leading-relaxed text-lg font-light mb-10 max-w-md">
+                    <p className="text-white/60 leading-relaxed text-lg font-light mb-10 max-w-md">
                       {service.description}
                     </p>
                   </Reveal>
                   <Reveal delay={0.5}>
                     <Magnetic strength={0.2}>
-                      <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
+                      <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white group">
                         Explore Procedure 
-                        <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-500">
+                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-brand-blue-900 transition-all duration-500">
                           <ArrowRight className="w-4 h-4" />
                         </div>
                       </button>
@@ -109,15 +107,9 @@ export function ServicesTestimonials() {
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Testimonials - Cinematic Parallax Reveal */}
-      <div className="py-40 md:py-60 px-6 md:px-24 bg-slate-900 relative overflow-hidden">
-        {/* Atmospheric Glows */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-400/10 blur-[150px] rounded-full pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto relative z-10">
+        {/* Testimonials */}
+        <div className="max-w-7xl mx-auto relative z-10 pb-20">
           <div className="text-center mb-32">
             <Reveal width="100%">
                <Quote className="w-16 h-16 text-blue-400/20 mx-auto mb-10" strokeWidth={1} />
@@ -138,7 +130,7 @@ export function ServicesTestimonials() {
                     ))}
                   </div>
                   
-                  <p className="text-2xl text-slate-200 font-serif italic leading-relaxed mb-16">
+                  <p className="text-2xl text-white/90 font-serif italic leading-relaxed mb-16">
                     "{testimonial.quote}"
                   </p>
                   
@@ -156,7 +148,6 @@ export function ServicesTestimonials() {
             ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
 }

@@ -22,15 +22,15 @@ export function Navbar() {
       { name: "Boutique Experience", href: "#" },
     ];
 
-    return (
-      <nav 
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${
-          isScrolled 
-            ? "py-4 bg-white/70 backdrop-blur-2xl border-b border-black/5" 
-            : "py-8 bg-transparent"
-        }`}
-      >
-        <div className="container mx-auto px-6 md:px-24 flex items-center justify-between">
+      return (
+        <nav 
+          className={`fixed top-8 left-1/2 -translate-x-1/2 w-[90%] md:w-[85%] max-w-7xl z-[100] transition-all duration-700 rounded-2xl md:rounded-[2rem] border ${
+            isScrolled 
+              ? "py-4 bg-white/70 backdrop-blur-2xl border-black/5 shadow-2xl" 
+              : "py-6 bg-white/10 backdrop-blur-md border-white/10"
+          }`}
+        >
+          <div className="px-8 md:px-12 flex items-center justify-between">
           <Magnetic strength={0.1}>
             <a href="/" className="flex flex-col group">
               <span className="text-2xl font-serif text-slate-900 tracking-tighter leading-none group-hover:text-blue-900 transition-colors">EASTSIDE</span>

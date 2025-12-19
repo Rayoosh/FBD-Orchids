@@ -6,11 +6,11 @@ import { useEffect, useRef } from "react";
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   return (
     <ReactLenis root options={{ 
-      lerp: 0.05, 
-      duration: 1.5,
+      lerp: 0.04, 
+      duration: 2,
       smoothWheel: true,
-      wheelMultiplier: 1.1,
-      touchMultiplier: 2,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.5,
       infinite: false,
     }}>
       {children}
