@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionCardProps {
@@ -25,63 +25,75 @@ export function SectionCard({
   const [viewportHeight, setViewportHeight] = useState(0);
 
   useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    }
-    setViewportHeight(window.innerHeight);
-    
-    const handleResize = () => {
-      if (contentRef.current) setContentHeight(contentRef.current.scrollHeight);
+    const updateDimensions = () => {
+      if (contentRef.current) {
+        setContentHeight(contentRef.current.scrollHeight);
+      }
       setViewportHeight(window.innerHeight);
     };
+
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
     
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    // Also update after a short delay to catch any dynamic content loading
+    const timer = setTimeout(updateDimensions, 500);
+    
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+      clearTimeout(timer);
+    };
   }, [children]);
 
-  const scrollDistance = Math.max(0, contentHeight - viewportHeight * 0.92);
-  // Add extra scroll distance for the stacking effect to feel natural
-  const totalContainerHeight = `calc(100vh + ${scrollDistance}px + 20vh)`;
+  // The card occupies 92% of the viewport height.
+  const cardVisibleHeight = viewportHeight * 0.92;
+  const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
+  
+  // Faster transition distance (reduced from 100vh)
+  const transitionHeight = viewportHeight * 0.8; 
+  const totalContainerHeight = transitionHeight + scrollDistance;
 
-  // Entry: when the card is coming from the bottom
+  // Entry: slides up from bottom
   const { scrollYProgress: entryProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "start start"],
   });
 
-  // Internal scroll: when the card is pinned
+  // Internal scroll: scrolls content while sticky
   const { scrollYProgress: internalProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Exit: when the next card starts to overlap
+  // Exit: scales down/darkens as the NEXT card enters
   const { scrollYProgress: exitProgress } = useScroll({
     target: containerRef,
     offset: ["end end", "end start"],
   });
 
-  // Entry animations
-  const y = useTransform(entryProgress, [0, 1], ["85vh", "0vh"]);
-  const entryScale = useTransform(entryProgress, [0, 1], [0.92, 1]);
-  const entryOpacity = useTransform(entryProgress, [0.3, 1], [0, 1]);
+  // Entry animations: 100vh to 0
+  const y = useTransform(entryProgress, [0, 1], ["100vh", "0vh"]);
+  const entryScale = useTransform(entryProgress, [0, 1], [0.94, 1]);
+  const entryOpacity = useTransform(entryProgress, [0.4, 0.8], [0, 1]);
 
-  // Internal content scroll
+  // Internal content scroll: 0 to -scrollDistance
+  // This happens between "start start" and "end end" of the container
   const contentY = useTransform(internalProgress, [0, 1], [0, -scrollDistance]);
 
-  // Exit animations
-  const exitScale = useTransform(exitProgress, [0, 1], [1, 0.94]);
-  const exitBrightness = useTransform(exitProgress, [0, 1], [1, 0.75]);
-  const exitOffset = useTransform(exitProgress, [0, 1], [0, -50]);
+  // Exit animations: happens when the NEXT card starts sliding over
+  const exitScale = useTransform(exitProgress, [0, 1], [1, 0.95]);
+  const exitBrightness = useTransform(exitProgress, [0, 1], [1, 0.7]);
+  const exitBlur = useTransform(exitProgress, [0, 1], [0, 4]);
 
-  // Spring physics for smoothness
-  const springConfig = { damping: 30, stiffness: 150, mass: 0.5 };
+  // Snappier spring for better 1:1 feel
+  const springConfig = { damping: 40, stiffness: 200, mass: 0.2 };
+  
   const smoothY = useSpring(y, springConfig);
+  const smoothContentY = useSpring(contentY, springConfig);
   const smoothScale = useSpring(useTransform(() => entryScale.get() * exitScale.get()), springConfig);
   const smoothOpacity = useSpring(entryOpacity, springConfig);
-  const smoothContentY = useSpring(contentY, springConfig);
+  const smoothBrightness = useSpring(exitBrightness, springConfig);
+  const smoothBlur = useSpring(exitBlur, springConfig);
 
-  // Fix NaN error by ensuring index is a valid number and styles are safe
   const zIndexValue = (index + 1) * 10;
 
   return (
@@ -99,7 +111,7 @@ export function SectionCard({
             y: smoothY,
             scale: smoothScale,
             opacity: smoothOpacity,
-            filter: useTransform(exitBrightness, (b) => `brightness(${b})`),
+            filter: useTransform(smoothBrightness, (b) => `brightness(${b}) blur(${smoothBlur.get()}px)`),
           }}
           className={cn(
             "relative w-full h-full max-h-[92vh] overflow-hidden luxury-shadow rounded-[3rem] md:rounded-[4.5rem] border border-black/[0.03] pointer-events-auto",
@@ -109,19 +121,19 @@ export function SectionCard({
         >
           {/* Section Index Indicator */}
           <div className={cn(
-            "absolute top-12 left-12 z-50 flex items-center gap-4",
+            "absolute top-12 left-12 z-50 flex items-center gap-4 pointer-events-none",
             isDark ? "text-white/40" : "text-black/20"
           )}>
             <span className="font-display text-sm tracking-[0.3em]">0{index + 1}</span>
             <div className={cn("w-8 h-[1px]", isDark ? "bg-white/20" : "bg-black/10")} />
           </div>
 
-          {/* Internal content wrapper with animated scroll */}
+          {/* Internal content wrapper */}
           <div className="h-full w-full relative overflow-hidden">
             <motion.div 
               ref={contentRef}
               style={{ y: smoothContentY }}
-              className="w-full"
+              className="w-full flex flex-col"
             >
               {children}
             </motion.div>
