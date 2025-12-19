@@ -10,6 +10,7 @@ interface SectionCardProps {
   index: number;
   bgColor?: string;
   isDark?: boolean;
+  scrollContainerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 export function SectionCard({ 
@@ -17,7 +18,8 @@ export function SectionCard({
   className = "", 
   index, 
   bgColor = "bg-white",
-  isDark = false 
+  isDark = false,
+  scrollContainerRef
 }: SectionCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -54,6 +56,7 @@ export function SectionCard({
     // Track progress of this card entering and being covered
     const { scrollYProgress: internalProgress } = useScroll({
       target: containerRef,
+      container: scrollContainerRef,
       offset: ["start end", "end end"],
     });
 

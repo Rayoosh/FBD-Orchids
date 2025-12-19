@@ -16,19 +16,9 @@ import { useEffect, useRef } from "react";
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Hide scrollbar globally to make it feel like an "app"
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
-    };
-  }, []);
-
   return (
     <SmoothScroll wrapper={scrollContainerRef}>
-      <main className="h-screen bg-[#0f172a] relative selection:bg-accent selection:text-white overflow-hidden">
+      <main className="h-screen w-full bg-[#0f172a] relative selection:bg-accent selection:text-white overflow-hidden">
         <CustomCursor />
         <SpotlightOverlay />
         <div className="grain-overlay" />
@@ -37,24 +27,26 @@ export default function Home() {
         
         <div 
           ref={scrollContainerRef}
-          className="h-screen w-full overflow-y-auto overflow-x-hidden no-scrollbar"
+          className="h-full w-full overflow-y-auto overflow-x-hidden no-scrollbar"
         >
-          <SectionCard index={0} bgColor="bg-white">
-            <Hero />
-          </SectionCard>
+          <div className="w-full">
+            <SectionCard index={0} bgColor="bg-white" scrollContainerRef={scrollContainerRef}>
+              <Hero />
+            </SectionCard>
 
-          <SectionCard index={1} bgColor="bg-[#f8fafc]">
-            <TrustExperience />
-          </SectionCard>
+            <SectionCard index={1} bgColor="bg-[#f8fafc]" scrollContainerRef={scrollContainerRef}>
+              <TrustExperience />
+            </SectionCard>
 
-          <SectionCard index={2} bgColor="bg-brand-blue-900" isDark>
-            <ServicesTestimonials />
-          </SectionCard>
+            <SectionCard index={2} bgColor="bg-brand-blue-900" isDark scrollContainerRef={scrollContainerRef}>
+              <ServicesTestimonials />
+            </SectionCard>
 
-          <SectionCard index={3} bgColor="bg-white">
-            <AboutBooking />
-            <Footer />
-          </SectionCard>
+            <SectionCard index={3} bgColor="bg-white" scrollContainerRef={scrollContainerRef}>
+              <AboutBooking />
+              <Footer />
+            </SectionCard>
+          </div>
         </div>
       </main>
     </SmoothScroll>
