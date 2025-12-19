@@ -36,7 +36,7 @@ const testimonials = [
     role: "Patient since 2010",
   },
   {
-    quote: "Extremely nervous about dentists, but Eastside Cafe made me feel completely at ease. The same-day booking was a lifesaver.",
+    quote: "Extremely nervous about dentists, but Freemans Bay Dental made me feel completely at ease. The same-day booking was a lifesaver.",
     author: "Michael Ross",
     role: "Emergency Patient",
   },

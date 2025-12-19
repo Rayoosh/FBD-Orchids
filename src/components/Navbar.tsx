@@ -41,7 +41,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" className="flex flex-col">
           <span className="text-2xl font-serif font-bold tracking-tight text-primary">
-            Eastside Cafe
+            Freemans Bay Dental
           </span>
           <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-sans -mt-1 ml-0.5">
             Dental Practice

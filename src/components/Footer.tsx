@@ -16,7 +16,7 @@ export function Footer() {
               <span className="italic text-primary">about your smile again?</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Don't let dental anxiety or a busy schedule hold you back. Join thousands of patients who trust Eastside Cafe for gentle, professional care.
+              Don't let dental anxiety or a busy schedule hold you back. Join thousands of patients who trust Freemans Bay Dental for gentle, professional care.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
               <Button asChild size="lg" className="rounded-full h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20">
@@ -38,7 +38,7 @@ export function Footer() {
           <div className="space-y-6">
             <Link href="/" className="flex flex-col">
               <span className="text-2xl font-serif font-bold tracking-tight text-primary">
-                Eastside Cafe
+                Freemans Bay Dental
               </span>
               <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-sans -mt-1 ml-0.5">
                 Dental Practice
@@ -91,7 +91,7 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start space-x-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5 text-primary" />
-                <span>123 Eastside Ave, Suite 101<br />Modern City, MC 54321</span>
+                <span>123 Freemans Bay Rd, Suite 101<br />Modern City, MC 54321</span>
               </li>
               <li className="flex items-center space-x-3 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4 text-primary" />
@@ -99,7 +99,7 @@ export function Footer() {
               </li>
               <li className="flex items-center space-x-3 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4 text-primary" />
-                <span>care@eastsidecafe.dental</span>
+                <span>care@freemansbay.dental</span>
               </li>
             </ul>
           </div>
@@ -107,7 +107,7 @@ export function Footer() {
 
         <div className="py-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Eastside Cafe Dental Practice. All rights reserved.
+            © {new Date().getFullYear()} Freemans Bay Dental Practice. All rights reserved.
           </p>
           <div className="flex space-x-8">
             <Link href="#" className="text-xs text-muted-foreground hover:text-primary">Privacy Policy</Link>

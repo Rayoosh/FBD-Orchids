@@ -40,7 +40,7 @@ export function AboutBooking() {
             <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-4">About the Practice</h2>
             <h3 className="text-4xl font-serif mb-6">A legacy of ethical, high-quality care.</h3>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              At Eastside Cafe, we believe dentistry is more than just fixing teeth—it's about building long-term relationships based on trust, honesty, and empathy.
+              At Freemans Bay Dental, we believe dentistry is more than just fixing teeth—it's about building long-term relationships based on trust, honesty, and empathy.
             </p>
             <p className="text-muted-foreground mb-8 leading-relaxed">
               Our team brings over a decade of experience to every consultation. We pride ourselves on our transparent approach: we only recommend what you truly need, and we always explain the "why" behind every procedure.
@@ -84,7 +84,7 @@ export function AboutBooking() {
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-widest text-brand-blue-100/50 mb-1">Our Location</p>
-                    <p className="font-bold text-sm">123 Eastside Ave, Suite 101<br />Modern City, MC 54321</p>
+                    <p className="font-bold text-sm">123 Freemans Bay Rd, Suite 101<br />Modern City, MC 54321</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
