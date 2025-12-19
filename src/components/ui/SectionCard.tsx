@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionCardProps {
@@ -35,7 +35,6 @@ export function SectionCard({
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
     
-    // Also update after a short delay to catch any dynamic content loading
     const timer = setTimeout(updateDimensions, 500);
     
     return () => {
@@ -44,56 +43,48 @@ export function SectionCard({
     };
   }, [children]);
 
-  // The card occupies 92% of the viewport height.
   const cardVisibleHeight = viewportHeight * 0.92;
   const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
   
-    // Total height = 100vh (for the entry transition) + scrollDistance (for pinning)
-    const totalContainerHeight = viewportHeight + scrollDistance;
+  // Controlled Overlap Logic:
+  // We reduce the 'travel' distance for the entry phase to 80vh to make it snappier.
+  const entryDistance = index === 0 ? 0 : 80; 
+  const totalContainerHeight = (viewportHeight * (entryDistance / 100)) + scrollDistance + (index === 0 ? viewportHeight * 0.1 : 0);
 
-    // Entry: slides up from bottom
-    // This starts when the container top is at the bottom of the viewport
-    // and ends when the container top is at the top of the viewport.
-    // This takes exactly 100vh of scroll.
-    const { scrollYProgress: entryProgress } = useScroll({
-      target: containerRef,
-      offset: ["start end", "start start"],
-    });
+  // Entry: slides up
+  const { scrollYProgress: entryProgress } = useScroll({
+    target: containerRef,
+    offset: index === 0 ? ["start start", "start start"] : ["start end", "start 15%"],
+  });
 
-    // Internal scroll: scrolls content while sticky
-    // This starts when the container top is at the top of the viewport
-    // and ends when the container bottom is at the bottom of the viewport.
-    // This takes exactly (totalContainerHeight - vh) = scrollDistance pixels of scroll.
-    const { scrollYProgress: internalProgress } = useScroll({
-      target: containerRef,
-      offset: ["start start", "end end"],
-    });
+  // Internal scroll: MUST be perfectly 1:1 with page scroll to feel stationary.
+  const { scrollYProgress: internalProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
-  // Exit: scales down/darkens as the NEXT card enters
   const { scrollYProgress: exitProgress } = useScroll({
     target: containerRef,
     offset: ["end end", "end start"],
   });
 
-  // Entry animations: 100vh to 0
-  const y = useTransform(entryProgress, [0, 1], ["100vh", "0vh"]);
-  const entryScale = useTransform(entryProgress, [0, 1], [0.94, 1]);
-  const entryOpacity = useTransform(entryProgress, [0.4, 0.8], [0, 1]);
+  // Entry animations
+  const y = useTransform(entryProgress, [0, 1], [index === 0 ? "0vh" : "80vh", "0vh"]);
+  const entryScale = useTransform(entryProgress, [0, 1], [index === 0 ? 1 : 0.95, 1]);
+  const entryOpacity = useTransform(entryProgress, [0, 0.4], [index === 0 ? 1 : 0, 1]);
 
   // Internal content scroll: 0 to -scrollDistance
-  // This happens between "start start" and "end end" of the container
+  // No spring here to ensure pixel-perfect tracking
   const contentY = useTransform(internalProgress, [0, 1], [0, -scrollDistance]);
 
-  // Exit animations: happens when the NEXT card starts sliding over
-  const exitScale = useTransform(exitProgress, [0, 1], [1, 0.95]);
-  const exitBrightness = useTransform(exitProgress, [0, 1], [1, 0.7]);
-  const exitBlur = useTransform(exitProgress, [0, 1], [0, 4]);
+  // Exit animations
+  const exitScale = useTransform(exitProgress, [0, 1], [1, 0.94]);
+  const exitBrightness = useTransform(exitProgress, [0, 1], [1, 0.6]);
+  const exitBlur = useTransform(exitProgress, [0, 1], [0, 8]);
 
-  // Snappier spring for better 1:1 feel
-  const springConfig = { damping: 40, stiffness: 200, mass: 0.2 };
+  const springConfig = { damping: 50, stiffness: 300, mass: 0.1 };
   
   const smoothY = useSpring(y, springConfig);
-  const smoothContentY = useSpring(contentY, springConfig);
   const smoothScale = useSpring(useTransform(() => entryScale.get() * exitScale.get()), springConfig);
   const smoothOpacity = useSpring(entryOpacity, springConfig);
   const smoothBrightness = useSpring(exitBrightness, springConfig);
@@ -104,7 +95,10 @@ export function SectionCard({
   return (
     <div 
       ref={containerRef} 
-      className="relative w-full"
+      className={cn(
+        "relative w-full",
+        index !== 0 && "-mt-[15vh]" // Tighten the vertical stack
+      )}
       style={{ 
         height: totalContainerHeight,
         zIndex: zIndexValue 
@@ -137,7 +131,7 @@ export function SectionCard({
           <div className="h-full w-full relative overflow-hidden">
             <motion.div 
               ref={contentRef}
-              style={{ y: smoothContentY }}
+              style={{ y: contentY }}
               className="w-full flex flex-col"
             >
               {children}
