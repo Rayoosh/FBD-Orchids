@@ -47,35 +47,45 @@ export function SectionCard({
   
   const overlapAmount = viewportHeight;
   const bufferAmount = viewportHeight * 0.5;
-  const totalContainerHeight = viewportHeight + scrollDistance + overlapAmount + bufferAmount;
+    const totalContainerHeight = Math.max(1, viewportHeight + scrollDistance + overlapAmount + bufferAmount);
 
-  const { scrollYProgress: internalProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end end"],
-  });
+    const { scrollYProgress: internalProgress } = useScroll({
+      target: containerRef,
+      offset: ["start end", "end end"],
+    });
 
-  // Calculate the progress points based on the new total height
-  const entryEnd = viewportHeight / totalContainerHeight;
-  const contentEnd = (viewportHeight + scrollDistance) / totalContainerHeight;
-  const coverEnd = (viewportHeight + scrollDistance + overlapAmount) / totalContainerHeight;
+    // Ensure progress is always a valid number
+    const safeProgress = useTransform(internalProgress, (v) => isNaN(v) ? 0 : v);
 
-  const entryProgress = useTransform(internalProgress, [0, entryEnd], [0, 1]);
-  const yEntry = useTransform(entryProgress, [0, 1], ["-100%", "0%"]);
+    // Calculate the progress points based on the new total height
+    const entryEnd = totalContainerHeight > 0 ? viewportHeight / totalContainerHeight : 0;
+    const contentEnd = totalContainerHeight > 0 ? (viewportHeight + scrollDistance) / totalContainerHeight : 0.5;
+    const coverEnd = totalContainerHeight > 0 ? (viewportHeight + scrollDistance + overlapAmount) / totalContainerHeight : 1;
 
-  const coverProgress = useTransform(
-    internalProgress, 
-    [contentEnd, coverEnd], 
-    [0, 1]
-  );
+    const entryProgress = useTransform(safeProgress, (v) => {
+      const val = (v - 0) / (Math.max(0.001, entryEnd) - 0);
+      return isNaN(val) ? 1 : Math.max(0, Math.min(1, val));
+    });
+    
+    const yEntry = useTransform(entryProgress, (v) => `${(v - 1) * 100}%`);
 
-  const scale = useTransform(coverProgress, [0, 1], [1, 0.96]);
-  const opacity = useTransform(coverProgress, [0, 1], [1, 0]);
+    const coverProgress = useTransform(safeProgress, (v) => {
+      const start = Math.max(0.001, contentEnd);
+      const end = Math.max(0.002, coverEnd);
+      const val = (v - start) / (end - start || 1);
+      return isNaN(val) ? 0 : Math.max(0, Math.min(1, val));
+    });
 
-  const contentY = useTransform(
-    internalProgress, 
-    [entryEnd, contentEnd], 
-    [0, -scrollDistance]
-  );
+    const scale = useTransform(coverProgress, (v) => 1 - (v * 0.04));
+    const opacity = useTransform(coverProgress, (v) => 1 - v);
+
+    const contentY = useTransform(safeProgress, (v) => {
+      const start = Math.max(0.001, entryEnd);
+      const end = Math.max(0.002, contentEnd);
+      const val = (v - start) / (end - start || 1);
+      const progress = isNaN(val) ? 0 : Math.max(0, Math.min(1, val));
+      return -progress * scrollDistance;
+    });
 
   const zIndexValue = (index + 1) * 10;
 

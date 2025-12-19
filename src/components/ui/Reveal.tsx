@@ -21,7 +21,11 @@ export const Reveal = ({
   once = true
 }: RevealProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once });
+  const isInView = useInView(ref, { 
+    once,
+    amount: 0.01,
+    margin: "200px 0px 200px 0px"
+  });
 
   return (
     <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
@@ -42,21 +46,21 @@ export const TextReveal = ({ text, className, delay = 0 }: { text: string, class
   return (
     <div className={className}>
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden mr-[0.2em] pb-[0.1em]">
-          <motion.span
-            initial={{ y: "100%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 1,
-              delay: delay + i * 0.05,
-              ease: [0.22, 1, 0.36, 1]
-            }}
-            className="inline-block"
-          >
-            {word}
-          </motion.span>
-        </span>
+          <span key={i} className="inline-block overflow-hidden mr-[0.2em] pb-[0.1em]">
+            <motion.span
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, amount: 0.01, margin: "200px" }}
+              transition={{
+                duration: 1,
+                delay: delay + i * 0.05,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+              className="inline-block"
+            >
+              {word}
+            </motion.span>
+          </span>
       ))}
     </div>
   );
