@@ -16,6 +16,7 @@ export default function Home() {
     <SmoothScroll>
       <main className="min-h-screen bg-[#0f172a] relative selection:bg-accent selection:text-white overflow-x-hidden">
         <CustomCursor />
+        <SpotlightOverlay />
         <div className="grain-overlay" />
         <Navbar />
         <SectionIndex />

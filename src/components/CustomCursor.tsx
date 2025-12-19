@@ -46,8 +46,19 @@ export function CustomCursor() {
   const scale = isClicking ? 0.8 : isHovered ? 2.5 : 1;
   const opacity = isVisible ? 1 : 0;
   
-  return (
+    return (
     <>
+      {/* Spotlight Glow */}
+      <motion.div
+        className="fixed top-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px] pointer-events-none z-[9997]"
+        style={{
+          x: smoothX,
+          y: smoothY,
+          translateX: "-50%",
+          translateY: "-50%",
+          opacity: isVisible ? 1 : 0,
+        }}
+      />
       <motion.div
         className="fixed top-0 left-0 w-4 h-4 bg-blue-500 rounded-full pointer-events-none z-[9999] mix-blend-difference"
         style={{
