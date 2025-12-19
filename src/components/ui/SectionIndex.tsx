@@ -18,7 +18,7 @@ export function SectionIndex({}: SectionIndexProps) {
   const { scrollYProgress } = useScroll();
   
   return (
-    <div className="fixed right-12 top-1/2 -translate-y-1/2 z-[100] hidden xl:flex flex-col gap-10">
+    <div className="fixed right-12 top-1/2 -translate-y-1/2 z-[160] hidden xl:flex flex-col gap-10">
       {sections.map((section, i) => {
         const start = i / sections.length;
         const end = (i + 1) / sections.length;
