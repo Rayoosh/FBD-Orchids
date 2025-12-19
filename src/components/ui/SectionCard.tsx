@@ -108,12 +108,12 @@ export function SectionCard({
                     opacity,
                     willChange: "transform, opacity"
                   }}
-                className={cn(
-                  "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-black/5 backdrop-blur-xl",
-                  isDark ? "ring-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)]" : "ring-black/5",
-                  bgColor,
-                  className
-                )}
+                  className={cn(
+                    "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] ring-1 backdrop-blur-xl",
+                    isDark ? "ring-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]" : "ring-black/10",
+                    bgColor,
+                    className
+                  )}
               >
 
             {/* Premium Inner Glow */}

@@ -16,18 +16,18 @@ export function BackgroundGradient() {
             height: "100%",
           }}
         >
-          <ShaderGradient
-            animate="on"
-            axesHelper="off"
-            brightness={1.3}
-            cAzimuthAngle={180}
-            cDistance={3.62}
-            cPolarAngle={90}
-            cameraZoom={1}
-            color1="#00ccff"
-            color2="#dbd7db"
-            color3="#008ef3"
-            destination="onCanvas"
+            <ShaderGradient
+              animate="on"
+              axesHelper="off"
+              brightness={0.8}
+              cAzimuthAngle={180}
+              cDistance={3.62}
+              cPolarAngle={90}
+              cameraZoom={1}
+              color1="#00a3ff"
+              color2="#7000ff"
+              color3="#0057ff"
+              destination="onCanvas"
             embedMode="off"
             envPreset="lobby"
             fov={45}
