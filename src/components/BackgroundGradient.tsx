@@ -24,9 +24,9 @@ export function BackgroundGradient() {
               cDistance={3.62}
               cPolarAngle={90}
               cameraZoom={1}
-              color1="#00a3ff"
-              color2="#7000ff"
-              color3="#0057ff"
+            color1="#00a3ff"
+            color2="#ffffff"
+            color3="#e0f2fe"
               destination="onCanvas"
             embedMode="off"
             envPreset="lobby"
