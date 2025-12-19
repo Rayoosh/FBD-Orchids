@@ -41,22 +41,22 @@ export function AboutBooking() {
               </div>
             </Reveal>
             
-            <TextReveal 
-              text="Ethics Meets Artistry." 
-              className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.85] mb-12 tracking-tighter"
-            />
-            
-            <Reveal delay={0.4}>
-              <p className="text-xl text-slate-500 leading-relaxed mb-16 font-light max-w-lg">
-                At Eastside Dental, we believe dentistry is more than a service—it's a commitment to your long-term vitality. We focus on clinical integrity and patient-first results.
-              </p>
-            </Reveal>
-            
-            <div className="grid grid-cols-2 gap-12">
-              {[
-                { label: "Boutique Choice", sub: "Auckland's Premiere practitioners" },
-                { label: "Clinical Mastery", sub: "Decades of combined expertise" }
-              ].map((item, i) => (
+              <TextReveal 
+                text="Affordable Excellence." 
+                className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.85] mb-12 tracking-tighter"
+              />
+              
+              <Reveal delay={0.4}>
+                <p className="text-xl text-slate-500 leading-relaxed mb-16 font-light max-w-lg">
+                  At Freemans Bay Dental, we believe dentistry should be accessible without compromising on quality. We focus on ethical care and long-term patient results.
+                </p>
+              </Reveal>
+              
+              <div className="grid grid-cols-2 gap-12">
+                {[
+                  { label: "Community Choice", sub: "Central Auckland's trusted practitioners" },
+                  { label: "Clinical Mastery", sub: "Comprehensive care for all ages" }
+                ].map((item, i) => (
                 <Reveal key={i} delay={0.5 + i * 0.1}>
                   <div className="group">
                     <p className="text-[9px] tracking-[0.3em] font-bold uppercase text-slate-400 mb-2 group-hover:text-blue-500 transition-colors">{item.label}</p>
@@ -84,11 +84,11 @@ export function AboutBooking() {
                 </h3>
                 
                 <div className="space-y-12">
-                  {[
-                    { icon: Phone, label: "Voice", value: "+64 9 123 4567" },
-                    { icon: MapPin, label: "Visit", value: "Eastside, Auckland" },
-                    { icon: Clock, label: "Availability", value: "Mon — Fri: 08:00 — 18:00" }
-                  ].map((item, i) => (
+                    {[
+                      { icon: Phone, label: "Voice", value: "(09) 361 3610" },
+                      { icon: MapPin, label: "Visit", value: "40 College Hill, Freemans Bay" },
+                      { icon: Clock, label: "Availability", value: "Mon — Fri: 08:30 — 17:00" }
+                    ].map((item, i) => (
                     <div key={i} className="flex items-start space-x-8 group">
                       <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-slate-900 transition-all duration-500">
                         <item.icon className="w-4 h-4" strokeWidth={1.5} />
@@ -123,15 +123,15 @@ export function AboutBooking() {
                   </div>
                 </div>
                 
-                <div className="space-y-4 group">
-                  <Label className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] group-focus-within:text-blue-500 transition-colors">Area of Interest</Label>
-                  <select className="w-full border-0 border-b border-slate-100 rounded-none px-0 h-12 focus:outline-none focus:border-blue-500 transition-all bg-transparent text-sm text-slate-600 appearance-none cursor-pointer">
-                    <option>Cosmetic Artistry</option>
-                    <option>Restorative Mastery</option>
-                    <option>Biological Health</option>
-                    <option>Bespoke Consultation</option>
-                  </select>
-                </div>
+                  <div className="space-y-4 group">
+                    <Label className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] group-focus-within:text-blue-500 transition-colors">Area of Interest</Label>
+                    <select className="w-full border-0 border-b border-slate-100 rounded-none px-0 h-12 focus:outline-none focus:border-blue-500 transition-all bg-transparent text-sm text-slate-600 appearance-none cursor-pointer">
+                      <option>General Check-up</option>
+                      <option>Cosmetic & Whitening</option>
+                      <option>Emergency Care (ACC)</option>
+                      <option>Free Adolescent Care (Year 9-18)</option>
+                    </select>
+                  </div>
 
                 <div className="space-y-4 group">
                   <Label className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] group-focus-within:text-blue-500 transition-colors">Message</Label>

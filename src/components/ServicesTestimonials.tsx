@@ -16,36 +16,36 @@ import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
 
 const services = [
   {
-    title: "Cosmetic Artistry",
-    description: "Transform your smile with porcelain veneers, whitening, and precision contouring designed for your unique facial structure.",
+    title: "General Dentistry",
+    description: "From routine check-ups and hygiene to white fillings and extractions, we focus on maintaining your long-term oral health.",
+    icon: <Stethoscope className="w-6 h-6" />,
+    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    title: "Cosmetic Excellence",
+    description: "Transform your smile with porcelain veneers, professional whitening, and restorative crowns designed for a natural, healthy look.",
     icon: <Palette className="w-6 h-6" />,
     image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=800"
   },
   {
-    title: "Restorative Mastery",
-    description: "Restore function and aesthetics with biomimetic fillings, crowns, and implants that look and feel completely natural.",
-    icon: <Smile className="w-6 h-6" />,
+    title: "Emergency & ACC",
+    description: "Same-day emergency appointments for pain relief, surgical care, and ACC registered treatments in the heart of Auckland.",
+    icon: <ShieldCheck className="w-6 h-6" />,
     image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800"
-  },
-  {
-    title: "Clinical Excellence",
-    description: "Comprehensive care focusing on longevity and prevention, utilizing the latest digital diagnostics and biological dentistry.",
-    icon: <Stethoscope className="w-6 h-6" />,
-    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800"
   }
 ];
 
 const testimonials = [
   {
-    name: "Eleanor Vance",
-    role: "Architect",
-    quote: "The attention to detail here is unparalleled. It felt less like a dental appointment and more like a curated wellness experience.",
+    name: "Sarah Miller",
+    role: "Ponsonby Local",
+    quote: "The team at Freemans Bay is amazing. Professional, affordable, and they always make me feel comfortable during my hygiene visits.",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
   },
   {
-    name: "Julian Thorne",
-    role: "Creative Director",
-    quote: "Eastside Dental redefined what I expected from dentistry. The aesthetic results are stunning, but the process was the true surprise.",
+    name: "David Chen",
+    role: "Business Owner",
+    quote: "As someone who was always anxious about the dentist, I'm glad I found this clinic. Gentle care and clear explanations every step of the way.",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&h=200&auto=format&fit=crop"
   }
 ];

@@ -32,24 +32,24 @@ export function Hero() {
       <div className="container mx-auto px-6 md:px-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-7">
-            <Reveal delay={0.1}>
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand-blue-50 border border-brand-blue-100 rounded-xl text-brand-blue-900 text-xs font-display uppercase tracking-[0.2em] mb-10 editorial-shadow">
-                <Shield className="w-4 h-4 text-brand-blue-500" />
-                <span>Elite Dental Excellence</span>
-              </div>
-            </Reveal>
-            
-            <TextReveal 
-              text="Artistry in Modern Dentistry" 
-              className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10"
-              delay={0.2}
-            />
-            
-            <Reveal delay={0.6}>
-              <p className="text-xl md:text-2xl text-slate-600 max-w-xl mb-14 leading-relaxed font-light">
-                Experience a new standard of oral healthcare where clinical precision meets aesthetic perfection in the heart of the city.
-              </p>
-            </Reveal>
+              <Reveal delay={0.1}>
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand-blue-50 border border-brand-blue-100 rounded-xl text-brand-blue-900 text-xs font-display uppercase tracking-[0.2em] mb-10 editorial-shadow">
+                  <Shield className="w-4 h-4 text-brand-blue-500" />
+                  <span>Central Auckland's Premier Clinic</span>
+                </div>
+              </Reveal>
+              
+              <TextReveal 
+                text="Affordable Dental Excellence" 
+                className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10"
+                delay={0.2}
+              />
+              
+              <Reveal delay={0.6}>
+                <p className="text-xl md:text-2xl text-slate-600 max-w-xl mb-14 leading-relaxed font-light">
+                  Modern dentistry with a gentle touch. Located at 40 College Hill, we provide comprehensive care for the whole family at accessible prices.
+                </p>
+              </Reveal>
             
             <Reveal delay={0.8}>
               <div className="flex flex-wrap gap-8 items-center">
@@ -60,13 +60,13 @@ export function Hero() {
                   </button>
                 </Magnetic>
                 
-                <Magnetic strength={0.2}>
-                  <button className="px-10 py-6 border-b-2 border-brand-blue-100 text-brand-blue-900 font-medium hover:border-brand-blue-500 transition-all">
-                    Our Private Gallery
-                  </button>
-                </Magnetic>
-              </div>
-            </Reveal>
+                  <Magnetic strength={0.2}>
+                    <button className="px-10 py-6 border-b-2 border-brand-blue-100 text-brand-blue-900 font-medium hover:border-brand-blue-500 transition-all">
+                      Our Services
+                    </button>
+                  </Magnetic>
+                </div>
+              </Reveal>
 
             <Reveal delay={1}>
               <div className="mt-20 flex items-center gap-12">
@@ -110,13 +110,13 @@ export function Hero() {
                 className="absolute -top-12 -right-8 bg-white/90 backdrop-blur-md p-7 rounded-2xl luxury-shadow z-20 hidden md:block border border-white/20"
               >
                 <div className="flex items-center gap-5">
-                  <div className="w-14 h-14 bg-brand-blue-50 rounded-xl flex items-center justify-center text-brand-blue-900">
-                    <Users className="w-7 h-7" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-brand-blue-500 uppercase tracking-[0.2em] font-bold mb-0.5">Concierge</p>
-                    <p className="text-xl font-serif text-brand-blue-950 italic">New Patients</p>
-                  </div>
+                    <div className="w-14 h-14 bg-brand-blue-50 rounded-xl flex items-center justify-center text-brand-blue-900">
+                      <Users className="w-7 h-7" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-brand-blue-500 uppercase tracking-[0.2em] font-bold mb-0.5">Emergency</p>
+                      <p className="text-xl font-serif text-brand-blue-950 italic">Same-day Care</p>
+                    </div>
                 </div>
               </motion.div>
 
@@ -127,8 +127,8 @@ export function Hero() {
                 transition={{ delay: 1.4, duration: 1 }}
                 className="absolute -bottom-12 -left-8 bg-brand-blue-900 p-10 rounded-2xl luxury-shadow z-20 hidden md:block text-white"
               >
-                <p className="text-5xl font-light mb-2 tracking-tighter">98%</p>
-                <p className="text-brand-blue-200 text-[10px] uppercase tracking-[0.2em] leading-relaxed font-medium">Patient <br /> Loyalty Index</p>
+                <p className="text-5xl font-light mb-2 tracking-tighter italic">Free</p>
+                <p className="text-brand-blue-200 text-[10px] uppercase tracking-[0.2em] leading-relaxed font-medium">Dental Care for <br /> Year 9 to 18</p>
               </motion.div>
             </motion.div>
           </div>

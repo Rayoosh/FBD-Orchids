@@ -31,19 +31,22 @@ export function Navbar() {
           : "py-4 px-6 bg-white/70 backdrop-blur-xl border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)]"
       }`}
     >
-      {/* Glossy highlight */}
-      <div className="absolute inset-0 rounded-full pointer-events-none border-t border-white/80" />
+      {/* Prism Rim - Dual Layer Highlights */}
+      <div className="absolute inset-0 rounded-full pointer-events-none border-[0.5px] border-white/40" />
+      <div className="absolute inset-0 rounded-full pointer-events-none border-t border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]" />
+      <div className="absolute -inset-[1px] rounded-full pointer-events-none border border-black/5 opacity-20" />
+      
       <div className={`flex items-center justify-between ${isScrolled ? "gap-8" : ""}`}>
         <div className={isScrolled ? "hidden md:block" : "block"}>
           <Magnetic strength={0.1}>
-            <a href="/" className="flex flex-col group">
-              <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 ${isScrolled ? "text-lg" : "text-2xl"}`}>
-                EASTSIDE
-              </span>
-              <span className={`text-[7px] tracking-[0.4em] text-slate-500 font-bold uppercase transition-all duration-500 ${isScrolled ? "hidden" : "block"}`}>
-                Dental Studio
-              </span>
-            </a>
+              <a href="/" className="flex flex-col group">
+                <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 ${isScrolled ? "text-lg" : "text-2xl"}`}>
+                  FREEMANS
+                </span>
+                <span className={`text-[7px] tracking-[0.4em] text-slate-500 font-bold uppercase transition-all duration-500 ${isScrolled ? "hidden" : "block"}`}>
+                  Bay Dental
+                </span>
+              </a>
           </Magnetic>
         </div>
 
@@ -75,18 +78,18 @@ export function Navbar() {
         </div>
 
         <div className={`hidden lg:flex items-center ${isScrolled ? "gap-4" : "gap-8"}`}>
-          <div className={isScrolled ? "hidden xl:block" : "block"}>
-            <Magnetic strength={0.2}>
-              <a href="tel:5551234567" className="flex items-center gap-2 text-slate-900 group">
-                <div className={`rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 ${isScrolled ? "w-7 h-7" : "w-8 h-8"}`}>
-                  <Phone className="w-3.5 h-3.5" />
-                </div>
-                {!isScrolled && (
-                  <span className="text-xs font-bold tracking-widest uppercase">(555) 123-4567</span>
-                )}
-              </a>
-            </Magnetic>
-          </div>
+            <div className={isScrolled ? "hidden xl:block" : "block"}>
+              <Magnetic strength={0.2}>
+                <a href="tel:093613610" className="flex items-center gap-2 text-slate-900 group">
+                  <div className={`rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 ${isScrolled ? "w-7 h-7" : "w-8 h-8"}`}>
+                    <Phone className="w-3.5 h-3.5" />
+                  </div>
+                  {!isScrolled && (
+                    <span className="text-xs font-bold tracking-widest uppercase">(09) 361 3610</span>
+                  )}
+                </a>
+              </Magnetic>
+            </div>
           <Magnetic>
             <button className={`relative overflow-hidden group rounded-full ${isScrolled ? "px-5 py-2" : "px-7 py-3"}`}>
               <span className={`relative z-10 uppercase tracking-[0.2em] font-bold text-white transition-colors duration-500 group-hover:text-slate-900 ${isScrolled ? "text-[9px]" : "text-[10px]"}`}>

@@ -2,14 +2,14 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Heart, ShieldCheck, Clock, Award, Star } from "lucide-react";
+import { Heart, ShieldCheck, Clock, Award, Star, Sparkles } from "lucide-react";
 import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
 
 const trustSignals = [
-  { label: "Clinical Mastery", icon: Award },
-  { label: "Bespoke Care", icon: Heart },
-  { label: "Precision Tech", icon: ShieldCheck },
-  { label: "Time Honored", icon: Clock },
+  { label: "General Care", icon: Heart },
+  { label: "Cosmetic Excellence", icon: Sparkles },
+  { label: "Emergency Support", icon: Clock },
+  { label: "ACC Registered", icon: ShieldCheck },
 ];
 
 export function TrustExperience() {
@@ -53,22 +53,22 @@ export function TrustExperience() {
                 </div>
               </Reveal>
               
-              <TextReveal 
-                text="Clinical Mastery. Refined." 
-                className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.9] mb-12 tracking-tighter"
-              />
-              
-              <Reveal delay={0.4}>
-                <p className="text-lg text-slate-500 leading-relaxed max-w-md mb-16 font-light">
-                  We believe that world-class dentistry should feel like a sanctuary, not a clinical appointment. Every detail has been curated for a frictionless experience.
-                </p>
-              </Reveal>
-              
-              <div className="space-y-16">
-                {[
-                  { title: "Mastery of Craft", desc: "Combining decades of expertise with digital dentistry to ensure perfection in every procedure." },
-                  { title: "Unrivaled Comfort", desc: "From aromatherapy-infused spaces to bespoke sedation, we prioritize your peace of mind." }
-                ].map((item, i) => (
+                <TextReveal 
+                  text="Modern Dental Care." 
+                  className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.9] mb-12 tracking-tighter"
+                />
+                
+                <Reveal delay={0.4}>
+                  <p className="text-lg text-slate-500 leading-relaxed max-w-md mb-16 font-light">
+                    We believe in providing central Auckland dental care at affordable prices. Our clinic combines advanced technology with a gentle, patient-first approach.
+                  </p>
+                </Reveal>
+                
+                <div className="space-y-16">
+                  {[
+                    { title: "General Dentistry", desc: "Comprehensive care from routine check-ups to advanced restorations, focused on long-term oral health." },
+                    { title: "Specialist Care", desc: "ACC registered providers offering emergency care, surgical extractions, and complex cosmetic treatments." }
+                  ].map((item, i) => (
                   <Reveal key={i} delay={0.5 + i * 0.1}>
                     <div className="flex items-start space-x-8 group">
                       <div className="text-3xl font-serif italic text-slate-200 group-hover:text-blue-500 transition-all duration-700 group-hover:translate-x-1">0{i+1}.</div>
@@ -117,19 +117,19 @@ export function TrustExperience() {
               </Reveal>
             </motion.div>
 
-            <div className="mt-64 lg:ml-auto max-w-sm text-right">
-              <Reveal delay={0.6}>
-                 <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-6 flex items-center justify-end gap-3">
-                    <span className="w-8 h-[1px] bg-blue-500/30" />
-                    Commitment
-                 </h4>
-              </Reveal>
-              <Reveal delay={0.7}>
-                 <p className="text-sm text-slate-400 leading-relaxed italic font-light">
-                   Located in the heart of Eastside, our practice serves as a cornerstone for those who seek high-performance dental care without compromise.
-                 </p>
-              </Reveal>
-            </div>
+              <div className="mt-64 lg:ml-auto max-w-sm text-right">
+                <Reveal delay={0.6}>
+                   <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-6 flex items-center justify-end gap-3">
+                      <span className="w-8 h-[1px] bg-blue-500/30" />
+                      Commitment
+                   </h4>
+                </Reveal>
+                <Reveal delay={0.7}>
+                   <p className="text-sm text-slate-400 leading-relaxed italic font-light">
+                     Located at 40 College Hill, Freemans Bay, our practice serves as a cornerstone for central Auckland residents seeking quality dental care.
+                   </p>
+                </Reveal>
+              </div>
           </div>
         </div>
       </div>
