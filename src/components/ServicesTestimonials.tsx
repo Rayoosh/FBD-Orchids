@@ -3,13 +3,13 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { 
-  Sparkles, 
   Stethoscope, 
   Smile, 
   ShieldCheck, 
   ArrowRight,
   Quote,
-  Star
+  Star,
+  Palette
 } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
 import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
@@ -18,7 +18,7 @@ const services = [
   {
     title: "Cosmetic Artistry",
     description: "Transform your smile with porcelain veneers, whitening, and precision contouring designed for your unique facial structure.",
-    icon: <Sparkles className="w-6 h-6" />,
+    icon: <Palette className="w-6 h-6" />,
     image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=800"
   },
   {
