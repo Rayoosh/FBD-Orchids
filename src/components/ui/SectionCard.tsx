@@ -51,17 +51,22 @@ export function SectionCard({
     const overlapAmount = viewportHeight;
     const totalContainerHeight = viewportHeight + scrollDistance + overlapAmount;
   
-    // Track scroll progress within this card's container
+    // Track progress of this card entering and being covered
     const { scrollYProgress: internalProgress } = useScroll({
       target: containerRef,
-      offset: ["start start", "end end"],
+      offset: ["start end", "end end"],
     });
 
+    // Entry animation: slide down from top
+    // This happens when the container starts entering the viewport
+    // Since we have -mt-[100vh], "start end" of card N is roughly when card N-1 is finishing
+    const entryProgress = useTransform(internalProgress, [0, 0.2], [0, 1]);
+    const yEntry = useTransform(entryProgress, [0, 1], ["-100%", "0%"]);
+
     // Track progress of being covered by the next card
-    // This happens during the 'overlapAmount' at the end
     const coverProgress = useTransform(
       internalProgress, 
-      [totalContainerHeight ? (viewportHeight + scrollDistance) / totalContainerHeight : 0, 1], 
+      [0.8, 1], 
       [0, 1]
     );
 
@@ -69,10 +74,10 @@ export function SectionCard({
     const opacity = useTransform(coverProgress, [0, 1], [1, 0.8]);
   
     // Internal content scroll: 0 to -scrollDistance
-    // It should finish scrolling before the next card starts covering it
+    // It should happen while the card is fully visible (between entry and cover)
     const contentY = useTransform(
       internalProgress, 
-      [0, totalContainerHeight ? (viewportHeight + scrollDistance) / totalContainerHeight : 1], 
+      [0.2, 0.8], 
       [0, -scrollDistance]
     );
   
@@ -83,16 +88,20 @@ export function SectionCard({
         ref={containerRef} 
         className={cn(
           "relative w-full",
-          index !== 0 && "-mt-[100vh]" // Pull up to create overlap
+          index !== 0 && "-mt-[100vh]"
         )}
         style={{ 
           height: totalContainerHeight,
           zIndex: zIndexValue 
         }}
       >
-        <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8">
+        <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
           <motion.div
-            style={{ scale, opacity }}
+            style={{ 
+              y: index === 0 ? 0 : yEntry,
+              scale, 
+              opacity 
+            }}
             className={cn(
               "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.3)]",
               bgColor,

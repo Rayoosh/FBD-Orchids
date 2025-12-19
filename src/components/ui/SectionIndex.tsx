@@ -10,8 +10,14 @@ const sections = [
   { id: 3, label: "Partnership" },
 ];
 
-export function SectionIndex() {
-  const { scrollYProgress } = useScroll();
+interface SectionIndexProps {
+  scrollContainerRef: React.RefObject<HTMLDivElement | null>;
+}
+
+export function SectionIndex({ scrollContainerRef }: SectionIndexProps) {
+  const { scrollYProgress } = useScroll({
+    container: scrollContainerRef
+  });
   
   return (
     <div className="fixed right-12 top-1/2 -translate-y-1/2 z-[100] hidden xl:flex flex-col gap-10">
