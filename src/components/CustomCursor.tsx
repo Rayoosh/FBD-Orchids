@@ -16,32 +16,34 @@ export function CustomCursor() {
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
-    
-    if (!isVisible) setIsVisible(true);
+    const handleMouseMove = useCallback((e: MouseEvent) => {
+      requestAnimationFrame(() => {
+        mouseX.set(e.clientX);
+        mouseY.set(e.clientY);
+        
+        if (!isVisible) setIsVisible(true);
 
-    // Detect hoverable elements
-    const target = e.target as HTMLElement;
-    const isPointer = window.getComputedStyle(target).cursor === "pointer";
-    setIsHovered(isPointer || target.closest('button') !== null || target.closest('a') !== null);
-  }, [mouseX, mouseY, isVisible]);
+        // Detect hoverable elements
+        const target = e.target as HTMLElement;
+        const isPointer = window.getComputedStyle(target).cursor === "pointer";
+        setIsHovered(isPointer || target.closest('button') !== null || target.closest('a') !== null);
+      });
+    }, [mouseX, mouseY, isVisible]);
 
-  const handleMouseDown = () => setIsClicking(true);
-  const handleMouseUp = () => setIsClicking(false);
+    const handleMouseDown = () => setIsClicking(true);
+    const handleMouseUp = () => setIsClicking(false);
 
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-    
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [handleMouseMove]);
+    useEffect(() => {
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+      window.addEventListener("mousedown", handleMouseDown, { passive: true });
+      window.addEventListener("mouseup", handleMouseUp, { passive: true });
+      
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("mousedown", handleMouseDown);
+        window.removeEventListener("mouseup", handleMouseUp);
+      };
+    }, [handleMouseMove]);
 
   const scale = isClicking ? 0.8 : isHovered ? 2.5 : 1;
   const opacity = isVisible ? 1 : 0;

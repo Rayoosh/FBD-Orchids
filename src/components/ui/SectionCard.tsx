@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -42,50 +42,59 @@ export function SectionCard({
     };
   }, [children]);
 
-  const cardVisibleHeight = viewportHeight;
-  const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
-  
-  const overlapAmount = viewportHeight;
-  const bufferAmount = viewportHeight * 0.5;
-    const totalContainerHeight = Math.max(1, viewportHeight + scrollDistance + overlapAmount + bufferAmount);
-
-    const { scrollYProgress: internalProgress } = useScroll({
-      target: containerRef,
-      offset: ["start end", "end end"],
-    });
-
-    // Ensure progress is always a valid number
-    const safeProgress = useTransform(internalProgress, (v) => isNaN(v) ? 0 : v);
-
-    // Calculate the progress points based on the new total height
-    const entryEnd = totalContainerHeight > 0 ? viewportHeight / totalContainerHeight : 0;
-    const contentEnd = totalContainerHeight > 0 ? (viewportHeight + scrollDistance) / totalContainerHeight : 0.5;
-    const coverEnd = totalContainerHeight > 0 ? (viewportHeight + scrollDistance + overlapAmount) / totalContainerHeight : 1;
-
-    const entryProgress = useTransform(safeProgress, (v) => {
-      const val = (v - 0) / (Math.max(0.001, entryEnd) - 0);
-      return isNaN(val) ? 1 : Math.max(0, Math.min(1, val));
-    });
+  const { scrollDistance, overlapAmount, bufferAmount, totalContainerHeight, entryEnd, contentEnd, coverEnd } = useMemo(() => {
+    const distance = Math.max(0, contentHeight - viewportHeight);
+    const overlap = viewportHeight;
+    const buffer = viewportHeight * 0.5;
+    const total = Math.max(1, viewportHeight + distance + overlap + buffer);
     
-    const yEntry = useTransform(entryProgress, (v) => `${(v - 1) * 100}%`);
+    const entry = total > 1 ? viewportHeight / total : 0;
+    const content = total > 1 ? (viewportHeight + distance) / total : 0.5;
+    const cover = total > 1 ? (viewportHeight + distance + overlap) / total : 1;
+    
+    return {
+      scrollDistance: distance,
+      overlapAmount: overlap,
+      bufferAmount: buffer,
+      totalContainerHeight: total,
+      entryEnd: entry,
+      contentEnd: content,
+      coverEnd: cover
+    };
+  }, [contentHeight, viewportHeight]);
 
-    const coverProgress = useTransform(safeProgress, (v) => {
-      const start = Math.max(0.001, contentEnd);
-      const end = Math.max(0.002, coverEnd);
-      const val = (v - start) / (end - start || 1);
-      return isNaN(val) ? 0 : Math.max(0, Math.min(1, val));
-    });
+  const { scrollYProgress: internalProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end end"],
+  });
 
-    const scale = useTransform(coverProgress, (v) => 1 - (v * 0.04));
-    const opacity = useTransform(coverProgress, (v) => 1 - v);
+  const safeProgress = useTransform(internalProgress, [0, 1], [0, 1]);
 
-    const contentY = useTransform(safeProgress, (v) => {
-      const start = Math.max(0.001, entryEnd);
-      const end = Math.max(0.002, contentEnd);
-      const val = (v - start) / (end - start || 1);
-      const progress = isNaN(val) ? 0 : Math.max(0, Math.min(1, val));
-      return -progress * scrollDistance;
-    });
+  const entryProgress = useTransform(
+    safeProgress, 
+    [0, Math.max(0.001, entryEnd)], 
+    [0, 1],
+    { clamp: true }
+  );
+  
+  const yEntry = useTransform(entryProgress, [0, 1], ["-100%", "0%"]);
+
+  const coverProgress = useTransform(
+    safeProgress,
+    [Math.max(0.001, contentEnd), Math.max(0.002, coverEnd)],
+    [0, 1],
+    { clamp: true }
+  );
+
+  const scale = useTransform(coverProgress, [0, 1], [1, 0.96]);
+  const opacity = useTransform(coverProgress, [0, 1], [1, 0]);
+
+  const contentY = useTransform(
+    safeProgress,
+    [Math.max(0.001, entryEnd), Math.max(0.002, contentEnd)],
+    [0, -scrollDistance],
+    { clamp: true }
+  );
 
   const zIndexValue = (index + 1) * 10;
 
@@ -99,15 +108,17 @@ export function SectionCard({
         marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`
       }}
     >
-      <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
-          <motion.div
-            style={{ 
-              y: index === 0 ? 0 : yEntry,
-              scale, 
-              opacity 
-            }}
-            className={cn(
-              "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.1)] border border-black/5",
+        <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden will-change-transform">
+            <motion.div
+              style={{ 
+                y: index === 0 ? 0 : yEntry,
+                scale, 
+                opacity,
+                willChange: "transform, opacity",
+                transform: "translateZ(0)"
+              }}
+              className={cn(
+                "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.1)] border border-black/5",
               isDark ? "border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)]" : "border-black/5",
               bgColor,
               className
