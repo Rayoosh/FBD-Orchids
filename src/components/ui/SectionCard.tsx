@@ -46,28 +46,34 @@ export function SectionCard({
   const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
   
   const overlapAmount = viewportHeight;
-  const totalContainerHeight = viewportHeight + scrollDistance + overlapAmount;
+  const bufferAmount = viewportHeight * 0.5;
+  const totalContainerHeight = viewportHeight + scrollDistance + overlapAmount + bufferAmount;
 
   const { scrollYProgress: internalProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end end"],
   });
 
-  const entryProgress = useTransform(internalProgress, [0, 0.2], [0, 1]);
+  // Calculate the progress points based on the new total height
+  const entryEnd = viewportHeight / totalContainerHeight;
+  const contentEnd = (viewportHeight + scrollDistance) / totalContainerHeight;
+  const coverEnd = (viewportHeight + scrollDistance + overlapAmount) / totalContainerHeight;
+
+  const entryProgress = useTransform(internalProgress, [0, entryEnd], [0, 1]);
   const yEntry = useTransform(entryProgress, [0, 1], ["-100%", "0%"]);
 
   const coverProgress = useTransform(
     internalProgress, 
-    [0.8, 1], 
+    [contentEnd, coverEnd], 
     [0, 1]
   );
 
   const scale = useTransform(coverProgress, [0, 1], [1, 0.96]);
-  const opacity = useTransform(coverProgress, [0, 1], [1, 0.8]);
+  const opacity = useTransform(coverProgress, [0, 1], [1, 0]);
 
   const contentY = useTransform(
     internalProgress, 
-    [0.2, 0.8], 
+    [entryEnd, contentEnd], 
     [0, -scrollDistance]
   );
 
@@ -76,13 +82,11 @@ export function SectionCard({
   return (
     <div 
       ref={containerRef} 
-      className={cn(
-        "relative w-full",
-        index !== 0 && "-mt-[100vh]"
-      )}
+      className={cn("relative w-full")}
       style={{ 
         height: totalContainerHeight,
-        zIndex: zIndexValue 
+        zIndex: zIndexValue,
+        marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`
       }}
     >
       <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
