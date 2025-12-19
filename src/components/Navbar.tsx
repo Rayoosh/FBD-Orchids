@@ -1,20 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Shield, Users, Stethoscope, Sparkles } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
 
-export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+interface NavbarProps {
+  isScrolled?: boolean;
+}
+
+export function Navbar({ isScrolled = false }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navLinks = [
     { name: "Excellence", href: "#", icon: Shield },
@@ -34,17 +31,18 @@ export function Navbar() {
     <motion.nav 
       initial={false}
       animate={{
-        width: isScrolled ? "auto" : "90%",
+        // Force shrink by using specific constraints if auto is misbehaving
+        width: isScrolled ? "fit-content" : "90%",
         padding: isScrolled ? "8px 12px" : "16px 24px",
         marginTop: isScrolled ? 16 : 24,
-        backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.8)" : "rgba(255, 255, 255, 0.4)",
-        backdropFilter: isScrolled ? "blur(20px)" : "blur(12px)",
-        borderColor: isScrolled ? "rgba(255, 255, 255, 0.5)" : "rgba(255, 255, 255, 0.3)",
+        backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.6)",
+        backdropFilter: "blur(20px)",
+        borderColor: isScrolled ? "rgba(0, 0, 0, 0.05)" : "rgba(255, 255, 255, 0.3)",
       }}
       transition={springConfig}
-      className="relative z-[100] mx-auto rounded-full border shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] max-w-7xl"
+      className="relative z-[100] mx-auto rounded-full border shadow-[0_8px_32px_0_rgba(0,0,0,0.05)] max-w-7xl flex items-center justify-between overflow-hidden"
     >
-      <div className={`flex items-center justify-between ${isScrolled ? "gap-8" : ""}`}>
+      <div className={`flex items-center transition-all duration-500 ${isScrolled ? "gap-4 px-2" : "gap-12 px-4"}`}>
         <div className={isScrolled ? "hidden md:block" : "block"}>
           <Magnetic strength={0.1}>
             <a href="/" className="flex flex-col group">
@@ -58,15 +56,15 @@ export function Navbar() {
           </Magnetic>
         </div>
 
-        <div className={`flex items-center ${isScrolled ? "gap-2" : "gap-6 lg:gap-10"}`}>
+        <div className={`flex items-center ${isScrolled ? "gap-1" : "gap-4 lg:gap-6"}`}>
           {navLinks.map((link, index) => (
             <a 
               key={link.name} 
               href={link.href} 
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className={`relative flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                hoveredIndex === index ? "bg-slate-900 text-white" : "text-slate-700"
+              className={`relative flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300 ${
+                hoveredIndex === index ? "bg-slate-900 text-white" : "text-slate-700 hover:bg-slate-100"
               }`}
             >
               <link.icon className={`w-4 h-4 transition-transform duration-300 ${hoveredIndex === index ? "scale-110" : ""}`} />
@@ -86,7 +84,7 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className={`hidden lg:flex items-center ${isScrolled ? "gap-4" : "gap-8"}`}>
+        <div className={`hidden lg:flex items-center ${isScrolled ? "gap-3" : "gap-8"}`}>
           <div className={isScrolled ? "hidden xl:block" : "block"}>
             <Magnetic strength={0.2}>
               <a href="tel:5551234567" className="flex items-center gap-2 text-slate-900 group">
@@ -94,7 +92,7 @@ export function Navbar() {
                   <Phone className="w-3.5 h-3.5" />
                 </div>
                 {!isScrolled && (
-                  <span className="text-xs font-bold tracking-widest uppercase">(555) 123-4567</span>
+                  <span className="text-xs font-bold tracking-widest uppercase whitespace-nowrap">(555) 123-4567</span>
                 )}
               </a>
             </Magnetic>
@@ -111,10 +109,10 @@ export function Navbar() {
         </div>
 
         <button 
-          className="lg:hidden text-slate-900"
+          className="lg:hidden text-slate-900 ml-auto"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
@@ -124,7 +122,7 @@ export function Navbar() {
             initial={{ opacity: 0, scale: 0.95, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
-            className="lg:hidden absolute top-[calc(100%+1rem)] left-0 w-full bg-white/90 backdrop-blur-2xl rounded-[2rem] border border-slate-100 shadow-2xl overflow-hidden p-6"
+            className="lg:hidden absolute top-[calc(100%+0.5rem)] left-0 w-full bg-white/95 backdrop-blur-2xl rounded-[2rem] border border-slate-100 shadow-2xl overflow-hidden p-6"
           >
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
