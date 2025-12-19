@@ -27,23 +27,29 @@ export function Navbar() {
       className="fixed top-0 left-0 w-full z-[100] transition-all duration-700"
     >
       {/* Trapezium Background Indentation */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[320px] md:w-[480px] h-[160px] pointer-events-none z-0">
-        <div 
-          className="w-full h-full bg-[#0f172a]" 
-          style={{ 
-            clipPath: "polygon(0 0, 100% 0, 88% 100%, 12% 100%)" 
-          }}
-        />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] md:w-[600px] h-[180px] pointer-events-none z-0">
+        <svg 
+          viewBox="0 0 600 180" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full drop-shadow-2xl"
+          preserveAspectRatio="none"
+        >
+          <path 
+            d="M0 0H600V40C600 40 580 180 300 180C20 180 0 40 0 40V0Z" 
+            fill="#0f172a"
+          />
+        </svg>
       </div>
 
-      <div className="relative z-10 max-w-[1800px] mx-auto px-8 md:px-12 py-10 flex items-center justify-between">
+      <div className="relative z-10 max-w-[1800px] mx-auto px-8 md:px-12 py-8 flex items-start justify-between">
         {/* Left Navigation Links */}
-        <div className="hidden lg:flex items-center gap-12 flex-1">
+        <div className="hidden lg:flex items-center gap-12 flex-1 pt-6">
           {navLinks.slice(0, 2).map((link) => (
             <a 
               key={link.name} 
               href={link.href} 
-              className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/70 hover:text-white transition-all relative group"
+              className="text-[11px] font-bold uppercase tracking-[0.25em] text-white hover:text-white/80 transition-all relative group"
             >
               {link.name}
               <span className="absolute -bottom-1.5 left-0 w-0 h-[1px] bg-white transition-all duration-500 ease-out group-hover:w-full" />
@@ -52,22 +58,22 @@ export function Navbar() {
         </div>
 
         {/* Centered Logo */}
-        <div className="flex-shrink-0 mx-16">
+        <div className="flex-shrink-0 mx-16 pt-2">
           <Magnetic strength={0.15}>
             <a href="/" className="flex flex-col items-center group">
-              <span className="text-5xl md:text-6xl font-serif text-white tracking-tighter leading-[0.75] transition-transform duration-500 group-hover:scale-105">EASTSIDE</span>
-              <span className="text-[11px] tracking-[0.7em] text-white/50 font-bold uppercase mt-3 group-hover:text-white transition-colors">Dental Studio</span>
+              <span className="text-6xl md:text-7xl font-serif text-white tracking-tighter leading-[0.7] transition-transform duration-500 group-hover:scale-105">EASTSIDE</span>
+              <span className="text-[11px] tracking-[0.7em] text-white font-bold uppercase mt-4 group-hover:text-white/80 transition-colors">Dental Studio</span>
             </a>
           </Magnetic>
         </div>
 
         {/* Right Actions & Rest of Links */}
-        <div className="hidden lg:flex items-center justify-end gap-12 flex-1">
+        <div className="hidden lg:flex items-center justify-end gap-12 flex-1 pt-6">
           {navLinks.slice(2).map((link) => (
             <a 
               key={link.name} 
               href={link.href} 
-              className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/70 hover:text-white transition-all relative group"
+              className="text-[11px] font-bold uppercase tracking-[0.25em] text-white hover:text-white/80 transition-all relative group"
             >
               {link.name}
               <span className="absolute -bottom-1.5 left-0 w-0 h-[1px] bg-white transition-all duration-500 ease-out group-hover:w-full" />

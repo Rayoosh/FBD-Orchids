@@ -99,10 +99,10 @@ export function SectionCard({
         marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`
       }}
     >
-      <div className={cn(
-        "sticky h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden transition-all duration-500",
-        index === 0 ? "top-24 md:top-32" : "top-0"
-      )}>
+        <div className={cn(
+          "sticky h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden transition-all duration-500",
+          index === 0 ? "top-40 md:top-48" : "top-0"
+        )}>
         <motion.div
           style={{ 
             y: index === 0 ? 0 : yEntry,
