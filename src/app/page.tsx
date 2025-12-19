@@ -13,33 +13,31 @@ import { SectionIndex } from "@/components/ui/SectionIndex";
 
 export default function Home() {
   return (
-    <main className="h-screen overflow-y-auto snap-y snap-mandatory bg-[#0a0a0b] relative selection:bg-accent selection:text-white overflow-x-hidden">
-      <CustomCursor />
-      <SpotlightOverlay />
-      <div className="grain-overlay" />
-      <div className="vignette" />
-      <Navbar />
-      <SectionIndex />
-      
-      <SectionCard index={0} bgColor="bg-white">
-        <Hero />
-      </SectionCard>
+    <SmoothScroll>
+      <main className="min-h-screen bg-[#0f172a] relative selection:bg-accent selection:text-white overflow-x-hidden">
+        <CustomCursor />
+        <div className="grain-overlay" />
+        <Navbar />
+        <SectionIndex />
+        
+        <SectionCard index={0} bgColor="bg-white">
+          <Hero />
+        </SectionCard>
 
-      <SectionCard index={1} bgColor="bg-[#f8fafc]">
-        <TrustExperience />
-      </SectionCard>
+        <SectionCard index={1} bgColor="bg-[#f8fafc]">
+          <TrustExperience />
+        </SectionCard>
 
-      <SectionCard index={2} bgColor="bg-brand-blue-900" isDark>
-        <ServicesTestimonials />
-      </SectionCard>
+        <SectionCard index={2} bgColor="bg-brand-blue-900" isDark>
+          <ServicesTestimonials />
+        </SectionCard>
 
-      <SectionCard index={3} bgColor="bg-white">
-        <AboutBooking />
-      </SectionCard>
+        <SectionCard index={3} bgColor="bg-white">
+          <AboutBooking />
+        </SectionCard>
 
-      <div className="snap-start min-h-screen">
         <Footer />
-      </div>
-    </main>
+      </main>
+    </SmoothScroll>
   );
 }

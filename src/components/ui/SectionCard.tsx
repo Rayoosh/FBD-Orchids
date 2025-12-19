@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionCardProps {
@@ -18,69 +19,105 @@ export function SectionCard({
   bgColor = "bg-white",
   isDark = false 
 }: SectionCardProps) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
 
   useEffect(() => {
-    const element = scrollContainerRef.current;
-    if (!element) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      const { scrollTop, scrollHeight, clientHeight } = element;
-      const isScrollingDown = e.deltaY > 0;
-      const isScrollingUp = e.deltaY < 0;
-
-      // If scrolling down and not at bottom, scroll internally and prevent parent scroll
-      if (isScrollingDown && scrollTop + clientHeight < scrollHeight - 1) {
-        element.scrollTop += e.deltaY;
-        e.preventDefault();
+    const updateDimensions = () => {
+      if (contentRef.current) {
+        setContentHeight(contentRef.current.scrollHeight);
       }
-      // If scrolling up and not at top, scroll internally and prevent parent scroll
-      else if (isScrollingUp && scrollTop > 1) {
-        element.scrollTop += e.deltaY;
-        e.preventDefault();
-      }
+      setViewportHeight(window.innerHeight);
     };
 
-    // Use non-passive to allow stopPropagation/preventDefault if needed
-    // Actually stopPropagation on wheel might not stop the parent snap-container from reacting in some browsers
-    // but it's a good start.
-    element.addEventListener("wheel", handleWheel, { passive: false });
-    return () => element.removeEventListener("wheel", handleWheel);
-  }, []);
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    const timer = setTimeout(updateDimensions, 500);
+    
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+      clearTimeout(timer);
+    };
+  }, [children]);
 
-  return (
-    <section 
-      className="h-screen w-full snap-start sticky top-0 overflow-hidden flex flex-col shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.3)]"
-      style={{ zIndex: (index + 1) * 10 }}
-    >
+  // Use full height to avoid "floating" look if not explicitly requested
+  const cardVisibleHeight = viewportHeight;
+  const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
+  
+    // Each card's scroll area is its own height + the distance needed to scroll its internal content
+    // We add an extra viewportHeight so the NEXT card can slide over it while this one stays sticky
+    const overlapAmount = viewportHeight;
+    const totalContainerHeight = viewportHeight + scrollDistance + overlapAmount;
+  
+    // Track scroll progress within this card's container
+    const { scrollYProgress: internalProgress } = useScroll({
+      target: containerRef,
+      offset: ["start start", "end end"],
+    });
+
+    // Track progress of being covered by the next card
+    // This happens during the 'overlapAmount' at the end
+    const coverProgress = useTransform(
+      internalProgress, 
+      [totalContainerHeight ? (viewportHeight + scrollDistance) / totalContainerHeight : 0, 1], 
+      [0, 1]
+    );
+
+    const scale = useTransform(coverProgress, [0, 1], [1, 0.96]);
+    const opacity = useTransform(coverProgress, [0, 1], [1, 0.8]);
+  
+    // Internal content scroll: 0 to -scrollDistance
+    // It should finish scrolling before the next card starts covering it
+    const contentY = useTransform(
+      internalProgress, 
+      [0, totalContainerHeight ? (viewportHeight + scrollDistance) / totalContainerHeight : 1], 
+      [0, -scrollDistance]
+    );
+  
+    const zIndexValue = (index + 1) * 10;
+  
+    return (
       <div 
-        ref={scrollContainerRef}
+        ref={containerRef} 
         className={cn(
-          "flex-1 overflow-y-auto overscroll-behavior-y-contain p-4 md:p-6 transition-colors duration-700",
-          bgColor,
-          className
+          "relative w-full",
+          index !== 0 && "-mt-[100vh]" // Pull up to create overlap
         )}
+        style={{ 
+          height: totalContainerHeight,
+          zIndex: zIndexValue 
+        }}
       >
-        <div className="relative w-full h-full max-w-[1800px] mx-auto">
-          <div className={cn(
-            "relative w-full min-h-full rounded-[40px] shadow-2xl border border-white/5 flex flex-col",
-            bgColor
-          )}>
-            {/* Section Index Indicator */}
+        <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8">
+          <motion.div
+            style={{ scale, opacity }}
+            className={cn(
+              "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.3)]",
+              bgColor,
+              className
+            )}
+          >
+            {/* Section Index Indicator - Subtle and minimal */}
             <div className={cn(
-              "sticky top-8 left-10 z-50 flex items-center gap-4 pointer-events-none opacity-40",
+              "absolute top-12 left-12 z-50 flex items-center gap-4 pointer-events-none opacity-40",
               isDark ? "text-white" : "text-black"
             )}>
               <span className="font-display text-sm tracking-[0.3em]">0{index + 1}</span>
               <div className={cn("w-8 h-[1px]", isDark ? "bg-white/20" : "bg-black/10")} />
             </div>
-
-            <div className="w-full flex flex-col">
+  
+            {/* Internal content wrapper */}
+            <motion.div 
+              ref={contentRef}
+              style={{ y: contentY }}
+              className="w-full flex flex-col"
+            >
               {children}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
-    </section>
-  );
-}
+    );
+  }
