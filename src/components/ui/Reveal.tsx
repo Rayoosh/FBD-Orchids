@@ -23,8 +23,8 @@ export const Reveal = ({
   const ref = useRef(null);
   const isInView = useInView(ref, { 
     once,
-    amount: 0,
-    margin: "100% 0px 100% 0px"
+    amount: 0.01,
+    margin: "200px 0px 200px 0px"
   });
 
   return (
@@ -42,16 +42,15 @@ export const Reveal = ({
 
 export const TextReveal = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
   const words = text.split(" ");
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0, margin: "100% 0px 100% 0px" });
   
   return (
-    <div ref={ref} className={className}>
+    <div className={className}>
       {words.map((word, i) => (
           <span key={i} className="inline-block overflow-hidden mr-[0.2em] pb-[0.1em]">
             <motion.span
               initial={{ y: "100%" }}
-              animate={isInView ? { y: 0 } : { y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, amount: 0.01, margin: "200px" }}
               transition={{
                 duration: 1,
                 delay: delay + i * 0.05,
@@ -68,14 +67,12 @@ export const TextReveal = ({ text, className, delay = 0 }: { text: string, class
 };
 
 export const ImageReveal = ({ src, alt, className }: { src: string, alt: string, className?: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0, margin: "100% 0px" });
-
   return (
-    <div ref={ref} className={`overflow-hidden rounded-3xl ${className}`}>
+    <div className={`overflow-hidden rounded-3xl ${className}`}>
       <motion.img
         initial={{ scale: 1.1, opacity: 0 }}
-        animate={isInView ? { scale: 1, opacity: 1 } : { scale: 1.1, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         src={src}
         alt={alt}

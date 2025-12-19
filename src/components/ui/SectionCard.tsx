@@ -87,22 +87,20 @@ export function SectionCard({
       return -progress * scrollDistance;
     });
 
-  const zIndexValue = (index + 1) * 10;
+    const zIndexValue = (index + 1) * 10;
+    const topSpacing = index === 0 ? "pt-48" : "p-4 md:p-6 lg:p-8";
 
-  return (
-    <div 
-      ref={containerRef} 
-      className={cn("relative w-full")}
-      style={{ 
-        height: totalContainerHeight,
-        zIndex: zIndexValue,
-        marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`
-      }}
-    >
-        <div className={cn(
-          "sticky h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden transition-all duration-500",
-          index === 0 ? "top-40 md:top-48" : "top-0"
-        )}>
+    return (
+      <div 
+        ref={containerRef} 
+        className={cn("relative w-full")}
+        style={{ 
+          height: totalContainerHeight,
+          zIndex: zIndexValue,
+          marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`
+        }}
+      >
+        <div className={cn("sticky top-0 h-screen w-full overflow-hidden", topSpacing)}>
         <motion.div
           style={{ 
             y: index === 0 ? 0 : yEntry,
