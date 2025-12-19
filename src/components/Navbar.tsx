@@ -28,8 +28,8 @@ export function Navbar() {
     <nav 
       className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 rounded-full border ring-1 ${
         isScrolled 
-          ? "py-2 px-3 bg-white/95 backdrop-blur-3xl border-white ring-slate-900/5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] w-auto" 
-          : "py-4 px-6 bg-white/70 backdrop-blur-xl border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl editorial-shadow"
+          ? "py-2 px-3 bg-white/70 backdrop-blur-3xl backdrop-saturate-[1.8] border-white ring-slate-900/5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] w-auto" 
+          : "py-4 px-6 bg-white/40 backdrop-blur-2xl backdrop-saturate-[1.4] border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl editorial-shadow"
       }`}
     >
       {/* Prism Rim - Dual Layer Highlights */}

@@ -101,20 +101,21 @@ export function SectionCard({
         }}
       >
         <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
-            <motion.div
-              style={{ 
-                y: index === 0 ? 0 : yEntry,
-                scale, 
-                opacity,
-                willChange: "transform, opacity"
-              }}
-              className={cn(
-                "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.1)] border border-black/5",
-                isDark ? "border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)]" : "border-black/5",
-                bgColor,
-                className
-              )}
-            >
+              <motion.div
+                style={{ 
+                  y: index === 0 ? 0 : yEntry,
+                  scale, 
+                  opacity,
+                  willChange: "transform, opacity"
+                }}
+                className={cn(
+                  "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-black/5 backdrop-blur-xl",
+                  isDark ? "ring-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)]" : "ring-black/5",
+                  bgColor,
+                  className
+                )}
+              >
+
             {/* Premium Inner Glow */}
             <div className={cn(
               "absolute inset-0 pointer-events-none",
