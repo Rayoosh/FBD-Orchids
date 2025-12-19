@@ -38,7 +38,7 @@ export default function Home() {
           <TrustExperience />
         </SectionCard>
 
-        <SectionCard index={2} bgColor="bg-brand-blue-900/40 backdrop-blur-md" isDark>
+        <SectionCard index={2} bgColor="bg-slate-50/40 backdrop-blur-md">
           <ServicesTestimonials />
         </SectionCard>
 

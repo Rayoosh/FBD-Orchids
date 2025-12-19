@@ -14,14 +14,14 @@ export function SmoothScroll({
     setIsMounted(true);
   }, []);
 
-    const options = useMemo(() => ({
-      lerp: 0.08, 
-      duration: 1.0,
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
-      infinite: false,
-    }), []);
+      const options = useMemo(() => ({
+        lerp: 0.1, 
+        duration: 1.2,
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 2.0,
+        infinite: false,
+      }), []);
 
   if (!isMounted) return <>{children}</>;
 

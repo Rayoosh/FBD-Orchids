@@ -5,8 +5,8 @@ import React, { Suspense } from "react";
 
 export function BackgroundGradient() {
   return (
-    <div className="fixed inset-0 -z-10 h-screen w-screen overflow-hidden pointer-events-none bg-brand-blue-500">
-      <Suspense fallback={<div className="w-full h-full bg-brand-blue-500" />}>
+    <div className="fixed inset-0 -z-10 h-screen w-screen overflow-hidden pointer-events-none">
+      <Suspense fallback={null}>
         <ShaderGradientCanvas
           style={{
             position: "absolute",
@@ -31,7 +31,7 @@ export function BackgroundGradient() {
             embedMode="off"
             envPreset="lobby"
             fov={45}
-            frameRate={10}
+            frameRate={60}
             gizmoHelper="hide"
             grain="off"
             lightType="3d"

@@ -90,24 +90,24 @@ export function SectionCard({
     const zIndexValue = (index + 1) * 10;
 
     return (
-      <div 
-        ref={containerRef} 
-        className={cn("relative w-full")}
-        style={{ 
-          height: totalContainerHeight,
-          zIndex: zIndexValue,
-          marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`,
-          willChange: "contents"
-        }}
-      >
-        <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
-              <motion.div
-                style={{ 
-                  y: index === 0 ? 0 : yEntry,
-                  scale, 
-                  opacity,
-                  willChange: "transform, opacity"
-                }}
+        <div 
+          ref={containerRef} 
+          className={cn("relative w-full")}
+          style={{ 
+            height: totalContainerHeight,
+            zIndex: zIndexValue,
+            marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`,
+            willChange: "transform"
+          }}
+        >
+          <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden transform-gpu">
+                <motion.div
+                  style={{ 
+                    y: index === 0 ? 0 : yEntry,
+                    scale, 
+                    opacity,
+                    willChange: "transform, opacity"
+                  }}
                 className={cn(
                   "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-black/5 backdrop-blur-xl",
                   isDark ? "ring-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)]" : "ring-black/5",
