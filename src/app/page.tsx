@@ -14,7 +14,7 @@ import { SectionIndex } from "@/components/ui/SectionIndex";
 export default function Home() {
   return (
     <SmoothScroll>
-      <main className="min-h-screen bg-[#f0f0f2] relative selection:bg-accent selection:text-white overflow-x-hidden">
+      <main className="min-h-screen bg-[#0a0a0b] relative selection:bg-accent selection:text-white overflow-x-hidden">
         <CustomCursor />
         <SpotlightOverlay />
         <div className="grain-overlay" />

@@ -42,67 +42,100 @@ export function SectionCard({
     };
   }, [children]);
 
-  // Use full height to avoid "floating" look if not explicitly requested
-  const cardVisibleHeight = viewportHeight;
-  const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
+    // Use full height to avoid "floating" look if not explicitly requested
+    const cardVisibleHeight = viewportHeight || 800; // Fallback for initial render
+    const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
+    
+    // Each card's scroll area is its own height + internal scroll + 100vh for the next card to slide over
+    const nextCardSpace = index === 3 ? 0 : cardVisibleHeight;
+    const totalContainerHeight = cardVisibleHeight + scrollDistance + nextCardSpace;
   
-  // Each card's scroll area is its own height + the distance needed to scroll its internal content
-  const totalContainerHeight = viewportHeight + scrollDistance;
+    // Track scroll progress within this card's container
+    const { scrollYProgress: containerProgress } = useScroll({
+      target: containerRef,
+      offset: ["start start", "end end"],
+    });
 
-  // Track scroll progress within this card's container
-  const { scrollYProgress: internalProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+    // We need to split the progress:
+    // 0 to (viewportHeight + scrollDistance) / totalHeight -> internal scroll
+    // (viewportHeight + scrollDistance) / totalHeight to 1 -> being covered by next card
 
-  // Internal content scroll: 0 to -scrollDistance
-  // Direct mapping for 1:1 tactile feel
-  const contentY = useTransform(internalProgress, [0, 1], [0, -scrollDistance]);
+    const pinningEndBase = cardVisibleHeight + scrollDistance;
+    const pinningEndRatio = totalContainerHeight > 0 ? pinningEndBase / totalContainerHeight : 1;
 
-  const zIndexValue = (index + 1) * 10;
+    // Internal content scroll: 0 to -scrollDistance
+    const contentY = useTransform(
+      containerProgress, 
+      [0, pinningEndRatio], 
+      [0, -scrollDistance]
+    );
 
-  return (
-    <div 
-      ref={containerRef} 
-      className="relative w-full"
-      style={{ 
-        height: totalContainerHeight,
-        zIndex: zIndexValue 
-      }}
-    >
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <motion.div
-          className={cn(
-            "relative w-full h-full overflow-hidden",
-            bgColor,
-            className
-          )}
-        >
-          {/* Section Index Indicator - Subtle and minimal */}
-          <div className={cn(
-            "absolute top-12 left-12 z-50 flex items-center gap-4 pointer-events-none opacity-40",
-            isDark ? "text-white" : "text-black"
-          )}>
-            <span className="font-display text-sm tracking-[0.3em]">0{index + 1}</span>
-            <div className={cn("w-8 h-[1px]", isDark ? "bg-white/20" : "bg-black/10")} />
-          </div>
+    // Animation when being covered by next card (only if not the last card)
+    const isLastCard = index === 3;
+    const animationStart = isLastCard ? 1 : pinningEndRatio;
+    const animationEnd = 1;
 
-          {/* Internal content wrapper */}
-          <motion.div 
-            ref={contentRef}
-            style={{ y: contentY }}
-            className="w-full flex flex-col"
+    const scale = useTransform(
+      containerProgress,
+      [animationStart, animationEnd],
+      [1, isLastCard ? 1 : 0.95]
+    );
+    
+    const opacity = useTransform(
+      containerProgress,
+      [animationStart, animationEnd],
+      [1, isLastCard ? 1 : 0.8]
+    );
+
+    const blur = useTransform(
+      containerProgress,
+      [animationStart, animationEnd],
+      [0, isLastCard ? 0 : 4]
+    );
+
+    const zIndexValue = (index + 1) * 10;
+  
+    return (
+      <div 
+        ref={containerRef} 
+        className="relative w-full"
+        style={{ 
+          height: totalContainerHeight,
+          zIndex: zIndexValue 
+        }}
+      >
+        <div className="sticky top-0 h-screen w-full flex items-center justify-center p-4 md:p-6 overflow-hidden">
+          <motion.div
+            style={{ 
+              scale,
+              opacity,
+              filter: `blur(${blur}px)`
+            }}
+            className={cn(
+              "relative w-full h-full overflow-hidden rounded-[40px] shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.5)] border border-white/5",
+              bgColor,
+              className
+            )}
           >
-            {children}
+            {/* Section Index Indicator - Subtle and minimal */}
+            <div className={cn(
+              "absolute top-8 left-10 z-50 flex items-center gap-4 pointer-events-none opacity-40",
+              isDark ? "text-white" : "text-black"
+            )}>
+              <span className="font-display text-sm tracking-[0.3em]">0{index + 1}</span>
+              <div className={cn("w-8 h-[1px]", isDark ? "bg-white/20" : "bg-black/10")} />
+            </div>
+  
+            {/* Internal content wrapper */}
+            <motion.div 
+              ref={contentRef}
+              style={{ y: contentY }}
+              className="w-full flex flex-col"
+            >
+              {children}
+            </motion.div>
           </motion.div>
-          
-          {/* Edge highlight - very subtle */}
-          <div className={cn(
-            "absolute inset-0 pointer-events-none border-t border-black/5",
-            index === 0 && "border-t-0"
-          )} />
-        </motion.div>
+        </div>
       </div>
-    </div>
-  );
+    );
 }
