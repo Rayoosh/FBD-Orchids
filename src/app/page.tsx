@@ -28,7 +28,7 @@ export default function Home() {
             <Hero />
           </SectionCard>
 
-          <SectionCard index={1} bgColor="bg-brand-blue-50/30">
+          <SectionCard index={1} bgColor="bg-slate-50/50">
             <TrustExperience />
           </SectionCard>
 

@@ -100,22 +100,29 @@ export function SectionCard({
       }}
     >
       <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
-        <motion.div
-          style={{ 
-            y: index === 0 ? 0 : yEntry,
-            scale, 
-            opacity 
-          }}
-          className={cn(
-            "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.3)]",
-            bgColor,
-            className
-          )}
-        >
-          <div className={cn(
-            "absolute top-12 left-12 z-50 flex items-center gap-4 pointer-events-none opacity-40",
-            isDark ? "text-white" : "text-black"
-          )}>
+          <motion.div
+            style={{ 
+              y: index === 0 ? 0 : yEntry,
+              scale, 
+              opacity 
+            }}
+            className={cn(
+              "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.1)] border border-black/5",
+              isDark ? "border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)]" : "border-black/5",
+              bgColor,
+              className
+            )}
+          >
+            {/* Premium Inner Glow */}
+            <div className={cn(
+              "absolute inset-0 pointer-events-none",
+              isDark ? "inner-glow-dark" : "inner-glow"
+            )} />
+            
+            <div className={cn(
+              "absolute top-12 left-12 z-50 flex items-center gap-4 pointer-events-none opacity-40",
+              isDark ? "text-white" : "text-black"
+            )}>
             <span className="font-display text-sm tracking-[0.3em]">0{index + 1}</span>
             <div className={cn("w-8 h-[1px]", isDark ? "bg-white/20" : "bg-black/10")} />
           </div>

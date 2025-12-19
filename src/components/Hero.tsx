@@ -6,6 +6,7 @@ import { ArrowUpRight, Shield, Star, Users } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
 import { GeometricAccent, CornerAccent } from "./ui/Accents";
 import { TextReveal, Reveal } from "./ui/Reveal";
+import { Button } from "./ui/button";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,7 +34,7 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-7">
               <Reveal delay={0.1}>
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand-blue-50 border border-brand-blue-100 rounded-xl text-brand-blue-900 text-xs font-display uppercase tracking-[0.2em] mb-10 editorial-shadow">
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand-blue-50/50 backdrop-blur-sm border border-brand-blue-100/50 rounded-xl text-brand-blue-900 text-xs font-display uppercase tracking-[0.2em] mb-10 editorial-shadow">
                   <Shield className="w-4 h-4 text-brand-blue-500" />
                   <span>Central Auckland's Premier Clinic</span>
                 </div>
@@ -41,7 +42,7 @@ export function Hero() {
               
                 <TextReveal 
                   text="Elite Dental Excellence" 
-                  className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10"
+                  className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10 premium-gradient-text"
                   delay={0.2}
                 />
               
@@ -54,16 +55,16 @@ export function Hero() {
             <Reveal delay={0.8}>
               <div className="flex flex-wrap gap-8 items-center">
                   <Magnetic>
-                    <button className="px-12 py-6 bg-brand-blue-500 text-white rounded-xl font-medium hover:bg-brand-blue-600 transition-all luxury-shadow flex items-center gap-3 group">
+                    <Button variant="premium" size="lg" className="h-16 px-12 luxury-shadow group">
                       Book Consultation
                       <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </button>
+                    </Button>
                   </Magnetic>
                 
                   <Magnetic strength={0.2}>
-                    <button className="px-10 py-6 border-b-2 border-brand-blue-100 text-brand-blue-900 font-medium hover:border-brand-blue-500 transition-all">
+                    <Button variant="premium-outline" size="lg" className="h-16 px-10">
                       Our Services
-                    </button>
+                    </Button>
                   </Magnetic>
                 </div>
               </Reveal>

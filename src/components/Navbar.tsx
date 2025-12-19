@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Shield, Users, Stethoscope, Sparkles } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
+import { Button } from "./ui/button";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +18,7 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Quality", href: "#", icon: Shield },
+    { name: "Quality", href: "#experience", icon: Shield },
     { name: "Specialists", href: "#", icon: Users },
     { name: "Services", href: "#", icon: Stethoscope },
     { name: "Experience", href: "#", icon: Sparkles },
@@ -27,23 +28,23 @@ export function Navbar() {
     <nav 
       className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 rounded-full border ring-1 ${
         isScrolled 
-          ? "py-2 px-3 bg-white/95 backdrop-blur-2xl border-white ring-slate-900/5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] w-auto" 
-          : "py-4 px-6 bg-white/70 backdrop-blur-xl border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)]"
+          ? "py-2 px-3 bg-white/95 backdrop-blur-3xl border-white ring-slate-900/5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] w-auto" 
+          : "py-4 px-6 bg-white/70 backdrop-blur-xl border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl editorial-shadow"
       }`}
     >
       {/* Prism Rim - Dual Layer Highlights */}
       <div className="absolute inset-0 rounded-full pointer-events-none border-[0.5px] border-white/40" />
       <div className="absolute inset-0 rounded-full pointer-events-none border-t border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]" />
-      <div className="absolute -inset-[1px] rounded-full pointer-events-none border border-black/5 opacity-20" />
+      <div className="absolute -inset-[1px] rounded-full pointer-events-none border border-black/5 opacity-10" />
       
-      <div className={`flex items-center justify-between ${isScrolled ? "gap-8" : ""}`}>
+      <div className={`flex items-center justify-between ${isScrolled ? "gap-12" : ""}`}>
         <div className={isScrolled ? "hidden md:block" : "block"}>
           <Magnetic strength={0.1}>
               <a href="/" className="flex flex-col group">
-                <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 ${isScrolled ? "text-lg" : "text-2xl"}`}>
+                <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 premium-gradient-text ${isScrolled ? "text-lg" : "text-2xl"}`}>
                   FREEMANS
                 </span>
-                <span className={`text-[7px] tracking-[0.4em] text-slate-500 font-bold uppercase transition-all duration-500 ${isScrolled ? "hidden" : "block"}`}>
+                <span className={`text-[7px] tracking-[0.5em] text-slate-400 font-bold uppercase transition-all duration-500 group-hover:text-brand-blue-500 ${isScrolled ? "hidden" : "block"}`}>
                   Bay Dental
                 </span>
               </a>
@@ -57,11 +58,18 @@ export function Navbar() {
                 href={link.href} 
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className={`relative flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                  hoveredIndex === index ? "bg-brand-blue-600 text-white" : "text-slate-700"
+                className={`relative flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-500 ${
+                  hoveredIndex === index ? "text-white" : "text-slate-600"
                 }`}
               >
-              <link.icon className={`w-4 h-4 transition-transform duration-300 ${hoveredIndex === index ? "scale-110" : ""}`} />
+              {hoveredIndex === index && (
+                <motion.div 
+                  layoutId="nav-bg"
+                  className="absolute inset-0 bg-brand-blue-600 rounded-full luxury-shadow"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+              <link.icon className={`w-3.5 h-3.5 relative z-10 transition-transform duration-500 ${hoveredIndex === index ? "scale-110" : ""}`} />
               <motion.span 
                 initial={false}
                 animate={{ 
@@ -69,7 +77,7 @@ export function Navbar() {
                   opacity: (!isScrolled || hoveredIndex === index) ? 1 : 0,
                   marginLeft: (!isScrolled || hoveredIndex === index) ? 4 : 0
                 }}
-                className="overflow-hidden whitespace-nowrap text-[10px] font-bold uppercase tracking-widest"
+                className="relative z-10 overflow-hidden whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.2em]"
               >
                 {link.name}
               </motion.span>
@@ -77,29 +85,26 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className={`hidden lg:flex items-center ${isScrolled ? "gap-4" : "gap-8"}`}>
+        <div className={`hidden lg:flex items-center ${isScrolled ? "gap-6" : "gap-10"}`}>
             <div className={isScrolled ? "hidden xl:block" : "block"}>
               <Magnetic strength={0.2}>
-                  <a href="tel:093613610" className="flex items-center gap-2 text-brand-blue-900 group">
-                    <div className={`rounded-full border border-brand-blue-200 flex items-center justify-center group-hover:bg-brand-blue-600 group-hover:text-white transition-all duration-500 ${isScrolled ? "w-7 h-7" : "w-8 h-8"}`}>
-                      <Phone className="w-3.5 h-3.5" />
+                  <a href="tel:093613610" className="flex items-center gap-3 text-brand-blue-900 group">
+                    <div className={`rounded-full border border-brand-blue-100 flex items-center justify-center group-hover:bg-brand-blue-600 group-hover:text-white group-hover:border-transparent transition-all duration-500 luxury-shadow ${isScrolled ? "w-8 h-8" : "w-10 h-10"}`}>
+                      <Phone className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </div>
                   {!isScrolled && (
-                    <span className="text-xs font-bold tracking-widest uppercase">(09) 361 3610</span>
+                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-500 group-hover:text-brand-blue-900 transition-colors">(09) 361 3610</span>
                   )}
                 </a>
               </Magnetic>
             </div>
           <Magnetic>
-            <button className={`relative overflow-hidden group rounded-full ${isScrolled ? "px-5 py-2" : "px-7 py-3"}`}>
-                <span className={`relative z-10 uppercase tracking-[0.2em] font-bold text-white transition-colors duration-500 group-hover:text-brand-blue-900 ${isScrolled ? "text-[9px]" : "text-[10px]"}`}>
-                  Book
-                </span>
-                <div className="absolute inset-0 bg-brand-blue-600 transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-white translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
-            </button>
+            <Button variant="premium" className={isScrolled ? "h-10 px-6" : "h-12 px-8"}>
+              Book
+            </Button>
           </Magnetic>
         </div>
+
 
         <button 
           className="lg:hidden text-slate-900"
