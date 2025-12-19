@@ -13,6 +13,7 @@ export default function Home() {
       <CustomCursor />
       <SpotlightOverlay />
       <div className="grain-overlay" />
+      <div className="vignette" />
       <Navbar />
       <Hero />
       <TrustExperience />
