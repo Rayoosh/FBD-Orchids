@@ -1,7 +1,6 @@
 "use client";
 
 import { Navbar } from "@/components/Navbar";
-import { NavHousing } from "@/components/NavHousing";
 import { Hero } from "@/components/Hero";
 import { TrustExperience } from "@/components/TrustExperience";
 import { ServicesTestimonials } from "@/components/ServicesTestimonials";
@@ -21,12 +20,10 @@ export default function Home() {
         <CustomCursor />
         <SpotlightOverlay />
         <div className="grain-overlay" />
-        <NavHousing>
-          <Navbar />
-        </NavHousing>
+        <Navbar />
         <SectionIndex />
         
-        <div className="relative w-full pt-20">
+        <div className="relative w-full">
           <SectionCard index={0} bgColor="bg-white">
             <Hero />
           </SectionCard>
