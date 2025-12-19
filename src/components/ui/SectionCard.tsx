@@ -119,9 +119,9 @@ export function SectionCard({
               }}
                 className={cn(
                   "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] transition-shadow duration-500",
-                isDark 
-                  ? "border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)]" 
-                  : "border border-white/20 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]",
+                  isDark 
+                    ? "border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)]" 
+                    : "border border-black/5 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)]",
                 bgColor,
                 className
               )}
