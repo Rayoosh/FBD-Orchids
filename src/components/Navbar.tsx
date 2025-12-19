@@ -1,124 +1,97 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-const navLinks = [
-  { name: "Clinical Mastery", href: "#services" },
-  { name: "The Experience", href: "#experience" },
-  { name: "Stories", href: "#reviews" },
-  { name: "Contact", href: "#booking" },
-];
+import { Menu, X, Phone, Calendar } from "lucide-react";
+import { Magnetic } from "./ui/Magnetic";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-6 md:px-12",
-        isScrolled 
-          ? "py-4 glass-morphism luxury-shadow" 
-          : "py-10 bg-transparent"
-      )}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="/" className="group flex flex-col">
-          <span className="text-xl md:text-2xl font-serif font-light tracking-tighter text-foreground group-hover:text-accent transition-colors duration-500">
-            FREEMANS BAY <span className="font-serif italic text-accent group-hover:text-foreground">DENTAL</span>
-          </span>
-          <span className="text-[9px] uppercase tracking-[0.4em] text-muted-foreground font-display mt-0.5 ml-0.5">
-            Est. Excellence
-          </span>
-        </Link>
+  const navLinks = [
+    { name: "Clinical Excellence", href: "#" },
+    { name: "Our Specialists", href: "#" },
+    { name: "Services", href: "#" },
+    { name: "Patient Portal", href: "#" },
+  ];
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center space-x-12">
+  return (
+    <nav 
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        isScrolled ? "py-4 bg-white/80 backdrop-blur-xl shadow-sm" : "py-8 bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-6 md:px-24 flex items-center justify-between">
+        <Magnetic strength={0.2}>
+          <a href="/" className="flex flex-col">
+            <span className="text-2xl font-bold text-blue-900 tracking-tighter leading-none">EASTSIDE</span>
+            <span className="text-[10px] tracking-[0.3em] text-blue-400 font-bold uppercase">Dental Studio</span>
+          </a>
+        </Magnetic>
+
+        <div className="hidden lg:flex items-center gap-12">
           {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-[11px] font-display uppercase tracking-[0.2em] text-foreground/70 hover:text-foreground transition-colors duration-500 relative group"
+            <a 
+              key={link.name} 
+              href={link.href} 
+              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors relative group"
             >
               {link.name}
-              <span className="absolute -bottom-1 left-0 w-full h-px bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right group-hover:origin-left" />
-            </Link>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full" />
+            </a>
           ))}
-        </nav>
-
-        <div className="hidden lg:flex items-center space-x-8">
-          <Button asChild variant="ghost" className="text-[11px] font-display uppercase tracking-widest hover:bg-transparent hover:text-accent transition-colors">
-            <Link href="#booking">Inquire</Link>
-          </Button>
-            <Button asChild className="bg-primary hover:bg-brand-blue-900 text-white rounded-full px-8 h-12 text-[11px] font-display uppercase tracking-[0.2em] transition-all duration-500">
-            <Link href="#booking">Book Appointment</Link>
-          </Button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="lg:hidden p-2 text-foreground focus:outline-none"
+        <div className="hidden lg:flex items-center gap-6">
+          <div className="flex items-center gap-2 text-blue-900 font-bold">
+            <Phone className="w-4 h-4" />
+            <span className="text-sm">(555) 123-4567</span>
+          </div>
+          <Magnetic>
+            <button className="px-8 py-3 bg-blue-900 text-white rounded-full text-sm font-medium hover:bg-blue-800 transition-all shadow-lg shadow-blue-900/10 flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
+              Book Now
+            </button>
+          </Magnetic>
+        </div>
+
+        <button 
+          className="lg:hidden text-blue-900"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 bg-background flex flex-col p-12 lg:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "100vh" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-blue-50 overflow-hidden"
           >
-            <div className="flex justify-between items-center mb-20">
-               <span className="text-xl font-serif">FREEMANS BAY</span>
-               <button onClick={() => setIsMobileMenuOpen(false)}>
-                 <X className="w-8 h-8" />
-               </button>
-            </div>
-            <nav className="flex flex-col space-y-8">
+            <div className="flex flex-col p-8 gap-8">
               {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-4xl font-serif font-light text-foreground hover:text-accent transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
+                <a key={link.name} href={link.href} className="text-2xl font-medium text-blue-900">
                   {link.name}
-                </Link>
+                </a>
               ))}
-            </nav>
-            <div className="mt-auto space-y-6">
-              <p className="text-display text-[10px] text-muted-foreground uppercase tracking-widest">Auckland, New Zealand</p>
-              <Button asChild className="w-full bg-primary text-white rounded-full py-8 text-display text-xs uppercase tracking-widest">
-                <Link href="#booking" onClick={() => setIsMobileMenuOpen(false)}>
-                  Book Your Visit
-                </Link>
-              </Button>
+              <button className="w-full py-5 bg-blue-600 text-white rounded-2xl font-bold">
+                Book Consultation
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </nav>
   );
 }
+
