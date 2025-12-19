@@ -14,39 +14,32 @@ import { SectionIndex } from "@/components/ui/SectionIndex";
 import { useEffect, useRef } from "react";
 
 export default function Home() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <SmoothScroll wrapper={scrollContainerRef}>
-      <main className="h-screen w-full bg-[#0f172a] relative selection:bg-accent selection:text-white overflow-hidden">
+    <SmoothScroll>
+      <main className="relative w-full bg-[#0f172a] selection:bg-accent selection:text-white">
         <CustomCursor />
         <SpotlightOverlay />
         <div className="grain-overlay" />
         <Navbar />
-        <SectionIndex scrollContainerRef={scrollContainerRef} />
+        <SectionIndex />
         
-        <div 
-          ref={scrollContainerRef}
-          className="h-full w-full overflow-y-auto overflow-x-hidden no-scrollbar"
-        >
-          <div className="w-full">
-            <SectionCard index={0} bgColor="bg-white" scrollContainerRef={scrollContainerRef}>
-              <Hero />
-            </SectionCard>
+        <div className="relative w-full">
+          <SectionCard index={0} bgColor="bg-white">
+            <Hero />
+          </SectionCard>
 
-            <SectionCard index={1} bgColor="bg-[#f8fafc]" scrollContainerRef={scrollContainerRef}>
-              <TrustExperience />
-            </SectionCard>
+          <SectionCard index={1} bgColor="bg-[#f8fafc]">
+            <TrustExperience />
+          </SectionCard>
 
-            <SectionCard index={2} bgColor="bg-brand-blue-900" isDark scrollContainerRef={scrollContainerRef}>
-              <ServicesTestimonials />
-            </SectionCard>
+          <SectionCard index={2} bgColor="bg-brand-blue-900" isDark>
+            <ServicesTestimonials />
+          </SectionCard>
 
-            <SectionCard index={3} bgColor="bg-white" scrollContainerRef={scrollContainerRef}>
-              <AboutBooking />
-              <Footer />
-            </SectionCard>
-          </div>
+          <SectionCard index={3} bgColor="bg-white">
+            <AboutBooking />
+            <Footer />
+          </SectionCard>
         </div>
       </main>
     </SmoothScroll>

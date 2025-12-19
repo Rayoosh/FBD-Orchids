@@ -4,11 +4,9 @@ import { ReactLenis } from "lenis/react";
 import { useEffect, useState, useMemo } from "react";
 
 export function SmoothScroll({ 
-  children,
-  wrapper
+  children
 }: { 
   children: React.ReactNode;
-  wrapper?: React.RefObject<HTMLDivElement | null>;
 }) {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -23,17 +21,12 @@ export function SmoothScroll({
     wheelMultiplier: 1.0,
     touchMultiplier: 1.5,
     infinite: false,
-    wrapper: wrapper?.current || undefined,
-    content: wrapper?.current?.firstElementChild as HTMLElement || undefined,
-  }), [isMounted, wrapper?.current]);
+  }), []);
 
   if (!isMounted) return <>{children}</>;
 
   return (
-    <ReactLenis 
-      root={!wrapper} 
-      options={options}
-    >
+    <ReactLenis root options={options}>
       {children}
     </ReactLenis>
   );

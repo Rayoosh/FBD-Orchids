@@ -11,19 +11,15 @@ const sections = [
 ];
 
 interface SectionIndexProps {
-  scrollContainerRef: React.RefObject<HTMLDivElement | null>;
+  // scrollContainerRef removed as we now use window scroll
 }
 
-export function SectionIndex({ scrollContainerRef }: SectionIndexProps) {
-  const { scrollYProgress } = useScroll({
-    container: scrollContainerRef
-  });
+export function SectionIndex({}: SectionIndexProps) {
+  const { scrollYProgress } = useScroll();
   
   return (
     <div className="fixed right-12 top-1/2 -translate-y-1/2 z-[100] hidden xl:flex flex-col gap-10">
       {sections.map((section, i) => {
-        // We'll calculate the active state based on total scroll progress
-        // Each section occupies roughly 1/4 of the total scroll
         const start = i / sections.length;
         const end = (i + 1) / sections.length;
         
