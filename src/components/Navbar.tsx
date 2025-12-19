@@ -1,124 +1,80 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Phone, Calendar } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Spring animations for smoother feel
-  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
-  const logoScale = useSpring(useTransform(scrollY, [0, 100], [1, 0.7]), springConfig);
-  const logoY = useSpring(useTransform(scrollY, [0, 100], [16, -24]), springConfig);
-  const subtitleOpacity = useSpring(useTransform(scrollY, [0, 50], [1, 0]), springConfig);
-  const trapeziumY = useSpring(useTransform(scrollY, [0, 100], [0, -150]), springConfig);
-  const linksOpacity = useSpring(useTransform(scrollY, [0, 50], [0.7, 1]), springConfig);
+    const navLinks = [
+      { name: "Clinical Excellence", href: "#" },
+      { name: "Specialists", href: "#" },
+      { name: "Services", href: "#" },
+      { name: "Boutique Experience", href: "#" },
+    ];
 
-  const leftLinks = [
-    { name: "Clinical Excellence", href: "#" },
-    { name: "Specialists", href: "#" },
-  ];
-
-  const rightLinks = [
-    { name: "Services", href: "#" },
-    { name: "Boutique Experience", href: "#" },
-  ];
-
-  return (
-    <nav className="fixed top-0 left-0 w-full z-[100] pointer-events-none">
-      {/* Trapezium Indentation Background */}
-      <motion.div 
-        style={{ y: trapeziumY }}
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1400px] h-48 overflow-hidden flex justify-center pointer-events-none"
-      >
-        <svg 
-          viewBox="0 0 1000 100" 
-          className="w-[700px] h-full fill-[#0f172a]"
-          preserveAspectRatio="none"
+      return (
+        <nav 
+          className={`fixed top-8 left-1/2 -translate-x-1/2 w-[90%] md:w-[85%] max-w-7xl z-[100] transition-all duration-700 rounded-2xl md:rounded-[2rem] border ${
+            isScrolled 
+              ? "py-4 bg-white/70 backdrop-blur-2xl border-black/5 shadow-2xl" 
+              : "py-6 bg-white/10 backdrop-blur-md border-white/10"
+          }`}
         >
-          <path d="M0,0 L1000,0 L850,100 L150,100 Z" />
-        </svg>
-      </motion.div>
-
-      <div className="max-w-7xl mx-auto px-8 md:px-12 h-32 flex items-center justify-between pointer-events-auto mt-4">
-        {/* Left Links */}
-        <motion.div 
-          style={{ opacity: linksOpacity }}
-          className="hidden lg:flex items-center gap-12 flex-1 justify-end pr-16"
-        >
-          {leftLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-white transition-all relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-500 ease-out group-hover:w-full" />
-            </a>
-          ))}
-        </motion.div>
-
-        {/* Centered Logo */}
-        <div className="relative z-10 mx-auto px-8">
+          <div className="px-8 md:px-12 flex items-center justify-between">
           <Magnetic strength={0.1}>
-            <a href="/" className="flex flex-col items-center group">
-              <motion.span 
-                style={{ scale: logoScale, y: logoY }}
-                className="text-5xl md:text-6xl font-serif text-white tracking-tighter leading-none"
-              >
-                EASTSIDE
-              </motion.span>
-              <motion.span 
-                style={{ opacity: subtitleOpacity, y: logoY }}
-                className="text-[11px] tracking-[0.5em] text-white/50 font-bold uppercase mt-2"
-              >
-                Dental Studio
-              </motion.span>
+            <a href="/" className="flex flex-col group">
+              <span className="text-2xl font-serif text-slate-900 tracking-tighter leading-none group-hover:text-blue-900 transition-colors">EASTSIDE</span>
+              <span className="text-[9px] tracking-[0.4em] text-slate-400 font-bold uppercase group-hover:text-blue-400 transition-colors">Dental Studio</span>
             </a>
           </Magnetic>
-        </div>
 
-        {/* Right Links & Action */}
-        <motion.div 
-          style={{ opacity: linksOpacity }}
-          className="hidden lg:flex items-center gap-12 flex-1 justify-start pl-16"
-        >
-          {rightLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:text-white transition-all relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-500 ease-out group-hover:w-full" />
-            </a>
-          ))}
-          
-          <Magnetic strength={0.2}>
-            <motion.a 
-              href="tel:5551234567" 
-              style={{ opacity: subtitleOpacity }}
-              className="flex items-center gap-2 text-white group"
-            >
-              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-[#0f172a] transition-all duration-500">
-                <Phone className="w-3.5 h-3.5" />
-              </div>
-            </motion.a>
-          </Magnetic>
-        </motion.div>
+          <div className="hidden lg:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 hover:text-slate-900 transition-all relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-slate-900 transition-all duration-500 ease-out group-hover:w-full" />
+              </a>
+            ))}
+          </div>
+
+          <div className="hidden lg:flex items-center gap-8">
+            <Magnetic strength={0.2}>
+              <a href="tel:5551234567" className="flex items-center gap-2 text-slate-900 group">
+                <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-500">
+                  <Phone className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-xs font-bold tracking-widest uppercase">(555) 123-4567</span>
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <button className="relative px-7 py-3 overflow-hidden group">
+                <span className="relative z-10 text-[10px] uppercase tracking-[0.2em] font-bold text-white transition-colors duration-500 group-hover:text-slate-900">
+                  Secure Booking
+                </span>
+                <div className="absolute inset-0 bg-slate-900 rounded-xl transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-white translate-y-full transition-transform duration-500 ease-expo group-hover:translate-y-0" />
+                <div className="absolute inset-0 border border-slate-900 rounded-xl" />
+              </button>
+            </Magnetic>
+          </div>
+
 
         <button 
-          className="lg:hidden text-white pointer-events-auto"
+          className="lg:hidden text-blue-900"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -128,35 +84,20 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="lg:hidden fixed inset-0 w-full h-screen bg-[#0f172a] z-[150] flex flex-col items-center justify-center pointer-events-auto"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "100vh" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-blue-50 overflow-hidden"
           >
-            <button 
-              className="absolute top-8 right-8 text-white p-4"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <X size={32} />
-            </button>
-            <div className="flex flex-col gap-12 items-center">
-              {[...leftLinks, ...rightLinks].map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href} 
-                  className="text-4xl font-serif text-white hover:text-white/70 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
+            <div className="flex flex-col p-8 gap-8">
+              {navLinks.map((link) => (
+                <a key={link.name} href={link.href} className="text-2xl font-medium text-blue-900">
                   {link.name}
                 </a>
               ))}
-              <a 
-                href="tel:5551234567"
-                className="mt-8 flex items-center gap-4 text-white/50 font-bold tracking-widest uppercase text-sm"
-              >
-                <Phone size={18} /> (555) 123-4567
-              </a>
+              <button className="w-full py-5 bg-blue-600 text-white rounded-2xl font-bold">
+                Book Consultation
+              </button>
             </div>
           </motion.div>
         )}
@@ -164,3 +105,4 @@ export function Navbar() {
     </nav>
   );
 }
+
