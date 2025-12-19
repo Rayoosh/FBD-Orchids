@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  transpilePackages: ["three", "@shadergradient/react", "@react-three/fiber", "three-stdlib"],
   turbopack: {
     rules: {
       "*.{jsx,tsx}": {

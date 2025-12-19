@@ -76,7 +76,7 @@
     outline-color: var(--ring);
   }
     body {
-      @apply bg-background text-foreground font-sans antialiased selection:bg-brand-blue-100 selection:text-brand-blue-900 overflow-x-hidden;
+      @apply bg-transparent text-foreground font-sans antialiased selection:bg-brand-blue-100 selection:text-brand-blue-900 overflow-x-hidden;
     }
 
   h1, h2, h3, h4, h5, h6 {
