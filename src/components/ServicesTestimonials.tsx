@@ -51,10 +51,11 @@ const testimonials = [
 ];
 
 export function ServicesTestimonials() {
-  return (
-    <section className="bg-background">
-      {/* Services Section - Luxury Vertical Scroll */}
-      <div className="py-40 md:py-60 px-6 md:px-24 border-t border-black/5">
+    return (
+      <section className="bg-transparent">
+        {/* Services Section - Luxury Vertical Scroll */}
+        <div className="py-32 md:py-48 px-6 md:px-24">
+
         <div className="max-w-7xl mx-auto">
           <div className="mb-32">
             <Reveal>

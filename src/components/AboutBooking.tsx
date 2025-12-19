@@ -10,8 +10,9 @@ import { Magnetic } from "./ui/Magnetic";
 import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
 
 export function AboutBooking() {
-  return (
-    <section id="experience" className="py-40 md:py-60 bg-[#fbfbfd] overflow-hidden relative">
+    return (
+      <section id="about" className="py-32 md:py-48 bg-transparent overflow-hidden relative min-h-full flex items-center">
+
       {/* Subtle Glows */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-50/50 blur-[120px] rounded-full -translate-x-1/2 pointer-events-none" />
       
