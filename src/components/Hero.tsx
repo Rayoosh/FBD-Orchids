@@ -1,21 +1,30 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Shield, Star, Users } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
-import { MouseParallax } from "./ui/MouseParallax";
 import { GeometricAccent, CornerAccent } from "./ui/Accents";
+import { TextReveal, Reveal } from "./ui/Reveal";
 
 export function Hero() {
-  const titleWords = "Artistry in Modern Dentistry".split(" ");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background">
+    <section ref={containerRef} className="relative min-h-[110vh] flex items-center pt-32 pb-20 overflow-hidden bg-background">
       {/* Visual Accents */}
       <GeometricAccent className="absolute top-20 right-20 w-40 h-40 text-brand-blue-500 hidden xl:block" />
       <CornerAccent className="absolute top-40 left-10 hidden xl:block" />
       <CornerAccent className="absolute bottom-40 right-10 rotate-180 hidden xl:block" />
+      
       {/* Atmospheric Light Leaks */}
       <div className="light-leak top-[-10%] left-[-10%] opacity-20" />
       <div className="light-leak bottom-[-10%] right-[-10%] opacity-15 rotate-180" />
@@ -23,48 +32,26 @@ export function Hero() {
       <div className="container mx-auto px-6 md:px-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
+            <Reveal delay={0.1}>
               <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand-blue-50 border border-brand-blue-100 rounded-xl text-brand-blue-900 text-xs font-display uppercase tracking-[0.2em] mb-10 editorial-shadow">
                 <Shield className="w-4 h-4 text-brand-blue-500" />
                 <span>Elite Dental Excellence</span>
               </div>
-              
-              <h1 className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10 overflow-hidden">
-                {titleWords.map((word, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ y: "100%" }}
-                    animate={{ y: 0 }}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: i * 0.1, 
-                      ease: [0.33, 1, 0.68, 1] 
-                    }}
-                    className="inline-block mr-[0.2em] last:mr-0"
-                  >
-                    {word === "Modern" || word === "Dentistry" ? (
-                      <span className="italic font-serif text-brand-blue-500 lowercase">{word}</span>
-                    ) : (
-                      word
-                    )}
-                  </motion.span>
-                ))}
-              </h1>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-xl md:text-2xl text-slate-600 max-w-xl mb-14 leading-relaxed font-light"
-              >
+            </Reveal>
+            
+            <TextReveal 
+              text="Artistry in Modern Dentistry" 
+              className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10"
+              delay={0.2}
+            />
+            
+            <Reveal delay={0.6}>
+              <p className="text-xl md:text-2xl text-slate-600 max-w-xl mb-14 leading-relaxed font-light">
                 Experience a new standard of oral healthcare where clinical precision meets aesthetic perfection in the heart of the city.
-              </motion.p>
-              
+              </p>
+            </Reveal>
+            
+            <Reveal delay={0.8}>
               <div className="flex flex-wrap gap-8 items-center">
                 <Magnetic>
                   <button className="px-12 py-6 bg-brand-blue-900 text-white rounded-xl font-medium hover:bg-black transition-all luxury-shadow flex items-center gap-3 group">
@@ -79,13 +66,10 @@ export function Hero() {
                   </button>
                 </Magnetic>
               </div>
+            </Reveal>
 
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
-                className="mt-20 flex items-center gap-12"
-              >
+            <Reveal delay={1}>
+              <div className="mt-20 flex items-center gap-12">
                 <div className="flex -space-x-4">
                   {[1, 2, 3, 4].map((i) => (
                     <div key={i} className="w-14 h-14 rounded-xl border-4 border-white overflow-hidden luxury-shadow">
@@ -99,32 +83,30 @@ export function Hero() {
                   </div>
                   <p className="text-sm font-display uppercase tracking-widest text-brand-blue-900">1.2k+ Bespoke Reviews</p>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </Reveal>
           </div>
 
           <div className="lg:col-span-5 relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
+              style={{ y, opacity, scale }}
               className="relative"
             >
-              <MouseParallax strength={40}>
-                <div className="relative z-10 aspect-[3/4] rounded-2xl overflow-hidden editorial-shadow group">
-                  <div className="absolute inset-0 bg-brand-blue-900/10 group-hover:bg-transparent transition-colors duration-700 z-10" />
-                  <img 
-                    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop" 
-                    alt="Modern Dental Studio" 
-                    className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000"
-                  />
-                </div>
-              </MouseParallax>
+              <div className="relative z-10 aspect-[3/4] rounded-2xl overflow-hidden editorial-shadow group">
+                <div className="absolute inset-0 bg-brand-blue-900/10 group-hover:bg-transparent transition-colors duration-700 z-10" />
+                <img 
+                  src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop" 
+                  alt="Modern Dental Studio" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
               
-              {/* Floating Cards with refined geometry */}
+              {/* Floating Cards */}
               <motion.div 
-                animate={{ y: [0, -20, 0], rotate: [0, 2, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.2, duration: 1 }}
                 className="absolute -top-12 -right-8 bg-white/90 backdrop-blur-md p-7 rounded-2xl luxury-shadow z-20 hidden md:block border border-white/20"
               >
                 <div className="flex items-center gap-5">
@@ -139,8 +121,10 @@ export function Hero() {
               </motion.div>
 
               <motion.div 
-                animate={{ y: [0, 20, 0], rotate: [0, -2, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.4, duration: 1 }}
                 className="absolute -bottom-12 -left-8 bg-brand-blue-900 p-10 rounded-2xl luxury-shadow z-20 hidden md:block text-white"
               >
                 <p className="text-5xl font-light mb-2 tracking-tighter">98%</p>
@@ -153,4 +137,3 @@ export function Hero() {
     </section>
   );
 }
-
