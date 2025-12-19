@@ -5,144 +5,138 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Phone, Mail, MapPin, Clock, Calendar, ShieldCheck, Heart } from "lucide-react";
+import { Phone, MapPin, Clock, Calendar, ArrowUpRight } from "lucide-react";
 
 export function AboutBooking() {
   return (
-    <section id="about" className="py-24 bg-white">
+    <section id="experience" className="py-40 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* About Section */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="order-2 lg:order-1"
-          >
-            <div className="relative aspect-video rounded-2xl overflow-hidden luxury-shadow">
+        {/* About / Philosophy Section */}
+        <div className="grid lg:grid-cols-2 gap-32 items-center mb-60">
+          <div className="relative">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="relative aspect-[4/5] rounded-sm overflow-hidden luxury-shadow group"
+            >
               <img
                 src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=1200"
-                alt="Our Professional Dental Team"
-                className="w-full h-full object-cover"
+                alt="Bespoke Dental Studio"
+                className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-primary/10" />
+              <div className="absolute inset-0 bg-primary/5" />
+            </motion.div>
+            {/* Floating Detail */}
+            <div className="absolute -bottom-12 -right-12 bg-accent p-10 text-white luxury-shadow hidden md:block">
+              <p className="text-display text-[10px] mb-4 tracking-[0.3em]">Foundation</p>
+              <p className="text-3xl font-serif italic">Est. 2012</p>
             </div>
-          </motion.div>
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="order-1 lg:order-2"
+            transition={{ duration: 1 }}
           >
-            <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-4">About the Practice</h2>
-            <h3 className="text-4xl font-serif mb-6">A legacy of ethical, high-quality care.</h3>
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              At Freemans Bay Dental, we believe dentistry is more than just fixing teeth—it's about building long-term relationships based on trust, honesty, and empathy.
+            <h2 className="text-display text-xs text-accent mb-8">The Philosophy</h2>
+            <h3 className="text-5xl md:text-7xl font-serif font-light leading-tight mb-10">
+              Where Ethics <br />
+              <span className="text-serif-italic pl-12 text-primary">Meets Artistry.</span>
+            </h3>
+            <p className="text-xl text-muted-foreground font-light leading-relaxed mb-8">
+              At Freemans Bay Dental, we believe dentistry is more than a service—it's a commitment to your long-term vitality. We move away from the high-pressure sales of modern dentistry, returning to a focus on clinical integrity and patient-first results.
             </p>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
-              Our team brings over a decade of experience to every consultation. We pride ourselves on our transparent approach: we only recommend what you truly need, and we always explain the "why" behind every procedure.
-            </p>
-            
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="flex items-center space-x-3 text-sm font-medium">
-                <ShieldCheck className="w-5 h-5 text-primary" />
-                <span>Ethical Dentistry</span>
+            <div className="space-y-6 mb-12">
+              <div className="flex items-center space-x-6">
+                <div className="w-12 h-px bg-accent/30" />
+                <p className="text-display text-[10px] tracking-widest text-foreground">Auckland's Boutique Dental Choice</p>
               </div>
-              <div className="flex items-center space-x-3 text-sm font-medium">
-                <Heart className="w-5 h-5 text-primary" />
-                <span>Patient-First Philosophy</span>
+              <div className="flex items-center space-x-6">
+                <div className="w-12 h-px bg-accent/30" />
+                <p className="text-display text-[10px] tracking-widest text-foreground">Decades of Combined Mastery</p>
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Booking Section */}
-        <div id="booking" className="grid lg:grid-cols-5 gap-12 items-start bg-brand-blue-900 rounded-[2rem] overflow-hidden luxury-shadow text-white">
-          <div className="lg:col-span-2 p-12 lg:p-16 flex flex-col justify-between h-full bg-primary/10">
+        {/* High-End Booking Experience */}
+        <div id="booking" className="grid lg:grid-cols-[1fr_1.5fr] bg-slate-900 rounded-sm overflow-hidden luxury-shadow">
+          <div className="p-12 lg:p-20 bg-slate-900 text-white flex flex-col justify-between">
             <div>
-              <h2 className="text-3xl font-serif mb-6 text-white">Let’s take care<br /><span className="italic text-brand-blue-100">of your smile.</span></h2>
-              <p className="text-brand-blue-100/70 mb-12">
-                Whether it's an emergency or a routine checkup, we're here to provide the care you deserve.
-              </p>
-
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 rounded-lg bg-white/10 text-white">
-                    <Phone className="w-5 h-5" />
-                  </div>
+              <h2 className="text-display text-[10px] text-accent mb-10 tracking-[0.4em]">Inquiry</h2>
+              <h3 className="text-4xl md:text-5xl font-serif font-light leading-tight mb-12">
+                Begin Your <br />
+                <span className="text-serif-italic italic text-accent">Transformation.</span>
+              </h3>
+              
+              <div className="space-y-10">
+                <div className="flex items-start space-x-6">
+                  <Phone className="w-5 h-5 text-accent mt-1" />
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-brand-blue-100/50 mb-1">Call Today</p>
-                    <p className="font-bold">+1 (234) 567-890</p>
+                    <p className="text-display text-[9px] text-white/40 mb-2">Voice</p>
+                    <p className="text-xl font-light">+64 9 123 4567</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 rounded-lg bg-white/10 text-white">
-                    <MapPin className="w-5 h-5" />
-                  </div>
+                <div className="flex items-start space-x-6">
+                  <MapPin className="w-5 h-5 text-accent mt-1" />
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-brand-blue-100/50 mb-1">Our Location</p>
-                    <p className="font-bold text-sm">123 Freemans Bay Rd, Suite 101<br />Modern City, MC 54321</p>
+                    <p className="text-display text-[9px] text-white/40 mb-2">Visit</p>
+                    <p className="text-xl font-light">Freemans Bay, Auckland</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 rounded-lg bg-white/10 text-white">
-                    <Clock className="w-5 h-5" />
-                  </div>
+                <div className="flex items-start space-x-6">
+                  <Clock className="w-5 h-5 text-accent mt-1" />
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-brand-blue-100/50 mb-1">Opening Hours</p>
-                    <p className="font-bold text-sm">Mon-Fri: 8:00 AM - 6:00 PM<br />Sat: 9:00 AM - 2:00 PM</p>
+                    <p className="text-display text-[9px] text-white/40 mb-2">Availability</p>
+                    <p className="text-xl font-light">Mon — Fri: 08:00 — 18:00</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-12 pt-12 border-t border-white/10">
-              <div className="flex items-center space-x-4">
-                <Calendar className="w-6 h-6 text-brand-blue-100" />
-                <p className="text-sm font-medium">Same-day appointments available for urgent pain relief.</p>
+            <div className="mt-20 flex items-center space-x-4 group cursor-pointer">
+              <div className="p-4 rounded-full border border-white/10 group-hover:border-accent transition-colors duration-500">
+                <Calendar className="w-6 h-6 text-accent" />
               </div>
+              <p className="text-sm font-light text-white/60">Urgent appointments reserved daily.</p>
             </div>
           </div>
 
-          <div className="lg:col-span-3 p-12 lg:p-16 bg-white text-foreground h-full">
-            <h3 className="text-2xl font-serif mb-8">Request an Appointment</h3>
-            <form className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" placeholder="John Doe" className="bg-brand-blue-50/50 border-none h-12" />
+          <div className="p-12 lg:p-20 bg-white">
+            <form className="grid gap-10">
+              <div className="grid md:grid-cols-2 gap-10">
+                <div className="space-y-3">
+                  <Label className="text-display text-[9px] text-muted-foreground uppercase">Full Name</Label>
+                  <Input placeholder="E.g. Alexander Vance" className="border-0 border-b border-border rounded-none px-0 h-12 focus-visible:ring-0 focus-visible:border-accent transition-colors bg-transparent" />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" placeholder="+1 (234) 567-890" className="bg-brand-blue-50/50 border-none h-12" />
+                <div className="space-y-3">
+                  <Label className="text-display text-[9px] text-muted-foreground uppercase">Contact Number</Label>
+                  <Input placeholder="+64" className="border-0 border-b border-border rounded-none px-0 h-12 focus-visible:ring-0 focus-visible:border-accent transition-colors bg-transparent" />
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" placeholder="john@example.com" className="bg-brand-blue-50/50 border-none h-12" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="service">Desired Service</Label>
-                <select id="service" className="w-full bg-brand-blue-50/50 border-none h-12 rounded-md px-3 text-sm focus:ring-2 focus:ring-primary">
-                  <option value="checkup">Routine Checkup</option>
-                  <option value="emergency">Emergency Care</option>
-                  <option value="hygiene">Hygiene & Cleaning</option>
-                  <option value="cosmetic">Cosmetic Dentistry</option>
+              
+              <div className="space-y-3">
+                <Label className="text-display text-[9px] text-muted-foreground uppercase">Area of Inquiry</Label>
+                <select className="w-full border-0 border-b border-border rounded-none px-0 h-12 focus:outline-none focus:border-accent transition-colors bg-transparent text-sm">
+                  <option>Restorative Mastery</option>
+                  <option>Aesthetic Consultation</option>
+                  <option>Nervous Patient Protocol</option>
+                  <option>General Excellence</option>
                 </select>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">How can we help?</Label>
-                <Textarea id="message" placeholder="Please describe any pain or specific concerns..." className="bg-brand-blue-50/50 border-none min-h-[120px]" />
+
+              <div className="space-y-3">
+                <Label className="text-display text-[9px] text-muted-foreground uppercase">Details</Label>
+                <Textarea placeholder="How may we assist you?" className="border-0 border-b border-border rounded-none px-0 min-h-[100px] focus-visible:ring-0 focus-visible:border-accent transition-colors bg-transparent resize-none" />
               </div>
-              <Button className="w-full h-14 rounded-full text-lg font-bold shadow-lg shadow-primary/20">
-                Book My Appointment
+
+              <Button className="w-full h-20 bg-primary hover:bg-slate-900 text-white rounded-none text-display text-xs transition-all duration-500 flex items-center justify-center space-x-4">
+                <span>Submit Inquiry</span>
+                <ArrowUpRight className="w-5 h-5" />
               </Button>
-              <p className="text-center text-xs text-muted-foreground">
-                We'll call you back within 2 business hours to confirm your time.
-              </p>
             </form>
           </div>
         </div>
