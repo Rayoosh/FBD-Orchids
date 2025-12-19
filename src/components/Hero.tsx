@@ -18,9 +18,8 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
-    return (
-      <section ref={containerRef} className="relative h-full min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-transparent">
-
+  return (
+    <section ref={containerRef} className="relative h-full min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-transparent">
       {/* Visual Accents */}
       <GeometricAccent className="absolute top-20 right-20 w-40 h-40 text-brand-blue-500 hidden xl:block" />
       <CornerAccent className="absolute top-40 left-10 hidden xl:block" />

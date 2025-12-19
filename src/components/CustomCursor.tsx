@@ -16,18 +16,11 @@ export function CustomCursor() {
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  // Velocity-based scaling for liquid effect
-  const [velocity, setVelocity] = useState(0);
-  
   const handleMouseMove = useCallback((e: MouseEvent) => {
     mouseX.set(e.clientX);
     mouseY.set(e.clientY);
     
     if (!isVisible) setIsVisible(true);
-
-    // Simple velocity approximation
-    const speed = Math.sqrt(Math.pow(e.movementX, 2) + Math.pow(e.movementY, 2));
-    setVelocity(speed);
 
     // Detect hoverable elements
     const target = e.target as HTMLElement;

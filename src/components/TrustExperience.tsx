@@ -22,9 +22,8 @@ export function TrustExperience() {
   const y1 = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const y2 = useTransform(scrollYProgress, [0, 1], [-25, 25]);
 
-    return (
-      <section ref={containerRef} id="experience" className="py-32 bg-transparent overflow-hidden relative min-h-full flex items-center">
-
+  return (
+    <section ref={containerRef} id="experience" className="py-32 bg-transparent overflow-hidden relative min-h-full flex items-center">
       {/* Subtle Background Accent */}
       <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-blue-50/30 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
       
