@@ -70,6 +70,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+html {
+  background-color: #000; /* Dark fallback to test visibility */
+}
+
 @layer base {
   * {
     border-color: var(--border);
