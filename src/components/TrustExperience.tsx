@@ -22,108 +22,124 @@ export function TrustExperience() {
   const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const y2 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
-  return (
-    <section ref={containerRef} id="experience" className="py-32 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Minimalist Trust Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-40 border-b border-blue-50 pb-12">
-          {trustSignals.map((signal, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="flex flex-col items-center text-center space-y-4 group"
-            >
-              <Magnetic strength={0.2}>
-                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
-                  <signal.icon className="w-5 h-5 transition-transform duration-500" />
-                </div>
-              </Magnetic>
-              <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-slate-400">{signal.label}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Asymmetrical Layout */}
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-24 items-start relative">
-          <div className="relative">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="sticky top-32"
-            >
-              <h2 className="text-xs text-blue-500 font-bold uppercase tracking-widest mb-6">The Boutique Philosophy</h2>
-              <h3 className="text-5xl md:text-7xl font-medium text-blue-900 leading-tight mb-8">
-                Clinical Excellence. <br />
-                <span className="italic font-serif text-blue-400 pl-8">Redefined.</span>
-              </h3>
-              <p className="text-xl text-slate-600 leading-relaxed max-w-md mb-12">
-                We believe that world-class dentistry should feel like a sanctuary, not a clinical appointment. Every detail of Eastside Dental has been curated to provide a frictionless, restorative experience.
-              </p>
-              
-              <div className="space-y-12">
-                <div className="flex items-start space-x-8 group">
-                  <div className="text-4xl font-serif italic text-blue-200 group-hover:text-blue-500 transition-colors duration-700">01.</div>
-                  <div>
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-blue-900 mb-2">Mastery of Craft</h4>
-                    <p className="text-slate-600">Combining decades of clinical expertise with the latest in digital dentistry to ensure perfection in every procedure.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-8 group">
-                  <div className="text-4xl font-serif italic text-blue-200 group-hover:text-blue-500 transition-colors duration-700">02.</div>
-                  <div>
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-blue-900 mb-2">Unrivaled Comfort</h4>
-                    <p className="text-slate-600">From our aromatherapy-infused lobby to our bespoke sedation options, we prioritize your nervous system's health.</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+    return (
+      <section ref={containerRef} id="experience" className="py-40 bg-[#fbfbfd] overflow-hidden relative">
+        {/* Subtle Background Accent */}
+        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-blue-50/30 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+          {/* Minimalist Trust Bar - Editorial Style */}
+          <div className="flex flex-wrap items-center justify-between gap-12 mb-48 border-y border-black/5 py-10">
+            {trustSignals.map((signal, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.8 }}
+                className="flex items-center space-x-4 group"
+              >
+                <div className="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors duration-500" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-slate-400 group-hover:text-slate-900 transition-colors duration-500">
+                  {signal.label}
+                </span>
+              </motion.div>
+            ))}
           </div>
-
-          <div className="relative pt-20">
-            {/* Parallax Image Grid */}
-            <motion.div
-              style={{ y: y1 }}
-              className="relative w-full aspect-[3/4] rounded-[40px] overflow-hidden shadow-2xl mb-20"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000"
-                alt="Modern Dentistry"
-                className="object-cover w-full h-full"
-              />
-              <div className="absolute inset-0 bg-blue-900/5" />
-            </motion.div>
-
+  
+          {/* Asymmetrical Layout */}
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-32 items-start">
+            <div className="relative">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                className="sticky top-40"
+              >
+                <div className="inline-flex items-center gap-3 mb-8">
+                  <div className="w-8 h-[1px] bg-blue-500" />
+                  <span className="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em]">Boutique Philosophy</span>
+                </div>
+                <h3 className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.9] mb-12 tracking-tighter">
+                  Clinical <br /> Mastery.
+                  <span className="block mt-4 italic text-slate-400 font-normal">Refined.</span>
+                </h3>
+                <p className="text-lg text-slate-500 leading-relaxed max-w-md mb-16 font-light">
+                  We believe that world-class dentistry should feel like a sanctuary, not a clinical appointment. Every detail has been curated for a frictionless experience.
+                </p>
+                
+                <div className="space-y-16">
+                  {[
+                    { title: "Mastery of Craft", desc: "Combining decades of expertise with digital dentistry to ensure perfection in every procedure." },
+                    { title: "Unrivaled Comfort", desc: "From aromatherapy-infused spaces to bespoke sedation, we prioritize your peace of mind." }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start space-x-8 group">
+                      <div className="text-3xl font-serif italic text-slate-200 group-hover:text-blue-500 transition-all duration-700 group-hover:translate-x-1">0{i+1}.</div>
+                      <div className="pt-2">
+                        <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-900 mb-3 group-hover:text-blue-900 transition-colors">{item.title}</h4>
+                        <p className="text-sm text-slate-500 leading-relaxed max-w-xs">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+  
+            <div className="relative pt-12">
+              {/* Parallax Image Grid with Luxury Shadows */}
+              <motion.div
+                style={{ y: y1 }}
+                className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden editorial-shadow mb-24 group"
+              >
+                <motion.img
+                  initial={{ scale: 1.1 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 2, ease: "easeOut" }}
+                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000"
+                  alt="Modern Dentistry"
+                  className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-slate-900/10 mix-blend-multiply" />
+                <div className="absolute inset-0 border border-white/20 rounded-3xl" />
+              </motion.div>
+  
               <motion.div
                 style={{ y: y2 }}
-                className="lg:absolute -left-20 top-1/2 w-[60%] aspect-square bg-blue-900 p-12 text-white flex flex-col justify-center rounded-[40px] shadow-2xl"
+                className="lg:absolute -left-32 top-1/3 w-[80%] bg-white p-16 flex flex-col justify-center rounded-3xl luxury-shadow z-20"
               >
-              <Star className="w-8 h-8 text-blue-300 mb-6 fill-blue-300" />
-              <p className="text-2xl font-serif italic mb-8 leading-relaxed">
-                "Their approach to patient care is fundamentally different. It's the first time I've felt truly understood by a clinician."
-              </p>
-              <p className="text-[10px] tracking-[0.3em] font-bold uppercase opacity-60">James Harrington — Patient</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mt-40 lg:ml-20 max-w-sm"
-            >
-               <h4 className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-4">Commitment</h4>
-               <p className="text-slate-600 leading-relaxed">
-                 Located in the heart of Eastside, our practice serves as a cornerstone for those who seek high-performance dental care without compromise.
-               </p>
-               <div className="mt-8 h-px w-20 bg-blue-100" />
-            </motion.div>
+                <div className="flex gap-1 mb-8">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 text-amber-400 fill-amber-400" />
+                  ))}
+                </div>
+                <p className="text-2xl font-serif italic text-slate-800 mb-10 leading-snug tracking-tight">
+                  "Their approach to patient care is fundamentally different. It's the first time I've felt truly understood by a clinician."
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-[1px] bg-slate-200" />
+                  <p className="text-[9px] tracking-[0.4em] font-bold uppercase text-slate-400 italic">James Harrington — Patient</p>
+                </div>
+              </motion.div>
+  
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.5 }}
+                className="mt-64 lg:ml-auto max-w-sm text-right"
+              >
+                 <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-6 flex items-center justify-end gap-3">
+                    <span className="w-8 h-[1px] bg-blue-500/30" />
+                    Commitment
+                 </h4>
+                 <p className="text-sm text-slate-400 leading-relaxed italic font-light">
+                   Located in the heart of Eastside, our practice serves as a cornerstone for those who seek high-performance dental care without compromise.
+                 </p>
+              </motion.div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
 }
