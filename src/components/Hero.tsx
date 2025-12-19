@@ -5,12 +5,17 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Shield, Star, Users } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
 import { MouseParallax } from "./ui/MouseParallax";
+import { GeometricAccent, CornerAccent } from "./ui/Accents";
 
 export function Hero() {
   const titleWords = "Artistry in Modern Dentistry".split(" ");
 
   return (
     <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background">
+      {/* Visual Accents */}
+      <GeometricAccent className="absolute top-20 right-20 w-40 h-40 text-brand-blue-500 hidden xl:block" />
+      <CornerAccent className="absolute top-40 left-10 hidden xl:block" />
+      <CornerAccent className="absolute bottom-40 right-10 rotate-180 hidden xl:block" />
       {/* Atmospheric Light Leaks */}
       <div className="light-leak top-[-10%] left-[-10%] opacity-20" />
       <div className="light-leak bottom-[-10%] right-[-10%] opacity-15 rotate-180" />

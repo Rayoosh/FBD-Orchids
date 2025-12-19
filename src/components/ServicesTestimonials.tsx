@@ -8,7 +8,8 @@ import {
   Smile, 
   ShieldCheck, 
   ArrowRight,
-  Quote
+  Quote,
+  Star
 } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
 

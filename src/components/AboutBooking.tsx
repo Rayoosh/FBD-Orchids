@@ -168,6 +168,4 @@ export function AboutBooking() {
         </div>
       </section>
     );
-
-  );
 }
