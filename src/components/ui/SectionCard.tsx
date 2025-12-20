@@ -54,13 +54,14 @@ export function SectionCard({
   
   const totalContainerHeight = isMobile ? "auto" : Math.max(1, viewportHeight + scrollDistance + overlapAmount + bufferAmount);
 
-  const { scrollYProgress: internalProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end end"],
-  });
+    const { scrollYProgress: internalProgress } = useScroll({
+      target: containerRef,
+      offset: ["start end", "end end"],
+    });
+  
+    // Use raw progress to avoid "double-smoothing" with Lenis
+    const safeProgress = internalProgress;
 
-  // Ensure progress is always a valid number
-  const safeProgress = useTransform(internalProgress, (v) => isNaN(v) ? 0 : v);
 
   // Calculate the progress points based on the new total height
   const entryEnd = !isMobile && typeof totalContainerHeight === "number" && totalContainerHeight > 0 ? viewportHeight / totalContainerHeight : 0;
@@ -72,9 +73,9 @@ export function SectionCard({
     return isNaN(val) ? 1 : Math.max(0, Math.min(1, val));
   });
   
-  const yEntry = useTransform(entryProgress, (v) => `${(v - 1) * 100}%`);
+    const yEntry = useTransform(entryProgress, [0, 1], [viewportHeight, 0]);
 
-  const coverProgress = useTransform(safeProgress, (v) => {
+    const coverProgress = useTransform(safeProgress, (v) => {
     const start = Math.max(0.001, contentEnd);
     const end = Math.max(0.002, coverEnd);
     const val = (v - start) / (end - start || 1);
@@ -134,7 +135,7 @@ export function SectionCard({
           willChange: "transform"
         }}
       >
-          <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden transform-gpu">
+          <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
             <motion.div
               style={{ 
                 y: index === 0 ? 0 : yEntry,
@@ -143,7 +144,7 @@ export function SectionCard({
                 willChange: "transform, opacity"
               }}
               className={cn(
-                "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] ring-1 backdrop-blur-xl",
+                "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] ring-1 backdrop-blur-xl transform-gpu",
                 isDark ? "ring-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]" : "ring-black/10",
                 bgColor,
                 className
