@@ -30,19 +30,19 @@ export default function Home() {
       <SectionIndex />
       
       <div className="relative w-full">
-        <SectionCard index={0} bgColor="bg-white/80 backdrop-blur-3xl">
+        <SectionCard index={0} bgColor="bg-white/70 backdrop-blur-3xl">
           <Hero />
         </SectionCard>
 
-        <SectionCard index={1} bgColor="bg-slate-50/80 backdrop-blur-3xl">
+        <SectionCard index={1} bgColor="bg-slate-50/70 backdrop-blur-3xl">
           <TrustExperience />
         </SectionCard>
 
-        <SectionCard index={2} bgColor="bg-slate-50/80 backdrop-blur-3xl">
+        <SectionCard index={2} bgColor="bg-slate-50/70 backdrop-blur-3xl">
           <ServicesTestimonials />
         </SectionCard>
 
-        <SectionCard index={3} bgColor="bg-white/80 backdrop-blur-3xl">
+        <SectionCard index={3} bgColor="bg-white/70 backdrop-blur-3xl">
           <AboutBooking />
           <Footer />
         </SectionCard>
