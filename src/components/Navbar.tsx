@@ -6,11 +6,13 @@ import { Menu, X, Phone, Shield, Users, Stethoscope, Sparkles } from "lucide-rea
 import { Magnetic } from "./ui/Magnetic";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -35,8 +37,8 @@ export function Navbar() {
   return (
     <nav 
       className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 rounded-full border ring-1 ${
-          isScrolled 
-            ? "py-2 px-3 bg-white/70 backdrop-blur-3xl backdrop-saturate-[1.8] border-white ring-slate-900/5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.2),0_8px_20px_-8px_rgba(0,0,0,0.1)] w-auto" 
+          (isScrolled || isMobile)
+            ? "py-2 px-3 bg-white/70 backdrop-blur-3xl backdrop-saturate-[1.8] border-white ring-slate-900/5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.2),0_8px_20px_-8px_rgba(0,0,0,0.1)] w-auto min-w-[280px] md:min-w-0" 
             : "py-4 px-6 bg-white/40 backdrop-blur-2xl backdrop-saturate-[1.4] border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl editorial-shadow"
       }`}
     >
@@ -45,21 +47,21 @@ export function Navbar() {
       <div className="absolute inset-0 rounded-full pointer-events-none border-t border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]" />
       <div className="absolute -inset-[1px] rounded-full pointer-events-none border border-black/5 opacity-10" />
       
-      <div className={`flex items-center justify-between ${isScrolled ? "gap-12" : ""}`}>
-        <div className={isScrolled ? "hidden md:block" : "block"}>
+      <div className={`flex items-center justify-between ${(isScrolled || isMobile) ? "gap-4 md:gap-12" : ""}`}>
+        <div className={(isScrolled || isMobile) ? "hidden sm:block" : "block"}>
           <Magnetic strength={0.1}>
               <Link href="/" className="flex flex-col group">
-                <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 premium-gradient-text ${isScrolled ? "text-lg" : "text-2xl"}`}>
+                <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 premium-gradient-text ${(isScrolled || isMobile) ? "text-lg" : "text-2xl"}`}>
                   FREEMANS
                 </span>
-                <span className={`text-[7px] tracking-[0.5em] text-slate-400 font-bold uppercase transition-all duration-500 group-hover:text-brand-blue-500 ${isScrolled ? "hidden" : "block"}`}>
+                <span className={`text-[7px] tracking-[0.5em] text-slate-400 font-bold uppercase transition-all duration-500 group-hover:text-brand-blue-500 ${(isScrolled || isMobile) ? "hidden" : "block"}`}>
                   Bay Dental
                 </span>
               </Link>
           </Magnetic>
         </div>
 
-        <div className={`flex items-center ${isScrolled ? "gap-2" : "gap-6 lg:gap-10"}`}>
+        <div className={`hidden md:flex items-center ${(isScrolled || isMobile) ? "gap-2" : "gap-6 lg:gap-10"}`}>
           {navLinks.map((link, index) => (
               <Link 
                 key={link.name} 
@@ -93,14 +95,14 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className={`hidden lg:flex items-center ${isScrolled ? "gap-6" : "gap-10"}`}>
-            <div className={isScrolled ? "hidden xl:block" : "block"}>
+        <div className={`flex items-center ${(isScrolled || isMobile) ? "gap-3 md:gap-6" : "gap-10"}`}>
+            <div className={`hidden ${(isScrolled || isMobile) ? "xl:block" : "lg:block"}`}>
               <Magnetic strength={0.2}>
                   <a href="tel:093613610" className="flex items-center gap-3 text-brand-blue-900 group">
-                    <div className={`rounded-full border border-brand-blue-100 flex items-center justify-center group-hover:bg-brand-blue-600 group-hover:text-white group-hover:border-transparent transition-all duration-500 luxury-shadow ${isScrolled ? "w-8 h-8" : "w-10 h-10"}`}>
+                    <div className={`rounded-full border border-brand-blue-100 flex items-center justify-center group-hover:bg-brand-blue-600 group-hover:text-white group-hover:border-transparent transition-all duration-500 luxury-shadow ${(isScrolled || isMobile) ? "w-8 h-8" : "w-10 h-10"}`}>
                       <Phone className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </div>
-                  {!isScrolled && (
+                  {!(isScrolled || isMobile) && (
                     <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-500 group-hover:text-brand-blue-900 transition-colors">(09) 361 3610</span>
                   )}
                 </a>
@@ -109,21 +111,20 @@ export function Navbar() {
           <Magnetic>
             <Button 
               variant="premium" 
-              className={isScrolled ? "h-10 px-6" : "h-12 px-8"}
+              className={(isScrolled || isMobile) ? "h-9 px-4 text-xs md:h-10 md:px-6 md:text-sm" : "h-12 px-8"}
               onClick={handleBookClick}
             >
               Book
             </Button>
           </Magnetic>
+          
+          <button 
+            className="md:hidden text-slate-900 p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-
-
-        <button 
-          className="lg:hidden text-slate-900"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
 
       <AnimatePresence>

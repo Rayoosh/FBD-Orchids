@@ -2,8 +2,23 @@
 
 import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
 import React, { Suspense } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function BackgroundGradient() {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return (
+      <div 
+        className="fixed inset-0 -z-10 h-screen w-screen overflow-hidden pointer-events-none"
+        style={{
+          background: "linear-gradient(135deg, #00ccff 0%, #dbd7db 50%, #008ef3 100%)",
+          opacity: 0.4
+        }}
+      />
+    );
+  }
+
   return (
     <div className="fixed inset-0 -z-10 h-screen w-screen overflow-hidden pointer-events-none">
       <Suspense fallback={null}>
