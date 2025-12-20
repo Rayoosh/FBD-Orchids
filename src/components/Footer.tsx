@@ -1,82 +1,128 @@
 "use client";
 
 import Link from "next/link";
-import { Instagram, Facebook, Twitter, ArrowUpRight } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Twitter, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  const footerLinks = {
+    practice: [
+      { name: "Clinical Mastery", href: "#experience" },
+      { name: "Digital Workflow", href: "#services" },
+      { name: "Our Story", href: "#experience" },
+      { name: "Careers", href: "#" },
+    ],
+    services: [
+      { name: "Cosmetic Design", href: "#services" },
+      { name: "Implant Center", href: "#services" },
+      { name: "Full Mouth Mastery", href: "#services" },
+      { name: "Orthodontics", href: "#services" },
+    ],
+    social: [
+      { icon: Instagram, href: "https://instagram.com", name: "Instagram" },
+      { icon: Facebook, href: "https://facebook.com", name: "Facebook" },
+      { icon: Linkedin, href: "https://linkedin.com", name: "LinkedIn" },
+      { icon: Twitter, href: "https://twitter.com", name: "Twitter" },
+    ]
+  };
+
   return (
-    <footer className="bg-brand-blue-900 text-white pt-40 pb-20 overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-accent/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
-      
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-24 mb-40">
-          <div>
-            <h2 className="text-display text-[10px] text-accent mb-12 tracking-[0.4em]">Connect</h2>
-            <h3 className="text-6xl md:text-8xl font-serif font-light leading-[0.9] tracking-tighter mb-16">
-              Experience the <br />
-              <span className="text-serif-italic pl-12 text-accent">Difference.</span>
-            </h3>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
-              <div className="space-y-6">
-                <h4 className="text-display text-[9px] text-white/40 tracking-widest">Navigation</h4>
-                <ul className="space-y-4">
-                  {["Clinical Mastery", "The Experience", "Stories", "Inquire"].map((item) => (
-                    <li key={item}>
-                      <Link href={`#${item.toLowerCase().replace(" ", "-")}`} className="text-sm font-light hover:text-accent transition-colors">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+    <footer className="w-full bg-transparent pt-20 pb-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
+          <div className="lg:col-span-1">
+            <Link href="/" className="flex items-center gap-3 mb-8 group">
+              <div className="w-10 h-10 bg-brand-blue-900 rounded-xl flex items-center justify-center text-white font-display text-xl font-bold transition-transform group-hover:scale-105">
+                E
               </div>
-              <div className="space-y-6">
-                <h4 className="text-display text-[9px] text-white/40 tracking-widest">Specialties</h4>
-                <ul className="space-y-4">
-                  {["Restorative", "Aesthetic", "Sedation", "General"].map((item) => (
-                    <li key={item}>
-                      <Link href="#services" className="text-sm font-light hover:text-accent transition-colors">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <div className="flex flex-col">
+                <span className="text-brand-blue-900 font-display font-bold tracking-tight text-lg leading-none">
+                  EASTSIDE
+                </span>
+                <span className="text-brand-blue-400 font-sans text-[10px] tracking-[0.2em] font-medium leading-none mt-1">
+                  DENTAL DESIGN
+                </span>
               </div>
-              <div className="space-y-6">
-                <h4 className="text-display text-[9px] text-white/40 tracking-widest">Studio</h4>
-                <p className="text-sm font-light leading-relaxed opacity-60">
-                  Freemans Bay, <br />
-                  Auckland, NZ 1011
-                </p>
-                <div className="flex space-x-4">
-                  <Instagram className="w-4 h-4 opacity-40 hover:opacity-100 cursor-pointer transition-opacity" />
-                  <Facebook className="w-4 h-4 opacity-40 hover:opacity-100 cursor-pointer transition-opacity" />
-                  <Twitter className="w-4 h-4 opacity-40 hover:opacity-100 cursor-pointer transition-opacity" />
-                </div>
-              </div>
+            </Link>
+            <p className="text-slate-500 font-sans text-sm leading-relaxed mb-8 max-w-xs">
+              Defining the future of clinical excellence and aesthetic mastery in modern dentistry.
+            </p>
+            <div className="flex items-center gap-4">
+              {footerLinks.social.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-brand-blue-900 hover:border-brand-blue-900 transition-all duration-300"
+                >
+                  <social.icon className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          <div className="flex flex-col justify-end">
-             <div className="bg-white/5 backdrop-blur-xl p-12 rounded-sm border border-white/10 luxury-shadow">
-               <p className="text-display text-[10px] text-accent mb-6">Patient Inquiry</p>
-               <p className="text-3xl font-serif font-light mb-8">Ready to transform your narrative?</p>
-               <Link href="#booking" className="flex items-center space-x-4 group text-display text-xs">
-                 <span className="pb-1 border-b border-white/20 group-hover:border-accent transition-colors">Begin Your Visit</span>
-                 <ArrowUpRight className="w-4 h-4 group-hover:text-accent transition-colors" />
-               </Link>
-             </div>
+          <div>
+            <h4 className="font-display font-bold text-brand-blue-900 mb-8 tracking-tight">The Practice</h4>
+            <ul className="flex flex-col gap-4">
+              {footerLinks.practice.map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    href={link.href}
+                    className="text-slate-500 hover:text-brand-blue-900 font-sans text-sm transition-colors flex items-center gap-1 group"
+                  >
+                    {link.name}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-display font-bold text-brand-blue-900 mb-8 tracking-tight">Services</h4>
+            <ul className="flex flex-col gap-4">
+              {footerLinks.services.map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    href={link.href}
+                    className="text-slate-500 hover:text-brand-blue-900 font-sans text-sm transition-colors flex items-center gap-1 group"
+                  >
+                    {link.name}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-display font-bold text-brand-blue-900 mb-8 tracking-tight">Newsletter</h4>
+            <p className="text-slate-500 font-sans text-sm mb-6">
+              Join our exclusive circle for clinical insights and practice updates.
+            </p>
+            <div className="relative">
+              <input 
+                type="email" 
+                placeholder="Email address"
+                className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-sm font-sans focus:outline-none focus:border-brand-blue-900 transition-colors"
+              />
+              <button className="absolute right-2 top-2 bottom-2 bg-brand-blue-900 text-white px-6 rounded-xl font-sans text-xs font-bold hover:bg-brand-blue-800 transition-colors">
+                Join
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="pt-20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-[10px] text-white/30 uppercase tracking-[0.3em] font-display">
-          <p>© {new Date().getFullYear()} Freemans Bay Dental Practice</p>
-          <div className="flex space-x-12">
-            <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
-            <Link href="#" className="hover:text-white transition-colors">Accessibility</Link>
+        <div className="pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-slate-400 font-sans text-xs">
+            © {currentYear} Eastside Dental Design. All rights reserved.
+          </p>
+          <div className="flex items-center gap-8">
+            <Link href="#" className="text-slate-400 hover:text-brand-blue-900 font-sans text-xs transition-colors">Privacy Policy</Link>
+            <Link href="#" className="text-slate-400 hover:text-brand-blue-900 font-sans text-xs transition-colors">Terms of Service</Link>
           </div>
-            <p className="italic lowercase opacity-20">Art of Clinical Mastery</p>
         </div>
       </div>
     </footer>

@@ -1,155 +1,209 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Phone, MapPin, Clock, Calendar, ArrowUpRight } from "lucide-react";
-import { Magnetic } from "./ui/Magnetic";
-import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { toast } from "sonner";
+import { Calendar, Clock, User, Phone, Mail, MessageSquare, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const bookingSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().min(10, "Invalid phone number"),
+  service: z.string().min(1, "Please select a service"),
+  message: z.string().optional(),
+});
+
+type BookingFormValues = z.infer<typeof bookingSchema>;
 
 export function AboutBooking() {
-  return (
-    <section id="about" className="py-32 md:py-48 bg-transparent overflow-hidden relative min-h-full flex items-center">
-      {/* Subtle Glows */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-50/50 blur-[120px] rounded-full -translate-x-1/2 pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* About / Philosophy Section - Asymmetrical Editorial */}
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-32 items-center mb-72">
-          <div className="relative order-2 lg:order-1">
-            <ImageReveal 
-              src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=1200"
-              alt="Bespoke Dental Studio"
-              className="aspect-[4/5] editorial-shadow"
-            />
-            
-            <Reveal delay={0.5} y={30}>
-              <div className="absolute -bottom-16 -right-16 bg-white p-12 luxury-shadow rounded-2xl hidden md:block border border-black/5">
-                <p className="text-[9px] mb-4 tracking-[0.4em] font-bold uppercase text-slate-400">Foundation</p>
-                <p className="text-4xl font-serif italic text-slate-900">Est. 2012</p>
-              </div>
-            </Reveal>
-          </div>
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<BookingFormValues>({
+    resolver: zodResolver(bookingSchema),
+  });
 
-          <div>
-            <Reveal>
-              <div className="inline-flex items-center gap-3 mb-8">
-                <div className="w-8 h-[1px] bg-blue-500" />
-                <span className="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em]">The Philosophy</span>
-              </div>
-            </Reveal>
-            
-                <TextReveal 
-                  text="Accessible Care." 
-                  className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.85] mb-12 tracking-tighter premium-gradient-text"
-                />
-              
-              <Reveal delay={0.4}>
-                <p className="text-xl text-slate-500 leading-relaxed mb-16 font-light max-w-lg">
-                  At Freemans Bay Dental, we believe dentistry should be accessible without compromising on quality. We focus on ethical care and long-term patient results.
-                </p>
-              </Reveal>
-              
-              <div className="grid grid-cols-2 gap-12">
-                {[
-                  { label: "Community Choice", sub: "Central Auckland's trusted practitioners" },
-                  { label: "Clinical Mastery", sub: "Comprehensive care for all ages" }
-                ].map((item, i) => (
-                <Reveal key={i} delay={0.5 + i * 0.1}>
-                  <div className="group">
-                    <p className="text-[9px] tracking-[0.3em] font-bold uppercase text-slate-400 mb-2 group-hover:text-brand-blue-500 transition-colors">{item.label}</p>
-                    <p className="text-sm text-slate-900 font-medium">{item.sub}</p>
-                    <div className="w-full h-px bg-slate-100 mt-4 group-hover:bg-brand-blue-200 transition-all duration-700" />
-                  </div>
-                </Reveal>
-              ))}
+  const onSubmit = async (data: BookingFormValues) => {
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      console.log("Booking data:", data);
+      toast.success("Booking request sent! We'll contact you shortly.");
+      reset();
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
+  const services = [
+    "Cosmetic Dentistry",
+    "Dental Implants",
+    "General Dentistry",
+    "Orthodontics",
+    "Periodontics",
+    "Other",
+  ];
+
+  return (
+    <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="space-y-8">
+        <div className="space-y-4">
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-brand-blue-600 font-sans text-xs font-bold uppercase tracking-[0.3em]"
+          >
+            Reservations
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-brand-blue-900 leading-[1.1] tracking-tight"
+          >
+            Begin Your <br />
+            <span className="text-brand-blue-400 italic">Transformation.</span>
+          </motion.h2>
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="text-slate-500 font-sans text-lg leading-relaxed max-w-md"
+        >
+          Schedule your private consultation with our clinical masters. Experience dentistry redefined through precision and artistry.
+        </motion.p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+          <div className="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-slate-100">
+            <div className="w-10 h-10 rounded-xl bg-brand-blue-50 flex items-center justify-center text-brand-blue-600 shrink-0">
+              <Clock className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-display font-bold text-brand-blue-900 text-sm">Response Time</h4>
+              <p className="text-slate-500 font-sans text-xs mt-1">Within 2 business hours</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-slate-100">
+            <div className="w-10 h-10 rounded-xl bg-brand-blue-50 flex items-center justify-center text-brand-blue-600 shrink-0">
+              <Calendar className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-display font-bold text-brand-blue-900 text-sm">Availability</h4>
+              <p className="text-slate-500 font-sans text-xs mt-1">Mon - Fri, 8am - 6pm</p>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Concierge Inquiry Experience */}
-        <Reveal width="100%" y={40}>
-          <div id="booking" className="grid lg:grid-cols-[0.8fr_1.2fr] bg-brand-blue-900 rounded-3xl overflow-hidden editorial-shadow border border-white/5">
-            <div className="p-16 lg:p-24 bg-brand-blue-900 text-white flex flex-col justify-between border-r border-white/5">
-              <div>
-                <div className="inline-flex items-center gap-3 mb-12">
-                   <div className="w-1 h-1 rounded-full bg-brand-blue-400" />
-                   <h2 className="text-[10px] text-brand-blue-400 tracking-[0.4em] font-bold uppercase">Concierge Inquiry</h2>
-                </div>
-                <h3 className="text-5xl md:text-6xl font-serif leading-[0.9] mb-16 tracking-tighter">
-                  Begin Your <br />
-                  <span className="italic text-brand-blue-400 font-light">Transformation.</span>
-                </h3>
-                
-                <div className="space-y-12">
-                    {[
-                      { icon: Phone, label: "Voice", value: "(09) 361 3610" },
-                      { icon: MapPin, label: "Visit", value: "40 College Hill, Freemans Bay" },
-                      { icon: Clock, label: "Availability", value: "Mon — Fri: 08:30 — 17:00" }
-                    ].map((item, i) => (
-                    <div key={i} className="flex items-start space-x-8 group">
-                      <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-brand-blue-900 transition-all duration-500">
-                        <item.icon className="w-4 h-4" strokeWidth={1.5} />
-                      </div>
-                      <div>
-                        <p className="text-[8px] text-white/30 mb-1 font-bold uppercase tracking-widest">{item.label}</p>
-                        <p className="text-lg font-light tracking-tight">{item.value}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        className="relative bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl shadow-brand-blue-900/5 border border-slate-100"
+      >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
+              <div className="relative">
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
+                <input
+                  {...register("name")}
+                  className={cn(
+                    "w-full bg-slate-50 border border-slate-100 rounded-2xl pl-12 pr-6 py-4 text-sm font-sans focus:outline-none focus:border-brand-blue-600 focus:bg-white transition-all",
+                    errors.name && "border-red-200 bg-red-50/30"
+                  )}
+                  placeholder="John Doe"
+                />
               </div>
-
-              <div className="mt-24 pt-12 border-t border-white/5 flex items-center space-x-6 group cursor-pointer">
-                <div className="p-4 rounded-xl bg-white/5 group-hover:bg-white group-hover:text-brand-blue-900 transition-all duration-500">
-                  <Calendar className="w-5 h-5 text-brand-blue-400" />
-                </div>
-                <p className="text-xs font-light text-white/40 tracking-wide">Bespoke scheduling available for <br /> urgent clinical matters.</p>
-              </div>
+              {errors.name && <p className="text-[10px] text-red-500 ml-1">{errors.name.message}</p>}
             </div>
 
-            <div className="p-16 lg:p-24 bg-white relative">
-              <form className="grid gap-12">
-                <div className="grid md:grid-cols-2 gap-12">
-                  <div className="space-y-4 group">
-                    <Label className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] group-focus-within:text-brand-blue-500 transition-colors">Full Name</Label>
-                    <Input placeholder="Alexander Vance" className="border-0 border-b border-slate-100 rounded-none px-0 h-12 focus-visible:ring-0 focus-visible:border-brand-blue-500 transition-all bg-transparent shadow-none placeholder:text-slate-200" />
-                  </div>
-                  <div className="space-y-4 group">
-                    <Label className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] group-focus-within:text-brand-blue-500 transition-colors">Contact Number</Label>
-                    <Input placeholder="+64" className="border-0 border-b border-slate-100 rounded-none px-0 h-12 focus-visible:ring-0 focus-visible:border-brand-blue-500 transition-all bg-transparent shadow-none placeholder:text-slate-200" />
-                  </div>
-                </div>
-                
-                  <div className="space-y-4 group">
-                    <Label className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] group-focus-within:text-brand-blue-500 transition-colors">Area of Interest</Label>
-                    <select className="w-full border-0 border-b border-slate-100 rounded-none px-0 h-12 focus:outline-none focus:border-brand-blue-500 transition-all bg-transparent text-sm text-slate-600 appearance-none cursor-pointer">
-                      <option>General Check-up</option>
-                      <option>Cosmetic & Whitening</option>
-                      <option>Emergency Care (ACC)</option>
-                      <option>Free Adolescent Care (Year 9-18)</option>
-                    </select>
-                  </div>
-
-                <div className="space-y-4 group">
-                  <Label className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] group-focus-within:text-brand-blue-500 transition-colors">Message</Label>
-                  <Textarea placeholder="How may we curate your experience?" className="border-0 border-b border-slate-100 rounded-none px-0 min-h-[120px] focus-visible:ring-0 focus-visible:border-brand-blue-500 transition-all bg-transparent resize-none shadow-none placeholder:text-slate-200" />
-                </div>
-
-                <div className="pt-8">
-                  <Magnetic strength={0.2}>
-                    <Button variant="premium" className="w-full h-16 luxury-shadow">
-                      Request Consultation
-                    </Button>
-                  </Magnetic>
-                </div>
-              </form>
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Email</label>
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
+                <input
+                  {...register("email")}
+                  className={cn(
+                    "w-full bg-slate-50 border border-slate-100 rounded-2xl pl-12 pr-6 py-4 text-sm font-sans focus:outline-none focus:border-brand-blue-600 focus:bg-white transition-all",
+                    errors.email && "border-red-200 bg-red-50/30"
+                  )}
+                  placeholder="john@example.com"
+                />
+              </div>
+              {errors.email && <p className="text-[10px] text-red-500 ml-1">{errors.email.message}</p>}
             </div>
           </div>
-        </Reveal>
-      </div>
-    </section>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Phone</label>
+              <div className="relative">
+                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
+                <input
+                  {...register("phone")}
+                  className={cn(
+                    "w-full bg-slate-50 border border-slate-100 rounded-2xl pl-12 pr-6 py-4 text-sm font-sans focus:outline-none focus:border-brand-blue-600 focus:bg-white transition-all",
+                    errors.phone && "border-red-200 bg-red-50/30"
+                  )}
+                  placeholder="(425) 555-0123"
+                />
+              </div>
+              {errors.phone && <p className="text-[10px] text-red-500 ml-1">{errors.phone.message}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Service</label>
+              <select
+                {...register("service")}
+                className={cn(
+                  "w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-sans focus:outline-none focus:border-brand-blue-600 focus:bg-white appearance-none transition-all",
+                  errors.service && "border-red-200 bg-red-50/30"
+                )}
+              >
+                <option value="">Select a service</option>
+                {services.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+              {errors.service && <p className="text-[10px] text-red-500 ml-1">{errors.service.message}</p>}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Message (Optional)</label>
+            <div className="relative">
+              <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-slate-300" />
+              <textarea
+                {...register("message")}
+                rows={4}
+                className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-12 pr-6 py-4 text-sm font-sans focus:outline-none focus:border-brand-blue-600 focus:bg-white transition-all resize-none"
+                placeholder="Tell us about your goals..."
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-brand-blue-900 text-white py-5 rounded-2xl font-sans font-bold text-sm uppercase tracking-[0.2em] hover:bg-brand-blue-800 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:scale-100 group shadow-xl shadow-brand-blue-900/10"
+          >
+            {isSubmitting ? "Processing..." : "Submit Reservation"}
+            {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+          </button>
+        </form>
+      </motion.div>
+    </div>
   );
 }
