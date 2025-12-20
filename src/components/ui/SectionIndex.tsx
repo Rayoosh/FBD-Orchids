@@ -7,7 +7,7 @@ const sections = [
   { id: 0, label: "Perspective", anchor: "home" },
   { id: 1, label: "Philosophy", anchor: "experience" },
   { id: 2, label: "Procedures", anchor: "services" },
-  { id: 3, label: "Partnership", anchor: "booking" },
+    { id: 3, label: "Partnership", anchor: "partnership" },
 ];
 
 interface SectionIndexProps {

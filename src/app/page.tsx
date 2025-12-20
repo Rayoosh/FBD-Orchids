@@ -44,7 +44,7 @@ export default function Home() {
           <ServicesTestimonials />
         </SectionCard>
 
-        <SectionCard id="booking" index={3} bgColor="bg-white/70 backdrop-blur-3xl">
+          <SectionCard id="partnership" index={3} bgColor="bg-white/70 backdrop-blur-3xl">
           <AboutBooking />
           <Footer />
         </SectionCard>

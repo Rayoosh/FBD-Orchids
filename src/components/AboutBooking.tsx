@@ -101,7 +101,7 @@ export function AboutBooking() {
 
         {/* Concierge Inquiry Experience */}
         <Reveal width="100%" y={40}>
-          <div id="booking" className="grid lg:grid-cols-[0.8fr_1.2fr] bg-brand-blue-900 rounded-3xl overflow-hidden editorial-shadow border border-white/5">
+            <div id="booking" className="grid lg:grid-cols-[0.8fr_1.2fr] bg-brand-blue-900 rounded-3xl overflow-hidden editorial-shadow border border-white/5 scroll-mt-24">
             <div className="p-16 lg:p-24 bg-brand-blue-900 text-white flex flex-col justify-between border-r border-white/5">
               <div>
                 <div className="inline-flex items-center gap-3 mb-12">
