@@ -7,6 +7,7 @@ import { ServicesTestimonials } from "@/components/ServicesTestimonials";
 import { AboutBooking } from "@/components/AboutBooking";
 import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
+import { CursorTrail } from "@/components/CursorTrail";
 import { SpotlightOverlay } from "@/components/SpotlightOverlay";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { SectionCard } from "@/components/ui/SectionCard";
@@ -23,6 +24,7 @@ export default function Home() {
   return (
     <main className="relative w-full bg-transparent selection:bg-brand-blue-100 selection:text-brand-blue-900">
       <BackgroundGradient />
+      <CursorTrail />
       <CustomCursor />
       <SpotlightOverlay />
       <div className="grain-overlay" />
