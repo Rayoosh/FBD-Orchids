@@ -1,21 +1,17 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-interface Particle {
+interface Point {
   x: number;
   y: number;
-  vx: number;
-  vy: number;
-  alpha: number;
-  size: number;
-  color: string;
 }
 
 export function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particles = useRef<Particle[]>([]);
-  const mouse = useRef({ x: 0, y: 0, moved: false });
+  const pointsRef = useRef<Point[]>([]);
+  const mouseRef = useRef<Point>({ x: 0, y: 0 });
+  const maxPoints = 25; // Number of segments in the fluid trail
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,74 +20,105 @@ export function CursorTrail() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const resizeCanvas = () => {
+    const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
     const handleMouseMove = (e: MouseEvent) => {
-      mouse.current.x = e.clientX;
-      mouse.current.y = e.clientY;
-      mouse.current.moved = true;
-
-      // Add a few particles on move
-      for (let i = 0; i < 2; i++) {
-        particles.current.push({
-          x: e.clientX,
-          y: e.clientY,
-          vx: (Math.random() - 0.5) * 1,
-          vy: (Math.random() - 0.5) * 1,
-          alpha: 0.6,
-          size: Math.random() * 3 + 1,
-          color: Math.random() > 0.5 ? "#00ccff" : "#ffffff",
-        });
-      }
+      mouseRef.current = { x: e.clientX, y: e.clientY };
     };
 
+    window.addEventListener("resize", handleResize);
     window.addEventListener("mousemove", handleMouseMove);
+    handleResize();
 
-    const animate = () => {
+    // Initialize points
+    pointsRef.current = Array(maxPoints).fill({ x: mouseRef.current.x, y: mouseRef.current.y });
+
+    let animationFrameId: number;
+
+    const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < particles.current.length; i++) {
-        const p = particles.current[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= 0.01;
-        p.size *= 0.98;
+      // Follow the mouse with smoothing
+      let tempPoints = [...pointsRef.current];
+      let head = tempPoints[0];
+      
+      // Update head towards mouse
+      head.x += (mouseRef.current.x - head.x) * 0.45;
+      head.y += (mouseRef.current.y - head.y) * 0.45;
 
-        if (p.alpha <= 0 || p.size <= 0.5) {
-          particles.current.splice(i, 1);
-          i--;
-          continue;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color === "#ffffff" ? "255, 255, 255" : "0, 204, 255"}, ${p.alpha})`;
-        ctx.fill();
+      // Update the rest of the body to follow the head
+      for (let i = 1; i < maxPoints; i++) {
+        const prev = tempPoints[i - 1];
+        const curr = tempPoints[i];
+        curr.x += (prev.x - curr.x) * 0.35;
+        curr.y += (prev.y - curr.y) * 0.35;
       }
 
-      requestAnimationFrame(animate);
+      pointsRef.current = tempPoints;
+
+      if (tempPoints.length > 2) {
+        ctx.beginPath();
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.globalCompositeOperation = "screen";
+
+        // Create fluid gradient from head to tail
+        const gradient = ctx.createLinearGradient(
+          tempPoints[0].x, tempPoints[0].y,
+          tempPoints[maxPoints - 1].x, tempPoints[maxPoints - 1].y
+        );
+        gradient.addColorStop(0, "rgba(255, 255, 255, 0.8)");
+        gradient.addColorStop(0.2, "rgba(0, 204, 255, 0.6)");
+        gradient.addColorStop(1, "rgba(0, 204, 255, 0)");
+
+        ctx.strokeStyle = gradient;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "rgba(0, 204, 255, 0.4)";
+
+        // Draw smooth path using quadratic curves
+        ctx.moveTo(tempPoints[0].x, tempPoints[0].y);
+        
+        for (let i = 1; i < tempPoints.length - 2; i++) {
+          const xc = (tempPoints[i].x + tempPoints[i + 1].x) / 2;
+          const yc = (tempPoints[i].y + tempPoints[i + 1].y) / 2;
+          
+          // Gradually decrease line width for tapering effect
+          ctx.lineWidth = Math.max(0.5, 8 * (1 - i / maxPoints));
+          ctx.quadraticCurveTo(tempPoints[i].x, tempPoints[i].y, xc, yc);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(xc, yc);
+        }
+
+        // Final segments
+        ctx.quadraticCurveTo(
+          tempPoints[tempPoints.length - 2].x,
+          tempPoints[tempPoints.length - 2].y,
+          tempPoints[tempPoints.length - 1].x,
+          tempPoints[tempPoints.length - 1].y
+        );
+        ctx.stroke();
+      }
+
+      animationFrameId = requestAnimationFrame(render);
     };
 
-    const animationId = requestAnimationFrame(animate);
+    render();
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationId);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[9998]"
-      style={{ mixBlendMode: "screen" }}
+      className="pointer-events-none fixed inset-0 z-[100] h-full w-full"
     />
   );
 }
