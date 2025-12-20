@@ -48,7 +48,7 @@ export function CustomCursor() {
     
       return (
       <>
-        {/* Spotlight Glow */}
+        {/* Spotlight Glow - keeping this as it's not the 'dot' but adds atmosphere */}
         <motion.div
           className="fixed top-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px] pointer-events-none z-[9997]"
           style={{
@@ -59,31 +59,6 @@ export function CustomCursor() {
             opacity: isVisible ? 1 : 0,
             willChange: "transform, opacity"
           }}
-        />
-        <motion.div
-          className="fixed top-0 left-0 w-4 h-4 bg-blue-500 rounded-full pointer-events-none z-[9999] mix-blend-difference"
-          style={{
-            x: smoothX,
-            y: smoothY,
-            translateX: "-50%",
-            translateY: "-50%",
-            scale,
-            opacity,
-            willChange: "transform, opacity"
-          }}
-        />
-        <motion.div
-          className="fixed top-0 left-0 w-8 h-8 border border-blue-500/30 rounded-full pointer-events-none z-[9998]"
-          style={{
-            x: smoothX,
-            y: smoothY,
-            translateX: "-50%",
-            translateY: "-50%",
-            scale: isHovered ? 1.5 : 1,
-            opacity: isVisible ? 0.5 : 0,
-            willChange: "transform, opacity"
-          }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
         />
       </>
     );

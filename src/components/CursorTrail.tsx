@@ -48,13 +48,12 @@ export function CursorTrail() {
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Follow the mouse with smoothing (syncing to the "dot" feel)
+      // Follow the mouse directly
       let tempPoints = [...pointsRef.current];
       let head = tempPoints[0];
       
-      // Slower head movement to follow the cursor-delayed dot
-      head.x += (mouseRef.current.x - head.x) * 0.18;
-      head.y += (mouseRef.current.y - head.y) * 0.18;
+      head.x = mouseRef.current.x;
+      head.y = mouseRef.current.y;
 
       // Update the rest of the body for a liquid trail
       for (let i = 1; i < maxPoints; i++) {
