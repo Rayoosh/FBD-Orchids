@@ -14,6 +14,11 @@ export function SpotlightOverlay() {
 
     const xPos = useTransform(smoothX, (v) => `${v}px`);
     const yPos = useTransform(smoothY, (v) => `${v}px`);
+    
+    const backgroundTransform = useTransform(
+      [xPos, yPos],
+      ([x, y]) => `radial-gradient(600px circle at ${x} ${y}, rgba(59, 130, 246, 0.08), transparent 80%)`
+    );
 
     useEffect(() => {
       setIsMounted(true);
@@ -31,10 +36,7 @@ export function SpotlightOverlay() {
       <motion.div
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
         style={{ 
-          background: `radial-gradient(600px circle at var(--x) var(--y), rgba(59, 130, 246, 0.08), transparent 80%)`,
-          // @ts-ignore
-          "--x": xPos,
-          "--y": yPos,
+          background: backgroundTransform
         }}
       />
     );
