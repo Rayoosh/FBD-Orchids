@@ -54,6 +54,7 @@ const testimonials = [
 ];
 
 export function ServicesTestimonials() {
+  const isMobile = useIsMobile();
   return (
     <section className="bg-transparent h-full no-scrollbar py-24 md:py-32 px-6 md:px-24">
       {/* Services Section */}

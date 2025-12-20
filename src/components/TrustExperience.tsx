@@ -90,14 +90,11 @@ export function TrustExperience() {
             <div className="relative pt-12">
               {/* Parallax Image Grid with Luxury Shadows */}
                 <motion.div style={{ y: y1 }} className="mb-24">
-                  <ImageReveal 
-                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000" 
-                    alt="Modern Dentistry"
-                    className={cn(
-                      "editorial-shadow aspect-[4/5] rounded-3xl overflow-hidden transition-all duration-1000",
-                      isMobile ? "grayscale-0" : "grayscale hover:grayscale-0"
-                    )}
-                  />
+                    <ImageReveal 
+                      src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000" 
+                      alt="Modern Dentistry"
+                      className={`editorial-shadow aspect-[4/5] rounded-3xl overflow-hidden transition-all duration-1000 ${isMobile ? "grayscale-0" : "grayscale hover:grayscale-0"}`}
+                    />
                 </motion.div>
 
   
