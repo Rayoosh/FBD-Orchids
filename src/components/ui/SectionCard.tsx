@@ -64,35 +64,46 @@ export function SectionCard({
 
 
   // Calculate the progress points based on the new total height
-  const entryEnd = !isMobile && typeof totalContainerHeight === "number" && totalContainerHeight > 0 ? viewportHeight / totalContainerHeight : 0;
-  const contentEnd = !isMobile && typeof totalContainerHeight === "number" && totalContainerHeight > 0 ? (viewportHeight + scrollDistance) / totalContainerHeight : 0.5;
-  const coverEnd = !isMobile && typeof totalContainerHeight === "number" && totalContainerHeight > 0 ? (viewportHeight + scrollDistance + overlapAmount) / totalContainerHeight : 1;
+  const points = useMemo(() => {
+    if (isMobile || typeof totalContainerHeight !== "number" || totalContainerHeight <= 0) {
+      return { entryEnd: 0, contentEnd: 0.5, coverEnd: 1 };
+    }
+    return {
+      entryEnd: viewportHeight / totalContainerHeight,
+      contentEnd: (viewportHeight + scrollDistance) / totalContainerHeight,
+      coverEnd: (viewportHeight + scrollDistance + overlapAmount) / totalContainerHeight
+    };
+  }, [isMobile, totalContainerHeight, viewportHeight, scrollDistance, overlapAmount]);
 
-  const entryProgress = useTransform(safeProgress, (v) => {
-    const val = (v - 0) / (Math.max(0.001, entryEnd) - 0);
-    return isNaN(val) ? 1 : Math.max(0, Math.min(1, val));
-  });
-  
-    const yEntry = useTransform(entryProgress, [0, 1], [viewportHeight, 0]);
+  // Use array-based transforms for better performance in Chrome
+  // This avoids running JS functions on every scroll frame
+  const yEntry = useTransform(
+    safeProgress, 
+    [0, Math.max(0.001, points.entryEnd)], 
+    [viewportHeight, 0],
+    { clamp: true }
+  );
 
-    const coverProgress = useTransform(safeProgress, (v) => {
-    const start = Math.max(0.001, contentEnd);
-    const end = Math.max(0.002, coverEnd);
-    const val = (v - start) / (end - start || 1);
-    return isNaN(val) ? 0 : Math.max(0, Math.min(1, val));
-  });
+  const scale = useTransform(
+    safeProgress,
+    [points.contentEnd, Math.max(points.contentEnd + 0.001, points.coverEnd)],
+    [1, 0.96],
+    { clamp: true }
+  );
 
-  const scale = useTransform(coverProgress, (v) => 1 - (v * 0.04));
-  const opacity = useTransform(coverProgress, (v) => 1 - v);
+  const opacity = useTransform(
+    safeProgress,
+    [points.contentEnd, Math.max(points.contentEnd + 0.001, points.coverEnd)],
+    [1, 0],
+    { clamp: true }
+  );
 
-  const contentY = useTransform(safeProgress, (v) => {
-    if (isMobile) return 0;
-    const start = Math.max(0.001, entryEnd);
-    const end = Math.max(0.002, contentEnd);
-    const val = (v - start) / (end - start || 1);
-    const progress = isNaN(val) ? 0 : Math.max(0, Math.min(1, val));
-    return -progress * scrollDistance;
-  });
+  const contentY = useTransform(
+    safeProgress,
+    [points.entryEnd, Math.max(points.entryEnd + 0.001, points.contentEnd)],
+    [0, -scrollDistance],
+    { clamp: true }
+  );
 
   const zIndexValue = (index + 1) * 10;
 
@@ -124,32 +135,30 @@ export function SectionCard({
   }
 
   return (
-      <div 
-        id={id}
-        ref={containerRef} 
-        className={cn("relative w-full")}
-        style={{ 
-          height: totalContainerHeight,
-          zIndex: zIndexValue,
-          marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`,
-          willChange: "transform"
-        }}
-      >
-          <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
-            <motion.div
-              style={{ 
-                y: index === 0 ? 0 : yEntry,
-                scale, 
-                opacity,
-                willChange: "transform, opacity"
-              }}
-              className={cn(
-                "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] ring-1 backdrop-blur-xl transform-gpu",
-                isDark ? "ring-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]" : "ring-black/10",
-                bgColor,
-                className
-              )}
-            >
+        <div 
+          id={id}
+          ref={containerRef} 
+          className={cn("relative w-full")}
+          style={{ 
+            height: totalContainerHeight,
+            zIndex: zIndexValue,
+            marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`,
+          }}
+        >
+            <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
+              <motion.div
+                style={{ 
+                  y: index === 0 ? 0 : yEntry,
+                  scale, 
+                  opacity,
+                }}
+                className={cn(
+                  "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] ring-1 backdrop-blur-lg md:backdrop-blur-xl transform-gpu",
+                  isDark ? "ring-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)]" : "ring-black/5",
+                  bgColor,
+                  className
+                )}
+              >
               {/* Premium Inner Glow */}
               <div className={cn(
                 "absolute inset-0 pointer-events-none",
