@@ -120,7 +120,7 @@ export function SectionCard({
       >
         <div
           className={cn(
-            "relative w-full overflow-hidden rounded-[24px] shadow-lg ring-1",
+            "relative w-full rounded-[24px] shadow-lg ring-1",
             isDark ? "ring-white/10 bg-slate-900" : "ring-black/5",
             bgColor,
             className

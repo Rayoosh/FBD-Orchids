@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Heart, ShieldCheck, Clock, Award, Star, Sparkles } from "lucide-react";
 import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 const trustSignals = [
   { label: "General Care", icon: Heart },
@@ -14,13 +16,14 @@ const trustSignals = [
 
 export function TrustExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [-25, 25]);
+  const y1 = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [50, -50]);
+  const y2 = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [-25, 25]);
 
   return (
     <section ref={containerRef} id="experience" className="py-32 bg-transparent overflow-hidden relative min-h-full flex items-center">
@@ -86,13 +89,17 @@ export function TrustExperience() {
 
             <div className="relative pt-12">
               {/* Parallax Image Grid with Luxury Shadows */}
-              <motion.div style={{ y: y1 }} className="mb-24">
-                <ImageReveal 
-                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000" 
-                  alt="Modern Dentistry"
-                  className="editorial-shadow aspect-[4/5] rounded-3xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000"
-                />
-              </motion.div>
+                <motion.div style={{ y: y1 }} className="mb-24">
+                  <ImageReveal 
+                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000" 
+                    alt="Modern Dentistry"
+                    className={cn(
+                      "editorial-shadow aspect-[4/5] rounded-3xl overflow-hidden transition-all duration-1000",
+                      isMobile ? "grayscale-0" : "grayscale hover:grayscale-0"
+                    )}
+                  />
+                </motion.div>
+
   
               <motion.div
                 style={{ y: y2 }}

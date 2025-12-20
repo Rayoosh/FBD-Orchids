@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
 import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 const services = [
   {
@@ -72,13 +74,17 @@ export function ServicesTestimonials() {
         <div className="space-y-40">
           {services.map((service, index) => (
             <div key={index} className={`grid lg:grid-cols-12 gap-20 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-              <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <ImageReveal 
-                  src={service.image} 
-                  alt={service.title} 
-                  className="aspect-[16/9] md:aspect-[21/9] editorial-shadow grayscale hover:grayscale-0 transition-all duration-700 rounded-2xl overflow-hidden border border-black/5"
-                />
-              </div>
+                <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                  <ImageReveal 
+                    src={service.image} 
+                    alt={service.title} 
+                    className={cn(
+                      "aspect-[16/9] md:aspect-[21/9] editorial-shadow transition-all duration-700 rounded-2xl overflow-hidden border border-black/5",
+                      isMobile ? "grayscale-0" : "grayscale hover:grayscale-0"
+                    )}
+                  />
+                </div>
+
               <div className={`lg:col-span-5 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                 <Reveal delay={0.2}>
                   <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-brand-blue-400 mb-10 border border-slate-200 luxury-shadow">
@@ -140,10 +146,18 @@ export function ServicesTestimonials() {
                   </p>
                 </div>
                 
-                <div className="flex items-center gap-6 pt-10 border-t border-black/5 relative z-10">
-                  <div className="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0 border border-slate-200">
-                    <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover grayscale" />
-                  </div>
+                  <div className="flex items-center gap-6 pt-10 border-t border-black/5 relative z-10">
+                    <div className="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0 border border-slate-200">
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name} 
+                        className={cn(
+                          "w-full h-full object-cover transition-all duration-700",
+                          isMobile ? "grayscale-0" : "grayscale group-hover:grayscale-0"
+                        )} 
+                      />
+                    </div>
+
                   <div>
                     <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
                     <p className="text-[9px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>

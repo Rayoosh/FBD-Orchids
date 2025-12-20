@@ -47,21 +47,22 @@ export function Navbar() {
       <div className="absolute inset-0 rounded-full pointer-events-none border-t border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]" />
       <div className="absolute -inset-[1px] rounded-full pointer-events-none border border-black/5 opacity-10" />
       
-      <div className={`flex items-center justify-between ${(isScrolled || isMobile) ? "gap-4 md:gap-12" : ""}`}>
-        <div className={(isScrolled || isMobile) ? "hidden sm:block" : "block"}>
-          <Magnetic strength={0.1}>
-              <Link href="/" className="flex flex-col group">
-                <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 premium-gradient-text ${(isScrolled || isMobile) ? "text-lg" : "text-2xl"}`}>
-                  FREEMANS
-                </span>
-                <span className={`text-[7px] tracking-[0.5em] text-slate-400 font-bold uppercase transition-all duration-500 group-hover:text-brand-blue-500 ${(isScrolled || isMobile) ? "hidden" : "block"}`}>
-                  Bay Dental
-                </span>
-              </Link>
-          </Magnetic>
-        </div>
+        <div className={`flex items-center justify-between ${(isScrolled || isMobile) ? "w-full gap-2 md:gap-12" : "w-full"}`}>
+          <div className="flex-shrink-0">
+            <Magnetic strength={0.1}>
+                <Link href="/" className="flex flex-col group">
+                  <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 premium-gradient-text ${(isScrolled || isMobile) ? "text-sm sm:text-lg" : "text-2xl"}`}>
+                    FREEMANS
+                  </span>
+                  <span className={`text-[7px] tracking-[0.5em] text-slate-400 font-bold uppercase transition-all duration-500 group-hover:text-brand-blue-500 ${(isScrolled || isMobile) ? "hidden" : "block"}`}>
+                    Bay Dental
+                  </span>
+                </Link>
+            </Magnetic>
+          </div>
 
-        <div className={`hidden md:flex items-center ${(isScrolled || isMobile) ? "gap-2" : "gap-6 lg:gap-10"}`}>
+          <div className={`hidden md:flex items-center ${(isScrolled || isMobile) ? "gap-2" : "gap-6 lg:gap-10"}`}>
+
           {navLinks.map((link, index) => (
               <Link 
                 key={link.name} 

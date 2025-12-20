@@ -8,6 +8,8 @@ import { Magnetic } from "./ui/Magnetic";
 import { GeometricAccent, CornerAccent } from "./ui/Accents";
 import { TextReveal, Reveal } from "./ui/Reveal";
 import { Button } from "./ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -76,13 +78,21 @@ export function Hero() {
 
             <Reveal delay={1}>
               <div className="mt-20 flex items-center gap-12">
-                <div className="flex -space-x-4">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="w-14 h-14 rounded-xl border-4 border-white overflow-hidden luxury-shadow">
-                      <img src={`https://i.pravatar.cc/150?u=${i + 20}`} alt="Patient" className="grayscale hover:grayscale-0 transition-all duration-500" />
-                    </div>
-                  ))}
-                </div>
+                  <div className="flex -space-x-4">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i} className="w-14 h-14 rounded-xl border-4 border-white overflow-hidden luxury-shadow">
+                        <img 
+                          src={`https://i.pravatar.cc/150?u=${i + 20}`} 
+                          alt="Patient" 
+                          className={cn(
+                            "w-full h-full object-cover transition-all duration-500",
+                            isMobile ? "grayscale-0" : "grayscale hover:grayscale-0"
+                          )} 
+                        />
+                      </div>
+                    ))}
+                  </div>
+
                 <div>
                   <div className="flex gap-1.5 text-brand-blue-500 mb-1.5">
                     {[1, 2, 3, 4, 5].map((i) => <Star key={i} size={14} fill="currentColor" />)}
