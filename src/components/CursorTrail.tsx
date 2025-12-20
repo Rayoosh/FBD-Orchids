@@ -11,7 +11,7 @@ export function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointsRef = useRef<Point[]>([]);
   const mouseRef = useRef<Point>({ x: 0, y: 0 });
-    const maxPoints = 40; // Increased for longer fluid trail
+    const maxPoints = 20; // Reduced for shorter, cleaner trail
 
     useEffect(() => {
       const canvas = canvasRef.current;
@@ -48,20 +48,20 @@ export function CursorTrail() {
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Follow the mouse with smoothing
+      // Follow the mouse with smoothing (syncing to the "dot" feel)
       let tempPoints = [...pointsRef.current];
       let head = tempPoints[0];
       
-      // Update head towards mouse
-      head.x += (mouseRef.current.x - head.x) * 0.45;
-      head.y += (mouseRef.current.y - head.y) * 0.45;
+      // Slower head movement to follow the cursor-delayed dot
+      head.x += (mouseRef.current.x - head.x) * 0.18;
+      head.y += (mouseRef.current.y - head.y) * 0.18;
 
-      // Update the rest of the body to follow the head
+      // Update the rest of the body for a liquid trail
       for (let i = 1; i < maxPoints; i++) {
         const prev = tempPoints[i - 1];
         const curr = tempPoints[i];
-        curr.x += (prev.x - curr.x) * 0.35;
-        curr.y += (prev.y - curr.y) * 0.35;
+        curr.x += (prev.x - curr.x) * 0.4;
+        curr.y += (prev.y - curr.y) * 0.4;
       }
 
       pointsRef.current = tempPoints;
@@ -72,19 +72,19 @@ export function CursorTrail() {
         ctx.lineJoin = "round";
         ctx.globalCompositeOperation = "screen";
 
-          // Create fluid gradient from head to tail
+          // Subtle gradient from head to tail
           const gradient = ctx.createLinearGradient(
             tempPoints[0].x, tempPoints[0].y,
             tempPoints[tempPoints.length - 1].x, tempPoints[tempPoints.length - 1].y
           );
-          gradient.addColorStop(0, "rgba(255, 255, 255, 0.9)");
-          gradient.addColorStop(0.1, "rgba(0, 204, 255, 0.8)");
-          gradient.addColorStop(0.5, "rgba(0, 204, 255, 0.4)");
-          gradient.addColorStop(1, "rgba(0, 204, 255, 0)");
+          gradient.addColorStop(0, "rgba(255, 255, 255, 0.7)");
+          gradient.addColorStop(0.1, "rgba(0, 163, 255, 0.5)");
+          gradient.addColorStop(0.5, "rgba(0, 163, 255, 0.2)");
+          gradient.addColorStop(1, "rgba(0, 163, 255, 0)");
 
           ctx.strokeStyle = gradient;
-          ctx.shadowBlur = 20;
-          ctx.shadowColor = "rgba(0, 204, 255, 0.6)";
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = "rgba(0, 163, 255, 0.4)";
 
           // Draw smooth path using quadratic curves
           ctx.moveTo(tempPoints[0].x, tempPoints[0].y);
@@ -93,8 +93,8 @@ export function CursorTrail() {
             const xc = (tempPoints[i].x + tempPoints[i + 1].x) / 2;
             const yc = (tempPoints[i].y + tempPoints[i + 1].y) / 2;
             
-            // Gradually decrease line width for tapering effect
-            ctx.lineWidth = Math.max(1, 12 * (1 - i / maxPoints));
+            // Tapered width starting smaller
+            ctx.lineWidth = Math.max(0.5, 6 * (1 - i / maxPoints));
             ctx.quadraticCurveTo(tempPoints[i].x, tempPoints[i].y, xc, yc);
             ctx.stroke();
             ctx.beginPath();
