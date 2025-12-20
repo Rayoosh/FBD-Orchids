@@ -8,46 +8,46 @@ export function Footer() {
 
   const footerLinks = {
     practice: [
-      { name: "Clinical Mastery", href: "#experience" },
-      { name: "Digital Workflow", href: "#services" },
-      { name: "Our Story", href: "#experience" },
-      { name: "Careers", href: "#" },
-    ],
-    services: [
-      { name: "Cosmetic Design", href: "#services" },
-      { name: "Implant Center", href: "#services" },
-      { name: "Full Mouth Mastery", href: "#services" },
-      { name: "Orthodontics", href: "#services" },
-    ],
-    social: [
-      { icon: Instagram, href: "https://instagram.com", name: "Instagram" },
-      { icon: Facebook, href: "https://facebook.com", name: "Facebook" },
-      { icon: Linkedin, href: "https://linkedin.com", name: "LinkedIn" },
-      { icon: Twitter, href: "https://twitter.com", name: "Twitter" },
-    ]
-  };
-
-  return (
-    <footer className="w-full bg-transparent pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-8 group">
-              <div className="w-10 h-10 bg-brand-blue-900 rounded-xl flex items-center justify-center text-white font-display text-xl font-bold transition-transform group-hover:scale-105">
-                E
-              </div>
-              <div className="flex flex-col">
-                <span className="text-brand-blue-900 font-display font-bold tracking-tight text-lg leading-none">
-                  EASTSIDE
-                </span>
-                <span className="text-brand-blue-400 font-sans text-[10px] tracking-[0.2em] font-medium leading-none mt-1">
-                  DENTAL DESIGN
-                </span>
-              </div>
-            </Link>
-            <p className="text-slate-500 font-sans text-sm leading-relaxed mb-8 max-w-xs">
-              Defining the future of clinical excellence and aesthetic mastery in modern dentistry.
-            </p>
+        { name: "Our Philosophy", href: "#experience" },
+        { name: "Technology", href: "#experience" },
+        { name: "Our Story", href: "#experience" },
+        { name: "Careers", href: "#" },
+      ],
+      services: [
+        { name: "General Care", href: "#services" },
+        { name: "Emergency Center", href: "#services" },
+        { name: "Adolescent Care", href: "#services" },
+        { name: "Smile Care", href: "#services" },
+      ],
+      social: [
+        { icon: Instagram, href: "https://instagram.com", name: "Instagram" },
+        { icon: Facebook, href: "https://facebook.com", name: "Facebook" },
+        { icon: Linkedin, href: "https://linkedin.com", name: "LinkedIn" },
+        { icon: Twitter, href: "https://twitter.com", name: "Twitter" },
+      ]
+    };
+  
+    return (
+      <footer className="w-full bg-transparent pt-20 pb-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
+            <div className="lg:col-span-1">
+              <Link href="/" className="flex items-center gap-3 mb-8 group">
+                <div className="w-10 h-10 bg-brand-blue-900 rounded-xl flex items-center justify-center text-white font-display text-xl font-bold transition-transform group-hover:scale-105">
+                  F
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-brand-blue-900 font-display font-bold tracking-tight text-lg leading-none">
+                    FREEMANS BAY
+                  </span>
+                  <span className="text-brand-blue-400 font-sans text-[10px] tracking-[0.2em] font-medium leading-none mt-1">
+                    FAMILY DENTISTRY
+                  </span>
+                </div>
+              </Link>
+              <p className="text-slate-500 font-sans text-sm leading-relaxed mb-8 max-w-xs">
+                Auckland's trusted family practice providing gentle, affordable care with transparent diagnostics.
+              </p>
             <div className="flex items-center gap-4">
               {footerLinks.social.map((social) => (
                 <a

@@ -34,23 +34,23 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-7">
               <Reveal delay={0.1}>
-                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand-blue-50/50 backdrop-blur-sm border border-brand-blue-100/50 rounded-xl text-brand-blue-900 text-xs font-display uppercase tracking-[0.2em] mb-10 editorial-shadow">
-                  <Shield className="w-4 h-4 text-brand-blue-500" />
-                  <span>Central Auckland's Premier Clinic</span>
-                </div>
-              </Reveal>
-              
-                <TextReveal 
-                  text="Elite Dental Excellence" 
-                  className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10 premium-gradient-text"
-                  delay={0.2}
-                />
-              
-              <Reveal delay={0.6}>
-                <p className="text-xl md:text-2xl text-slate-600 max-w-xl mb-14 leading-relaxed font-light">
-                  Modern dentistry with a gentle touch. Located at 40 College Hill, we provide comprehensive care for the whole family at accessible prices.
-                </p>
-              </Reveal>
+                  <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand-blue-50/50 backdrop-blur-sm border border-brand-blue-100/50 rounded-xl text-brand-blue-900 text-xs font-display uppercase tracking-[0.2em] mb-10 editorial-shadow">
+                    <Shield className="w-4 h-4 text-brand-blue-500" />
+                    <span>Central Auckland's Family Practice</span>
+                  </div>
+                </Reveal>
+                
+                  <TextReveal 
+                    text="Gentle Care. Healthy Smiles." 
+                    className="text-6xl md:text-9xl font-light text-brand-blue-900 leading-[0.85] tracking-tighter mb-10 premium-gradient-text"
+                    delay={0.2}
+                  />
+                
+                <Reveal delay={0.6}>
+                  <p className="text-xl md:text-2xl text-slate-600 max-w-xl mb-14 leading-relaxed font-light">
+                    Affordable, high-quality dentistry in the heart of Auckland. From emergency relief to family check-ups, we use modern technology to keep your smile healthy.
+                  </p>
+                </Reveal>
             
             <Reveal delay={0.8}>
               <div className="flex flex-wrap gap-8 items-center">
@@ -82,7 +82,8 @@ export function Hero() {
                   <div className="flex gap-1.5 text-brand-blue-500 mb-1.5">
                     {[1, 2, 3, 4, 5].map((i) => <Star key={i} size={14} fill="currentColor" />)}
                   </div>
-                  <p className="text-sm font-display uppercase tracking-widest text-brand-blue-900">1.2k+ Bespoke Reviews</p>
+                    <p className="text-sm font-display uppercase tracking-widest text-brand-blue-900">1.2k+ Patient Reviews</p>
+
                 </div>
               </div>
             </Reveal>

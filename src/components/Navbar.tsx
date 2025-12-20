@@ -16,42 +16,42 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Specialists", href: "#experience" },
-    { name: "Services", href: "#services" },
-    { name: "Experience", href: "#experience" },
-    { name: "Contact", href: "#booking" },
-  ];
-
-  return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled ? "py-4" : "py-8"
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div
-          className={cn(
-            "relative flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500",
-            isScrolled
-              ? "bg-white/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/20"
-              : "bg-transparent"
-          )}
-        >
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-brand-blue-900 rounded-xl flex items-center justify-center text-white font-display text-xl font-bold transition-transform group-hover:scale-105">
-              E
-            </div>
-            <div className="flex flex-col">
-              <span className="text-brand-blue-900 font-display font-bold tracking-tight text-lg leading-none">
-                EASTSIDE
-              </span>
-              <span className="text-brand-blue-400 font-sans text-[10px] tracking-[0.2em] font-medium leading-none mt-1">
-                DENTAL DESIGN
-              </span>
-            </div>
-          </Link>
+    const navLinks = [
+      { name: "Our Philosophy", href: "#experience" },
+      { name: "Services", href: "#services" },
+      { name: "Technology", href: "#experience" },
+      { name: "Contact", href: "#booking" },
+    ];
+  
+    return (
+      <nav
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          isScrolled ? "py-4" : "py-8"
+        )}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div
+            className={cn(
+              "relative flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500",
+              isScrolled
+                ? "bg-white/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/20"
+                : "bg-transparent"
+            )}
+          >
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 bg-brand-blue-900 rounded-xl flex items-center justify-center text-white font-display text-xl font-bold transition-transform group-hover:scale-105">
+                F
+              </div>
+              <div className="flex flex-col">
+                <span className="text-brand-blue-900 font-display font-bold tracking-tight text-lg leading-none">
+                  FREEMANS BAY
+                </span>
+                <span className="text-brand-blue-400 font-sans text-[10px] tracking-[0.2em] font-medium leading-none mt-1">
+                  FAMILY DENTISTRY
+                </span>
+              </div>
+            </Link>
 
           <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (

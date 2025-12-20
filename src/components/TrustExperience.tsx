@@ -7,7 +7,7 @@ import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
 
 const trustSignals = [
   { label: "General Care", icon: Heart },
-  { label: "Cosmetic Brilliance", icon: Sparkles },
+  { label: "Transparent Technology", icon: Sparkles },
   { label: "Emergency Support", icon: Clock },
   { label: "ACC Registered", icon: ShieldCheck },
 ];
@@ -49,25 +49,25 @@ export function TrustExperience() {
               <Reveal>
                 <div className="inline-flex items-center gap-3 mb-8">
                   <div className="w-8 h-[1px] bg-blue-500" />
-                  <span className="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em]">Boutique Philosophy</span>
+                  <span className="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em]">Patient Philosophy</span>
                 </div>
               </Reveal>
               
                   <TextReveal 
-                    text="Modern Dental Care." 
+                    text="Healthy Teeth, Beautiful Smiles." 
                     className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.9] mb-12 tracking-tighter premium-gradient-text"
                   />
                   
                   <Reveal delay={0.4}>
                     <p className="text-xl text-slate-500 leading-relaxed max-w-md mb-16 font-light">
-                      We believe in providing central Auckland dental care at affordable prices. Our clinic combines advanced technology with a gentle, patient-first approach.
+                      We believe in providing central Auckland dental care that is gentle, pain-free, and affordable. Our philosophy is rooted in transparency—you see exactly what we see.
                     </p>
                   </Reveal>
                   
                   <div className="space-y-16">
                     {[
-                      { title: "General Dentistry", desc: "Comprehensive care from routine check-ups to advanced restorations, focused on long-term oral health." },
-                      { title: "Specialist Care", desc: "ACC registered providers offering emergency care, surgical extractions, and complex cosmetic treatments." }
+                      { title: "Family Dentistry", desc: "Comprehensive care from routine check-ups to preventative hygiene, focused on long-term health for all ages." },
+                      { title: "Advanced Technology", desc: "Using Intra-Oral cameras and digital X-rays to provide clear, visual diagnostics so you understand your treatment." }
                     ].map((item, i) => (
                     <Reveal key={i} delay={0.5 + i * 0.1}>
                       <div className="flex items-start space-x-8 group">
