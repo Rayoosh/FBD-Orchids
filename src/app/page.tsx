@@ -32,7 +32,7 @@ export default function Home() {
       <SectionIndex />
       
       <div className="relative w-full">
-        <SectionCard id="hero" index={0} bgColor="bg-white/70 backdrop-blur-3xl">
+        <SectionCard id="home" index={0} bgColor="bg-white/70 backdrop-blur-3xl">
           <Hero />
         </SectionCard>
 

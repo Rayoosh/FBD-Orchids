@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Cormorant_Garamond, Syne } from "next/font/google";
 import "./globals.css";
 import { VisualEditsMessenger } from "orchids-visual-edits";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
         <SmoothScroll>
           {children}
         </SmoothScroll>
+        <Toaster position="top-center" richColors />
         <VisualEditsMessenger />
       </body>
     </html>

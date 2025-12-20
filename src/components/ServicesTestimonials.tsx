@@ -16,21 +16,21 @@ import { TextReveal, Reveal, ImageReveal } from "./ui/Reveal";
 
 const services = [
   {
-    title: "General & Family",
-    description: "From routine check-ups and hygiene to white fillings and root canals, we focus on maintaining healthy teeth for patients of all ages.",
+    title: "General Dentistry",
+    description: "From routine check-ups and hygiene to white fillings and extractions, we focus on maintaining your long-term oral health.",
     icon: <Stethoscope className="w-6 h-6" />,
     image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800"
   },
   {
-    title: "Advanced Care",
-    description: "Quality crowns, bridges, and implant services. We use the latest digital technology so you can see your results before we begin.",
-    icon: <ShieldCheck className="w-6 h-6" />,
+    title: "Cosmetic Artistry",
+    description: "Transform your smile with porcelain veneers, professional whitening, and restorative crowns designed for a natural, healthy look.",
+    icon: <Palette className="w-6 h-6" />,
     image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=800"
   },
   {
     title: "Emergency & ACC",
-    description: "Pain relief, wisdom tooth removals, and same-day emergency slots. We are ACC registered providers in the heart of Auckland.",
-    icon: <Clock className="w-6 h-6" />,
+    description: "Same-day emergency appointments for pain relief, surgical care, and ACC registered treatments in the heart of Auckland.",
+    icon: <ShieldCheck className="w-6 h-6" />,
     image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&q=80&w=800"
   }
 ];
@@ -59,11 +59,11 @@ export function ServicesTestimonials() {
           <Reveal>
             <div className="inline-flex items-center gap-3 mb-8">
               <div className="w-8 h-[1px] bg-blue-400" />
-              <span className="text-[10px] text-blue-400 font-bold uppercase tracking-[0.3em]">Practice Services</span>
+              <span className="text-[10px] text-blue-400 font-bold uppercase tracking-[0.3em]">Curated Procedures</span>
             </div>
           </Reveal>
           <TextReveal 
-            text="Quality Care for Your Family." 
+            text="Clinical Mastery. Artistically Delivered." 
             className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.9] tracking-tighter premium-gradient-text"
           />
         </div>
@@ -92,16 +92,18 @@ export function ServicesTestimonials() {
                     {service.description}
                   </p>
                 </Reveal>
-                <Reveal delay={0.5}>
-                  <Magnetic strength={0.2}>
-                    <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
-                      Explore Service 
-                      <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-brand-blue-900 group-hover:text-white transition-all duration-500 luxury-shadow">
-                        <ArrowRight className="w-5 h-5" />
-                      </div>
-                    </button>
-                  </Magnetic>
-                </Reveal>
+                  <Reveal delay={0.5}>
+                    <Magnetic strength={0.2}>
+                      <Link href="#booking">
+                        <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
+                          Explore Procedure 
+                          <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-brand-blue-900 group-hover:text-white transition-all duration-500 luxury-shadow">
+                            <ArrowRight className="w-5 h-5" />
+                          </div>
+                        </button>
+                      </Link>
+                    </Magnetic>
+                  </Reveal>
               </div>
             </div>
           ))}
@@ -115,7 +117,7 @@ export function ServicesTestimonials() {
              <Quote className="w-16 h-16 text-brand-blue-400/20 mx-auto mb-10" strokeWidth={1} />
           </Reveal>
           <TextReveal 
-            text="Patient Stories" 
+            text="Voices of Transformation" 
             className="text-5xl md:text-7xl font-serif text-slate-900 leading-[0.9] tracking-tighter"
           />
         </div>

@@ -1,84 +1,61 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-export function SectionIndex() {
-  const [activeSection, setActiveSection] = useState(0);
+const sections = [
+  { id: 0, label: "Perspective", anchor: "home" },
+  { id: 1, label: "Philosophy", anchor: "experience" },
+  { id: 2, label: "Procedures", anchor: "services" },
+  { id: 3, label: "Partnership", anchor: "booking" },
+];
 
-  const sections = [
-    { id: "hero", label: "Home" },
-    { id: "experience", label: "Experience" },
-    { id: "services", label: "Services" },
-    { id: "booking", label: "Booking" },
-  ];
+interface SectionIndexProps {
+  // scrollContainerRef removed as we now use window scroll
+}
 
-  useEffect(() => {
-    const observers = sections.map((section, index) => {
-      const element = document.getElementById(section.id);
-      if (!element) return null;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(index);
-          }
-        },
-        { threshold: 0.5 }
-      );
-
-      observer.observe(element);
-      return observer;
-    });
-
-    return () => {
-      observers.forEach((observer) => observer?.disconnect());
-    };
-  }, []);
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
+export function SectionIndex({}: SectionIndexProps) {
+  const { scrollYProgress } = useScroll();
+  
+  const handleSectionClick = (anchor: string) => {
+    const element = document.getElementById(anchor);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
+  
   return (
-    <div className="fixed right-8 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-6">
-      {sections.map((section, index) => (
-        <button
-          key={section.id}
-          onClick={() => scrollToSection(section.id)}
-          className="group relative flex items-center justify-end"
-        >
-          <span className={cn(
-            "absolute right-8 font-display text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0",
-            activeSection === index ? "text-brand-blue-900" : "text-slate-400"
-          )}>
-            {section.label}
-          </span>
-          <div className="relative flex items-center justify-center">
-            <motion.div
-              animate={{
-                scale: activeSection === index ? 1 : 0.4,
-                opacity: activeSection === index ? 1 : 0.2,
-              }}
-              className={cn(
-                "w-3 h-3 rounded-full transition-colors duration-500",
-                activeSection === index ? "bg-brand-blue-900" : "bg-slate-900"
-              )}
-            />
-            {activeSection === index && (
-              <motion.div
-                layoutId="active-ring"
-                className="absolute inset-[-4px] border border-brand-blue-900/20 rounded-full"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-              />
-            )}
+    <div className="fixed right-12 top-1/2 -translate-y-1/2 z-[100] hidden xl:flex flex-col gap-10">
+      {sections.map((section, i) => {
+        const start = i / sections.length;
+        const end = (i + 1) / sections.length;
+        
+        return (
+          <div 
+            key={section.id} 
+            className="group flex items-center gap-6 justify-end cursor-pointer"
+            onClick={() => handleSectionClick(section.anchor)}
+          >
+               <motion.span 
+                 initial={{ opacity: 0, x: 20 }}
+                 whileHover={{ opacity: 1, x: 0 }}
+                 className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 group-hover:text-slate-900 pointer-events-none transition-colors"
+               >
+                 {section.label}
+               </motion.span>
+               
+               <div className="relative w-12 h-[1px] bg-slate-200 overflow-hidden">
+                  <motion.div 
+                    style={{ 
+                      scaleX: useTransform(scrollYProgress, [start, end], [0, 1]),
+                      transformOrigin: "left"
+                    }}
+                    className="absolute inset-0 bg-slate-900"
+                  />
+               </div>
           </div>
-        </button>
-      ))}
+        );
+      })}
     </div>
   );
 }
