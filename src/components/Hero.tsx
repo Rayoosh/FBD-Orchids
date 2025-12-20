@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Shield, Star, Users } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";

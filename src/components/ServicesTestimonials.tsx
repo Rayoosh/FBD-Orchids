@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { 
   Stethoscope, 
