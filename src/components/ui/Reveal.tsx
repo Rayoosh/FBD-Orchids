@@ -25,7 +25,7 @@ export const Reveal = ({
   const [hasInView, setHasInView] = useState(false);
   const isInView = useInView(ref, { 
     once,
-    amount: 0,
+    amount: 0.1,
   });
 
   useEffect(() => {
@@ -45,7 +45,6 @@ export const Reveal = ({
       }
     };
     
-    // Check immediately and after a short delay to account for layout shifts
     checkVisibility();
     const timer = setTimeout(checkVisibility, 500);
     return () => clearTimeout(timer);
@@ -71,26 +70,52 @@ export const TextReveal = ({ text, className, delay = 0 }: { text: string, class
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   
+  // Use variants for cleaner stagger and control
+  const containerVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: delay,
+      },
+    },
+  };
+
+  const childVariants = {
+    hidden: { 
+      y: "120%",
+      opacity: 0 
+    },
+    visible: { 
+      y: "0%",
+      opacity: 1,
+      transition: {
+        duration: 1.2,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+  
   return (
-    <div ref={ref} className={cn("relative flex flex-wrap", className)}>
+    <motion.div 
+      ref={ref} 
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className={cn("relative flex flex-wrap items-baseline", className)}
+    >
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden mr-[0.2em] py-2">
+        <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-[0.1em] -my-[0.1em]">
           <motion.span
-            initial={{ y: 100, opacity: 0 }}
-            animate={isInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
-            transition={{
-              duration: 1.5,
-              delay: delay + (i * 0.15),
-              ease: [0.22, 1, 0.36, 1]
-            }}
+            variants={childVariants}
             className="inline-block"
-            style={{ display: "inline-block" }}
           >
             {word}
           </motion.span>
         </span>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
