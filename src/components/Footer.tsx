@@ -27,12 +27,13 @@ export function Footer() {
                 <div className="space-y-6">
                   <h4 className="text-display text-[9px] text-white/40 tracking-widest">Navigation</h4>
                   <ul className="space-y-4">
-                    {[
-                      { name: "Clinical Mastery", href: "#experience" },
-                      { name: "The Experience", href: "#experience" },
-                      { name: "Stories", href: "#services" },
-                      { name: "Inquire", href: "#booking" }
-                    ].map((item) => (
+                      {[
+                        { name: "Clinical Mastery", href: "#experience" },
+                        { name: "The Experience", href: "#experience" },
+                        { name: "Testimonials", href: "/testimonials" },
+                        { name: "Inquire", href: "#booking" }
+                      ].map((item) => (
+
                       <li key={item.name}>
                         <Link href={item.href} className="text-sm font-light hover:text-accent transition-colors">
                           {item.name}

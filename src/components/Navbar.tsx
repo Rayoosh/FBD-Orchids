@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Shield, Users, Stethoscope, Sparkles } from "lucide-react";
+import { Menu, X, Phone, Shield, Users, Stethoscope, Sparkles, Quote } from "lucide-react";
 import { Magnetic } from "./ui/Magnetic";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -20,12 +20,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Quality", href: "#experience", icon: Shield },
-    { name: "Specialists", href: "#experience", icon: Users },
-    { name: "Services", href: "#services", icon: Stethoscope },
-    { name: "Experience", href: "#experience", icon: Sparkles },
-  ];
+    const navLinks = [
+      { name: "Quality", href: "#experience", icon: Shield },
+      { name: "Services", href: "#services", icon: Stethoscope },
+      { name: "Testimonials", href: "/testimonials", icon: Quote },
+      { name: "Experience", href: "#experience", icon: Sparkles },
+    ];
+
 
   const handleBookClick = () => {
     const element = document.getElementById("booking");

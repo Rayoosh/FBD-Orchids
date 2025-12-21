@@ -40,16 +40,19 @@ const services = [
 
 const testimonials = [
   {
-    name: "Sarah Miller",
-    role: "Ponsonby Local",
-    quote: "The team at Freemans Bay is amazing. Professional, fairly priced, and they always make me feel comfortable during my hygiene visits.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
+    name: "D Mcgranaghan",
+    role: "Jan 2025",
+    quote: "This is the best most fabulous dental practice I've ever been to. The dentist, Dr Sandeep, takes time to communicate with you so you are well informed of choices and treatments upfront. Dr Sandeep is the most caring, kind dentist I have found. The practice manager Monika is highly professional with a warm personality and so understanding, as I had many delays getting to my appointments.\nI've been to many dentists, I've lived a full life all over the world. I will always choice this Freemans Bay Dental practice over any other in the world.\nIm a nervous patient, from soo many dentists telling me soo many different things, loosing teeth from a filling built to high. Kindness and communication are keys to a successful practice. Excellence of work goes without saying. So, yes 5 stars is bare minimum for Freemans bay Dental practice. I will be your new regular always. I highly recommend going there if having the best is important to you.",
   },
   {
-    name: "David Chen",
-    role: "Business Owner",
-    quote: "As someone who was always anxious about the dentist, I'm glad I found this clinic. Gentle care and clear explanations every step of the way.",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&h=200&auto=format&fit=crop"
+    name: "C Stannage",
+    role: "Feb 2025",
+    quote: "Best dental clinic ever. I've been a patient of Sandeep for years; my teeth have never been healthier and my smile has become so much wider and more confident! Sandeep has a great bedside manner, making every visit as comfortable as possible and stress-free. He makes allowances for my heightened sensitivities, and understands that I easily get migraines, which I really do appreciate. Priya, the dental assistant, is also really kind and professional in her approach. The clinic is nicely decorated , clean and hygienic, and is a really safe space. Monika is so welcoming and efficient, making the whole experience smooth from start to finish. Highly recommend!",
+  },
+  {
+    name: "M Williams",
+    role: "March 2025",
+    quote: "I have been a client for almost 15 years and I have always received great service from Freemans Bay Dental Centre. They have been very accommodating of my busy schedule and have fit me in when I've had last minute work commitments and I've needed to reschedule. They are very professional and well priced. They even occasionally have specials for discounted checkups which are great to look out for! I can't recommend them highly enough :)",
   }
 ];
 
@@ -130,43 +133,51 @@ export function ServicesTestimonials() {
           />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <Reveal key={index} delay={index * 0.2} y={30}>
-              <div className="bg-white/40 backdrop-blur-md p-16 rounded-[2.5rem] border border-black/5 luxury-shadow h-full flex flex-col justify-between relative overflow-hidden group">
+              <div className="bg-white/40 backdrop-blur-md p-10 rounded-[2rem] border border-black/5 luxury-shadow h-full flex flex-col justify-between relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative z-10">
-                  <div className="flex gap-1 mb-10">
+                  <div className="flex gap-1 mb-8">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 text-brand-blue-400 fill-brand-blue-400" />
+                      <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
                     ))}
                   </div>
                   
-                  <p className="text-2xl text-slate-800 font-serif italic leading-relaxed mb-16">
-                    "{testimonial.quote}"
+                  <p className="text-lg text-slate-800 font-serif leading-relaxed mb-12 whitespace-pre-line">
+                    {testimonial.quote}
                   </p>
                 </div>
                 
-                  <div className="flex items-center gap-6 pt-10 border-t border-black/5 relative z-10">
-                    <div className="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0 border border-slate-200">
-                      <img 
-                        src={testimonial.image} 
-                        alt={testimonial.name} 
-                        className={cn(
-                          "w-full h-full object-cover transition-all duration-700",
-                          isMobile ? "grayscale-0" : "grayscale group-hover:grayscale-0"
-                        )} 
-                      />
-                    </div>
+                <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">
+                  <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
+                    {testimonial.name.charAt(0)}
+                  </div>
 
                   <div>
-                    <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
-                    <p className="text-[9px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>
+                    <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
+                    <p className="text-[8px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>
                   </div>
                 </div>
               </div>
             </Reveal>
           ))}
+        </div>
+
+        <div className="mt-20 text-center">
+          <Reveal delay={0.6}>
+            <Magnetic strength={0.1}>
+              <Link href="/testimonials">
+                <button className="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
+                  View All Patient Stories
+                  <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-brand-blue-900 group-hover:text-white transition-all duration-500 luxury-shadow">
+                    <ArrowRight className="w-5 h-5" />
+                  </div>
+                </button>
+              </Link>
+            </Magnetic>
+          </Reveal>
         </div>
       </div>
     </section>
