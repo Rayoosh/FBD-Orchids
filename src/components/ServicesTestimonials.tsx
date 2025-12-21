@@ -38,25 +38,29 @@ const services = [
   }
 ];
 
-const testimonials = [
-  {
-    name: "D Mcgranaghan",
-    role: "Jan 2025",
-    quote: "This is the best most fabulous dental practice I've ever been to. The dentist, Dr Sandeep, takes time to communicate with you so you are well informed of choices and treatments upfront. Dr Sandeep is the most caring, kind dentist I have found. The practice manager Monika is highly professional with a warm personality and so understanding, as I had many delays getting to my appointments.\nI've been to many dentists, I've lived a full life all over the world. I will always choice this Freemans Bay Dental practice over any other in the world.\nIm a nervous patient, from soo many dentists telling me soo many different things, loosing teeth from a filling built to high. Kindness and communication are keys to a successful practice. Excellence of work goes without saying. So, yes 5 stars is bare minimum for Freemans bay Dental practice. I will be your new regular always. I highly recommend going there if having the best is important to you.",
-  },
-  {
-    name: "C Stannage",
-    role: "Feb 2025",
-    quote: "Best dental clinic ever. I've been a patient of Sandeep for years; my teeth have never been healthier and my smile has become so much wider and more confident! Sandeep has a great bedside manner, making every visit as comfortable as possible and stress-free. He makes allowances for my heightened sensitivities, and understands that I easily get migraines, which I really do appreciate. Priya, the dental assistant, is also really kind and professional in her approach. The clinic is nicely decorated , clean and hygienic, and is a really safe space. Monika is so welcoming and efficient, making the whole experience smooth from start to finish. Highly recommend!",
-  },
-  {
-    name: "M Williams",
-    role: "March 2025",
-    quote: "I have been a client for almost 15 years and I have always received great service from Freemans Bay Dental Centre. They have been very accommodating of my busy schedule and have fit me in when I've had last minute work commitments and I've needed to reschedule. They are very professional and well priced. They even occasionally have specials for discounted checkups which are great to look out for! I can't recommend them highly enough :)",
-  }
-];
+  const testimonials = [
+    {
+      name: "D Mcgranaghan",
+      role: "Jan 2025",
+      quote: "This is the best most fabulous dental practice I've ever been to. The dentist, Dr Sandeep, takes time to communicate with you so you are well informed of choices and treatments upfront. Dr Sandeep is the most caring, kind dentist I have found. The practice manager Monika is highly professional with a warm personality and so understanding, as I had many delays getting to my appointments.\nI've been to many dentists, I've lived a full life all over the world. I will always choice this Freemans Bay Dental practice over any other in the world.\nIm a nervous patient, from soo many dentists telling me soo many different things, loosing teeth from a filling built to high. Kindness and communication are keys to a successful practice. Excellence of work goes without saying. So, yes 5 stars is bare minimum for Freemans bay Dental practice. I will be your new regular always. I highly recommend going there if having the best is important to you.",
+    },
+    {
+      name: "C Stannage",
+      role: "Feb 2025",
+      quote: "Best dental clinic ever. I've been a patient of Sandeep for years; my teeth have never been healthier and my smile has become so much wider and more confident! Sandeep has a great bedside manner, making every visit as comfortable as possible and stress-free. He makes allowances for my heightened sensitivities, and understands that I easily get migraines, which I really do appreciate. Priya, the dental assistant, is also really kind and professional in her approach. The clinic is nicely decorated , clean and hygienic, and is a really safe space. Monika is so welcoming and efficient, making the whole experience smooth from start to finish. Highly recommend!",
+    },
+    {
+      name: "M Williams",
+      role: "March 2025",
+      quote: "I have been a client for almost 15 years and I have always received great service from Freemans Bay Dental Centre. They have been very accommodating of my busy schedule and have fit me in when I've had last minute work commitments and I've needed to reschedule. They are very professional and well priced. They even occasionally have specials for discounted checkups which are great to look out for! I can't recommend them highly enough :)",
+    }
+  ];
 
-export function ServicesTestimonials() {
+  // Double the testimonials for the infinite marquee effect
+  const marqueeTestimonials = [...testimonials, ...testimonials];
+
+  export function ServicesTestimonials() {
+
   const isMobile = useIsMobile();
   return (
     <section className="bg-transparent h-full no-scrollbar py-16 md:py-32 px-6 md:px-24">
@@ -163,40 +167,56 @@ export function ServicesTestimonials() {
           />
         </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Reveal key={index} delay={index * 0.2} y={30}>
-                <div className="bg-transparent md:bg-white/40 md:backdrop-blur-md p-0 md:p-10 rounded-none md:rounded-[2rem] border-none md:border md:border-black/5 md:luxury-shadow h-full flex flex-col justify-between relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
-                  <div className="relative z-10">
-                    <div className="flex gap-1 mb-6 md:mb-8">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
-                      ))}
+        <Reveal y={50}>
+          <div className="overflow-hidden relative w-full -mx-6 md:-mx-24 group/marquee">
+            <motion.div 
+              className="flex gap-8 px-6 md:px-24"
+              animate={{
+                x: ["0%", "-50%"]
+              }}
+              transition={{
+                duration: 60,
+                ease: "linear",
+                repeat: Infinity
+              }}
+              style={{ width: "fit-content" }}
+            >
+              {marqueeTestimonials.map((testimonial, index) => (
+                <div key={index} className="flex-shrink-0 w-[85vw] md:w-[450px] flex flex-col">
+                  <div className="bg-transparent md:bg-white/40 md:backdrop-blur-md p-0 md:p-10 rounded-none md:rounded-[2rem] border-none md:border md:border-black/5 md:luxury-shadow h-full flex flex-col justify-between relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
+                    <div className="relative z-10">
+                      <div className="flex gap-1 mb-6 md:mb-8">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
+                        ))}
+                      </div>
+                      
+                        <div className="md:max-h-[300px] overflow-y-auto no-scrollbar">
+                          <p className="text-lg text-slate-800 font-serif leading-relaxed mb-8 md:mb-12 whitespace-pre-line">
+                            {testimonial.quote}
+                          </p>
+                        </div>
+
                     </div>
                     
-                      <div className="md:max-h-[300px] overflow-y-auto no-scrollbar">
-                        <p className="text-lg text-slate-800 font-serif leading-relaxed mb-8 md:mb-12 whitespace-pre-line">
-                          {testimonial.quote}
-                        </p>
+                    <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">
+                      <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
+                        {testimonial.name.charAt(0)}
                       </div>
 
-                  </div>
-                  
-                  <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">
-                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
-                      {testimonial.name.charAt(0)}
-                    </div>
-
-                    <div>
-                      <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
-                      <p className="text-[8px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>
+                      <div>
+                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
+                        <p className="text-[8px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </Reveal>
-            ))}
+              ))}
+            </motion.div>
           </div>
+        </Reveal>
+
 
         <div className="mt-20 text-center">
           <Reveal delay={0.6}>
