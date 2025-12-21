@@ -1,43 +1,56 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import React, { useEffect, useRef } from "react";
 
 export function SpotlightOverlay() {
-  const [isMounted, setIsMounted] = useState(false);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
 
-  const springConfig = { stiffness: 150, damping: 20, mass: 0.1 };
-    const smoothX = useSpring(mouseX, springConfig);
-    const smoothY = useSpring(mouseY, springConfig);
+  useEffect(() => {
+    const spotlight = spotlightRef.current;
+    if (!spotlight) return;
 
-    useEffect(() => {
-      setIsMounted(true);
-      const handleMouseMove = (e: MouseEvent) => {
-        mouseX.set(e.clientX);
-        mouseY.set(e.clientY);
-      };
-      window.addEventListener("mousemove", handleMouseMove, { passive: true });
-      return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, [mouseX, mouseY]);
+    let rafId: number;
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
 
-    if (!isMounted) return null;
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
 
-    return (
-      <div className="pointer-events-none fixed inset-0 z-30 overflow-hidden">
-        <motion.div
-          className="absolute opacity-100 will-change-transform"
-          style={{ 
-            x: smoothX,
-            y: smoothY,
-            background: "radial-gradient(circle at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%)",
-            width: 600,
-            height: 600,
-            left: -300,
-            top: -300,
-          }}
-        />
-      </div>
-    );
+    const updatePosition = () => {
+      // Very light smoothing for that "premium" feel without heavy springs
+      currentX += (mouseX - currentX) * 0.15;
+      currentY += (mouseY - currentY) * 0.15;
+      
+      spotlight.style.transform = `translate3d(${currentX - 300}px, ${currentY - 300}px, 0)`;
+      rafId = requestAnimationFrame(updatePosition);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    rafId = requestAnimationFrame(updatePosition);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={containerRef}
+      className="pointer-events-none fixed inset-0 z-30 overflow-hidden"
+    >
+      <div
+        ref={spotlightRef}
+        className="absolute h-[600px] w-[600px] rounded-full will-change-transform"
+        style={{
+          background: "radial-gradient(circle at center, rgba(59, 130, 246, 0.07) 0%, transparent 70%)",
+        }}
+      />
+    </div>
+  );
 }
