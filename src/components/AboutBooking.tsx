@@ -41,13 +41,13 @@ export function AboutBooking() {
   };
 
   return (
-    <section id="about" className="py-16 md:py-48 bg-transparent overflow-hidden relative min-h-full flex items-center">
+    <section id="about" className="py-12 md:py-48 bg-transparent overflow-hidden relative min-h-full flex items-center">
       {/* Subtle Glows */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-50/50 blur-[120px] rounded-full -translate-x-1/2 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* About / Philosophy Section - Asymmetrical Editorial */}
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 md:gap-32 items-center mb-32 md:mb-72">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 md:gap-32 items-center mb-24 md:mb-72">
           <div className="relative order-2 lg:order-1">
             <ImageReveal 
               src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=1200"
@@ -73,7 +73,7 @@ export function AboutBooking() {
             
                 <TextReveal 
                   text="Accessible Care." 
-                  className="text-5xl md:text-8xl font-serif text-slate-900 leading-[0.95] md:leading-[0.85] mb-8 md:mb-12 tracking-tighter premium-gradient-text"
+                  className="text-4xl md:text-8xl font-serif text-slate-900 leading-[0.95] md:leading-[0.85] mb-6 md:mb-12 tracking-tighter premium-gradient-text"
                 />
               
               <Reveal delay={0.4}>
@@ -108,10 +108,11 @@ export function AboutBooking() {
                    <div className="w-1 h-1 rounded-full bg-brand-blue-400" />
                    <h2 className="text-[10px] text-brand-blue-400 tracking-[0.4em] font-bold uppercase">Concierge Inquiry</h2>
                 </div>
-                <h3 className="text-4xl md:text-6xl font-serif leading-[0.9] mb-12 md:mb-16 tracking-tighter">
-                  Begin Your <br />
-                  <span className="italic text-brand-blue-400 font-light">Transformation.</span>
-                </h3>
+                  <h3 className="text-3xl md:text-6xl font-serif leading-[0.9] mb-12 md:mb-16 tracking-tighter">
+                    Begin Your <br />
+                    <span className="italic text-brand-blue-400 font-light">Transformation.</span>
+                  </h3>
+
                 
                 <div className="space-y-10 md:space-y-12">
                     {[

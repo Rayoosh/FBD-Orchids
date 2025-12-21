@@ -112,13 +112,13 @@ export function SectionCard({
       <div 
         id={id}
         ref={containerRef} 
-        className={cn("relative w-full")}
+        className={cn("relative w-full px-4 py-3")}
         style={{ zIndex: zIndexValue }}
       >
         <div
           className={cn(
-            "relative w-full overflow-hidden",
-            isDark ? "bg-slate-900" : "",
+            "relative w-full overflow-hidden rounded-[2rem] shadow-sm ring-1",
+            isDark ? "bg-slate-900 ring-white/10" : "ring-black/5",
             bgColor,
             className
           )}
@@ -126,11 +126,6 @@ export function SectionCard({
           <div ref={contentRef} className="w-full flex flex-col">
             {children}
           </div>
-          
-          {/* Subtle separator for mobile */}
-          {index < 3 && (
-            <div className="mx-6 h-px bg-slate-900/5" />
-          )}
         </div>
       </div>
     );

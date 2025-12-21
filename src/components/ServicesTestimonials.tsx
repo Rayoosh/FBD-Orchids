@@ -61,18 +61,20 @@ export function ServicesTestimonials() {
   return (
     <section className="bg-transparent h-full no-scrollbar py-16 md:py-32 px-6 md:px-24">
       {/* Services Section */}
-      <div className="max-w-7xl mx-auto mb-24 md:mb-48">
-        <div className="mb-16 md:mb-32">
+        <div className="max-w-7xl mx-auto mb-16 md:mb-48">
+          <div className="mb-12 md:mb-32">
+
           <Reveal>
             <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
               <div className="w-8 h-[1px] bg-blue-400" />
               <span className="text-[10px] text-blue-400 font-bold uppercase tracking-[0.3em]">Curated Procedures</span>
             </div>
           </Reveal>
-          <TextReveal 
-            text="Clinical Mastery. Artistically Delivered." 
-            className="text-5xl md:text-8xl font-serif text-slate-900 leading-[0.95] md:leading-[0.9] tracking-tighter premium-gradient-text"
-          />
+            <TextReveal 
+              text="Clinical Mastery. Artistically Delivered." 
+              className="text-4xl md:text-8xl font-serif text-slate-900 leading-[0.95] md:leading-[0.9] tracking-tighter premium-gradient-text"
+            />
+
         </div>
 
         {/* Mobile Carousel */}
@@ -152,13 +154,13 @@ export function ServicesTestimonials() {
 
       {/* Testimonials */}
       <div className="max-w-7xl mx-auto relative z-10 pb-20">
-        <div className="text-center mb-32">
+        <div className="text-center mb-16 md:mb-32">
           <Reveal width="100%">
-             <Quote className="w-16 h-16 text-brand-blue-400/20 mx-auto mb-10" strokeWidth={1} />
+             <Quote className="w-12 h-12 md:w-16 md:h-16 text-brand-blue-400/20 mx-auto mb-6 md:mb-10" strokeWidth={1} />
           </Reveal>
           <TextReveal 
             text="Voices of Transformation" 
-            className="text-5xl md:text-7xl font-serif text-slate-900 leading-[0.9] tracking-tighter"
+            className="text-4xl md:text-7xl font-serif text-slate-900 leading-[0.9] tracking-tighter"
           />
         </div>
 
@@ -174,9 +176,12 @@ export function ServicesTestimonials() {
                     ))}
                   </div>
                   
-                  <p className="text-lg text-slate-800 font-serif leading-relaxed mb-12 whitespace-pre-line">
-                    {testimonial.quote}
-                  </p>
+                    <div className="max-h-[300px] overflow-y-auto no-scrollbar">
+                      <p className="text-lg text-slate-800 font-serif leading-relaxed mb-4 md:mb-12 whitespace-pre-line">
+                        {testimonial.quote}
+                      </p>
+                    </div>
+
                 </div>
                 
                 <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">

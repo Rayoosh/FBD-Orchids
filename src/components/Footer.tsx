@@ -5,22 +5,22 @@ import { Instagram, Facebook, Twitter, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-brand-blue-900 text-white pt-40 pb-20 overflow-hidden relative">
+    <footer className="bg-brand-blue-900 text-white pt-24 md:pt-40 pb-20 overflow-hidden relative">
       <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-accent/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-          <div className="grid lg:grid-cols-[1.5fr_1fr] gap-24 mb-40">
+          <div className="grid lg:grid-cols-[1.5fr_1fr] gap-16 md:gap-24 mb-20 md:mb-40">
             <div>
-              <div className="mb-12">
+              <div className="mb-8 md:mb-12">
                 <img 
                   src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/logo-1766284403960.png?width=600&height=600&resize=contain" 
                   alt="Freemans Bay Dental Centre" 
-                  className="h-20 w-auto brightness-0 invert opacity-80"
+                  className="h-16 md:h-20 w-auto brightness-0 invert opacity-80"
                 />
               </div>
-              <h3 className="text-6xl md:text-8xl font-serif font-light leading-[0.9] tracking-tighter mb-16">
+              <h3 className="text-4xl md:text-8xl font-serif font-light leading-[0.9] tracking-tighter mb-12 md:mb-16">
                 Experience the <br />
-                <span className="text-serif-italic pl-12 text-accent">Difference.</span>
+                <span className="text-serif-italic pl-8 md:pl-12 text-accent">Difference.</span>
               </h3>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
