@@ -6,7 +6,6 @@ import { TrustExperience } from "@/components/TrustExperience";
 import { ServicesTestimonials } from "@/components/ServicesTestimonials";
 import { AboutBooking } from "@/components/AboutBooking";
 import { Footer } from "@/components/Footer";
-import { CustomCursor } from "@/components/CustomCursor";
 import { CursorTrail } from "@/components/CursorTrail";
 import { SpotlightOverlay } from "@/components/SpotlightOverlay";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -28,11 +27,10 @@ export default function Home() {
     <main className="relative w-full bg-transparent selection:bg-brand-blue-100 selection:text-brand-blue-900">
       <BackgroundGradient />
       {!isMobile && (
-        <>
-          <CursorTrail />
-          <CustomCursor />
-          <SpotlightOverlay />
-        </>
+          <>
+            <CursorTrail />
+            <SpotlightOverlay />
+          </>
       )}
       <div className="grain-overlay" />
       <Navbar />
