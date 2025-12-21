@@ -168,22 +168,23 @@ const services = [
         </div>
 
         <Reveal y={50}>
-          <div className="overflow-hidden relative w-full -mx-6 md:-mx-24 group/marquee">
+          <div className="h-[500px] overflow-hidden relative w-full group/marquee">
             <motion.div 
-              className="flex gap-8 px-6 md:px-24"
+              className="flex flex-col gap-8 items-center cursor-ns-resize"
               animate={{
-                x: ["0%", "-50%"]
+                y: ["0%", "-50%"]
               }}
+              whileHover={{ animationPlayState: "paused" }}
               transition={{
-                duration: 60,
+                duration: 40,
                 ease: "linear",
                 repeat: Infinity
               }}
-              style={{ width: "fit-content" }}
+              style={{ height: "fit-content" }}
             >
               {marqueeTestimonials.map((testimonial, index) => (
-                <div key={index} className="flex-shrink-0 w-[85vw] md:w-[450px] flex flex-col">
-                  <div className="bg-transparent md:bg-white/40 md:backdrop-blur-md p-0 md:p-10 rounded-none md:rounded-[2rem] border-none md:border md:border-black/5 md:luxury-shadow h-full flex flex-col justify-between relative overflow-hidden group">
+                <div key={index} className="w-full max-w-2xl px-6 md:px-0">
+                  <div className="bg-transparent md:bg-white/40 md:backdrop-blur-md p-0 md:p-10 rounded-none md:rounded-[2rem] border-none md:border md:border-black/5 md:luxury-shadow flex flex-col justify-between relative overflow-hidden group">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
                     <div className="relative z-10">
                       <div className="flex gap-1 mb-6 md:mb-8">
@@ -192,12 +193,9 @@ const services = [
                         ))}
                       </div>
                       
-                        <div className="md:max-h-[300px] overflow-y-auto no-scrollbar">
-                          <p className="text-lg text-slate-800 font-serif leading-relaxed mb-8 md:mb-12 whitespace-pre-line">
-                            {testimonial.quote}
-                          </p>
-                        </div>
-
+                      <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed mb-8 md:mb-12 whitespace-pre-line">
+                        {testimonial.quote}
+                      </p>
                     </div>
                     
                     <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">
@@ -214,6 +212,10 @@ const services = [
                 </div>
               ))}
             </motion.div>
+            
+            {/* Gradient overlays to fade out top and bottom */}
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-slate-50/70 to-transparent z-20 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50/70 to-transparent z-20 pointer-events-none" />
           </div>
         </Reveal>
 
