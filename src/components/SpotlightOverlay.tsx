@@ -26,7 +26,7 @@ export function SpotlightOverlay() {
       currentX += (mouseX - currentX) * 0.15;
       currentY += (mouseY - currentY) * 0.15;
       
-      spotlight.style.transform = `translate3d(${currentX - 300}px, ${currentY - 300}px, 0)`;
+        spotlight.style.transform = `translate3d(${currentX - 400}px, ${currentY - 400}px, 0)`;
       rafId = requestAnimationFrame(updatePosition);
     };
 
@@ -42,13 +42,13 @@ export function SpotlightOverlay() {
   return (
     <div 
       ref={containerRef}
-      className="pointer-events-none fixed inset-0 z-30 overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-[100] overflow-hidden"
     >
       <div
         ref={spotlightRef}
-        className="absolute h-[600px] w-[600px] rounded-full will-change-transform"
+        className="absolute h-[800px] w-[800px] rounded-full will-change-transform"
         style={{
-          background: "radial-gradient(circle at center, rgba(59, 130, 246, 0.07) 0%, transparent 70%)",
+          background: "radial-gradient(circle at center, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.05) 40%, transparent 70%)",
         }}
       />
     </div>
