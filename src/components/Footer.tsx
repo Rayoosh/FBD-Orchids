@@ -9,13 +9,19 @@ export function Footer() {
       <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-accent/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-24 mb-40">
-          <div>
-            <h2 className="text-display text-[10px] text-accent mb-12 tracking-[0.4em]">Connect</h2>
-            <h3 className="text-6xl md:text-8xl font-serif font-light leading-[0.9] tracking-tighter mb-16">
-              Experience the <br />
-              <span className="text-serif-italic pl-12 text-accent">Difference.</span>
-            </h3>
+          <div className="grid lg:grid-cols-[1.5fr_1fr] gap-24 mb-40">
+            <div>
+              <div className="mb-12">
+                <img 
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/logo-1766284403960.png?width=600&height=600&resize=contain" 
+                  alt="Freemans Bay Dental Centre" 
+                  className="h-20 w-auto brightness-0 invert opacity-80"
+                />
+              </div>
+              <h3 className="text-6xl md:text-8xl font-serif font-light leading-[0.9] tracking-tighter mb-16">
+                Experience the <br />
+                <span className="text-serif-italic pl-12 text-accent">Difference.</span>
+              </h3>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
                 <div className="space-y-6">

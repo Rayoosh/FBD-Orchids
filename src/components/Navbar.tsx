@@ -50,14 +50,13 @@ export function Navbar() {
         <div className={`flex items-center justify-between ${(isScrolled || isMobile) ? "w-full gap-2 md:gap-12" : "w-full"}`}>
           <div className="flex-shrink-0">
             <Magnetic strength={0.1}>
-                <Link href="/" className="flex flex-col group">
-                  <span className={`font-serif text-slate-950 tracking-tighter leading-none transition-all duration-500 premium-gradient-text ${(isScrolled || isMobile) ? "text-sm sm:text-lg" : "text-2xl"}`}>
-                    FREEMANS
-                  </span>
-                  <span className={`text-[7px] tracking-[0.5em] text-slate-400 font-bold uppercase transition-all duration-500 group-hover:text-brand-blue-500 ${(isScrolled || isMobile) ? "hidden" : "block"}`}>
-                    Bay Dental
-                  </span>
-                </Link>
+                  <Link href="/" className="flex items-center gap-3 group">
+                    <img 
+                      src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/logo-1766284403960.png?width=800&height=800&resize=contain" 
+                      alt="Freemans Bay Dental Centre" 
+                      className={`transition-all duration-500 object-contain ${(isScrolled || isMobile) ? "h-8 md:h-10" : "h-14 md:h-16"}`}
+                    />
+                  </Link>
             </Magnetic>
           </div>
 
