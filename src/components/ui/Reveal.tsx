@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface RevealProps {
   children: React.ReactNode;
@@ -67,54 +68,52 @@ export const Reveal = ({
 
 export const TextReveal = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
   const words = text.split(" ");
-  const ref = useRef<HTMLDivElement>(null);
-  const [hasInView, setHasInView] = useState(false);
-  const isInView = useInView(ref, { 
-    once: true,
-    amount: 0,
-  });
-
-  useEffect(() => {
-    if (isInView) {
-      setHasInView(true);
-    }
-  }, [isInView]);
-
-  // Fallback for initial load
-  useEffect(() => {
-    const checkVisibility = () => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
-      if (inViewport) {
-        setHasInView(true);
-      }
-    };
-    
-    checkVisibility();
-    const timer = setTimeout(checkVisibility, 500);
-    return () => clearTimeout(timer);
-  }, []);
   
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i: number = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: delay * i },
+    }),
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 100,
+        duration: 1.2,
+        ease: [0.22, 1, 0.36, 1]
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: "100%",
+    },
+  };
+
   return (
-    <div ref={ref} className={className}>
+    <motion.div
+      className={cn("flex flex-wrap", className)}
+      variants={container}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0 }}
+    >
       {words.map((word, i) => (
-          <span key={i} className="inline-block overflow-hidden mr-[0.2em] pb-[0.1em]">
-            <motion.span
-              initial={{ y: "20%", opacity: 0, scale: 0.98 }}
-              animate={hasInView ? { y: 0, opacity: 1, scale: 1 } : { y: "20%", opacity: 0, scale: 0.98 }}
-              transition={{
-                duration: 1.5,
-                delay: delay + i * 0.15,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              className="inline-block"
-            >
-              {word}
-            </motion.span>
-          </span>
+        <span key={i} className="inline-block overflow-hidden mr-[0.2em] pb-[0.1em]">
+          <motion.span
+            variants={child}
+            className="inline-block"
+          >
+            {word}
+          </motion.span>
+        </span>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
