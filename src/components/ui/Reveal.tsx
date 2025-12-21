@@ -107,47 +107,47 @@ export const TextReveal = ({ text, className, delay = 0 }: { text: string, class
     },
   };
 
-  const childVariants = {
-    hidden: { 
-      y: 100,
-      opacity: 0 
-    },
-    visible: { 
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 1.5,
-        ease: [0.22, 1, 0.36, 1],
+    const childVariants = {
+      hidden: { 
+        y: "110%",
+        opacity: 0 
       },
-    },
-  };
-  
-  return (
-    <motion.div 
-      ref={ref} 
-      variants={containerVariants}
-      initial="hidden"
-      animate={hasInView ? "visible" : "hidden"}
-      className={cn("relative flex flex-wrap items-baseline", cleanClassName)}
-    >
-      {words.map((word, i) => (
-        <span 
-          key={i} 
-          className="inline-block overflow-hidden mr-[0.25em] py-[0.2em] -my-[0.2em]"
-        >
-          <motion.span
-            variants={childVariants}
-            className={cn(
-              "inline-block",
-              isGradient && "premium-gradient-text"
-            )}
+      visible: { 
+        y: 0,
+        opacity: 1,
+        transition: {
+          y: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+          opacity: { duration: 0.8, ease: "linear" }
+        },
+      },
+    };
+    
+    return (
+      <motion.div 
+        ref={ref} 
+        variants={containerVariants}
+        initial="hidden"
+        animate={hasInView ? "visible" : "hidden"}
+        className={cn("relative flex flex-wrap items-baseline", cleanClassName)}
+      >
+        {words.map((word, i) => (
+          <span 
+            key={i} 
+            className="inline-block overflow-hidden mr-[0.25em] py-[0.4em] -my-[0.4em]"
           >
-            {word}
-          </motion.span>
-        </span>
-      ))}
-    </motion.div>
-  );
+            <motion.span
+              variants={childVariants}
+              className={cn(
+                "inline-block",
+                isGradient && "premium-gradient-text"
+              )}
+            >
+              {word}
+            </motion.span>
+          </span>
+        ))}
+      </motion.div>
+    );
 };
 
 export const ImageReveal = ({ src, alt, className }: { src: string, alt: string, className?: string }) => {
