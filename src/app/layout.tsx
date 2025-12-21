@@ -4,6 +4,7 @@ import "./globals.css";
 import { VisualEditsMessenger } from "orchids-visual-edits";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Toaster } from "sonner";
+import { GlobalEffects } from "@/components/GlobalEffects";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} ${syne.variable} antialiased`}
       >
         <SmoothScroll>
+          <GlobalEffects />
           {children}
         </SmoothScroll>
         <Toaster position="top-center" richColors />
