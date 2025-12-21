@@ -68,15 +68,40 @@ export const Reveal = ({
 export const TextReveal = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
   const words = text.split(" ");
   const ref = useRef<HTMLDivElement>(null);
+  const [hasInView, setHasInView] = useState(false);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   
-  // Use variants for cleaner stagger and control
+  useEffect(() => {
+    if (isInView) {
+      setHasInView(true);
+    }
+  }, [isInView]);
+
+  // Fallback for initial load
+  useEffect(() => {
+    const checkVisibility = () => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inViewport) {
+        setHasInView(true);
+      }
+    };
+    checkVisibility();
+    const timer = setTimeout(checkVisibility, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Extract gradient class to apply directly to words
+  const isGradient = className?.includes("premium-gradient-text");
+  const cleanClassName = className?.replace("premium-gradient-text", "");
+
   const containerVariants = {
     hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
+        staggerChildren: 0.15,
         delayChildren: delay,
       },
     },
@@ -84,14 +109,14 @@ export const TextReveal = ({ text, className, delay = 0 }: { text: string, class
 
   const childVariants = {
     hidden: { 
-      y: "120%",
+      y: 100,
       opacity: 0 
     },
     visible: { 
-      y: "0%",
+      y: 0,
       opacity: 1,
       transition: {
-        duration: 1.2,
+        duration: 1.5,
         ease: [0.22, 1, 0.36, 1],
       },
     },
@@ -102,14 +127,20 @@ export const TextReveal = ({ text, className, delay = 0 }: { text: string, class
       ref={ref} 
       variants={containerVariants}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      className={cn("relative flex flex-wrap items-baseline", className)}
+      animate={hasInView ? "visible" : "hidden"}
+      className={cn("relative flex flex-wrap items-baseline", cleanClassName)}
     >
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-[0.1em] -my-[0.1em]">
+        <span 
+          key={i} 
+          className="inline-block overflow-hidden mr-[0.25em] py-[0.2em] -my-[0.2em]"
+        >
           <motion.span
             variants={childVariants}
-            className="inline-block"
+            className={cn(
+              "inline-block",
+              isGradient && "premium-gradient-text"
+            )}
           >
             {word}
           </motion.span>
