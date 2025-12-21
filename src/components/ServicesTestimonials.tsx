@@ -56,10 +56,8 @@ const services = [
     }
   ];
 
-  // Double the testimonials for the infinite marquee effect
-  const marqueeTestimonials = [...testimonials, ...testimonials];
+    export function ServicesTestimonials() {
 
-  export function ServicesTestimonials() {
 
   const isMobile = useIsMobile();
   return (
@@ -167,57 +165,37 @@ const services = [
           />
         </div>
 
-        <Reveal y={50}>
-          <div className="h-[500px] overflow-hidden relative w-full group/marquee">
-            <motion.div 
-              className="flex flex-col gap-8 items-center cursor-ns-resize"
-              animate={{
-                y: ["0%", "-50%"]
-              }}
-              whileHover={{ animationPlayState: "paused" }}
-              transition={{
-                duration: 40,
-                ease: "linear",
-                repeat: Infinity
-              }}
-              style={{ height: "fit-content" }}
-            >
-              {marqueeTestimonials.map((testimonial, index) => (
-                <div key={index} className="w-full max-w-2xl px-6 md:px-0">
-                  <div className="bg-transparent md:bg-white/40 md:backdrop-blur-md p-0 md:p-10 rounded-none md:rounded-[2rem] border-none md:border md:border-black/5 md:luxury-shadow flex flex-col justify-between relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
-                    <div className="relative z-10">
-                      <div className="flex gap-1 mb-6 md:mb-8">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
-                        ))}
-                      </div>
-                      
-                      <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed mb-8 md:mb-12 whitespace-pre-line">
-                        {testimonial.quote}
-                      </p>
-                    </div>
-                    
-                    <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">
-                      <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
-                        {testimonial.name.charAt(0)}
-                      </div>
+        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+          {testimonials.map((testimonial, index) => (
+            <Reveal key={index} delay={index * 0.1}>
+              <div className="bg-transparent md:bg-white/40 md:backdrop-blur-md p-0 md:p-10 rounded-none md:rounded-[2rem] border-none md:border md:border-black/5 md:luxury-shadow h-full flex flex-col justify-between relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
+                <div className="relative z-10">
+                  <div className="flex gap-1 mb-6 md:mb-8">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
+                    ))}
+                  </div>
+                  
+                  <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed mb-8 md:mb-12 whitespace-pre-line">
+                    {testimonial.quote}
+                  </p>
+                </div>
+                
+                <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">
+                  <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
+                    {testimonial.name.charAt(0)}
+                  </div>
 
-                      <div>
-                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
-                        <p className="text-[8px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>
-                      </div>
-                    </div>
+                  <div>
+                    <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
+                    <p className="text-[8px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>
                   </div>
                 </div>
-              ))}
-            </motion.div>
-            
-            {/* Gradient overlays to fade out top and bottom */}
-            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-slate-50/70 to-transparent z-20 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50/70 to-transparent z-20 pointer-events-none" />
-          </div>
-        </Reveal>
+              </div>
+            </Reveal>
+          ))}
+        </div>
 
 
         <div className="mt-20 text-center">
