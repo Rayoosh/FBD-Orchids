@@ -5,7 +5,6 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Reveal, TextReveal } from "@/components/ui/Reveal";
 import { Quote, Star } from "lucide-react";
-import { motion } from "framer-motion";
 
 const allTestimonials = [
   {
@@ -141,12 +140,8 @@ export default function TestimonialsPage() {
         <div className="max-w-7xl mx-auto">
           <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
             {allTestimonials.map((testimonial, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
                 className="break-inside-avoid bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
               >
                 <div className="flex gap-1 mb-6">
@@ -164,7 +159,7 @@ export default function TestimonialsPage() {
                     {testimonial.author}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
