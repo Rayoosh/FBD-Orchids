@@ -19,12 +19,13 @@ export function Hero() {
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "10%" : "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, isMobile ? 0.3 : 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, isMobile ? 1.02 : 1.1]);
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "30%"]);
+    const opacity = useTransform(scrollYProgress, [0, 0.8], [1, isMobile ? 1 : 0]);
+    const scale = useTransform(scrollYProgress, [0, 1], [1, isMobile ? 1 : 1.1]);
 
-    return (
-      <section ref={containerRef} className="relative h-full min-h-screen flex items-center pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-transparent">
+      return (
+        <section ref={containerRef} className="relative h-full min-h-screen flex items-center pt-24 md:pt-32 pb-16 md:pb-24 overflow-hidden bg-transparent">
+
         {/* Visual Accents */}
         <GeometricAccent className="absolute top-20 right-20 w-40 h-40 text-brand-blue-500 hidden xl:block" />
         <CornerAccent className="absolute top-40 left-10 hidden xl:block" />

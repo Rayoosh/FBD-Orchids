@@ -79,11 +79,11 @@ const services = [
 
         </div>
 
-          <div className="md:hidden -mx-6 px-6 flex overflow-x-auto gap-6 no-scrollbar pb-8 snap-x snap-mandatory">
+          <div className="md:hidden flex flex-col gap-12">
             {services.map((service, index) => (
-              <div key={index} className="flex-shrink-0 w-[85vw] snap-center">
+              <div key={index} className="w-full">
                 <div className="bg-transparent overflow-hidden">
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-6 border border-black/5">
+                  <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-6 border border-black/5">
                     <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-brand-blue-400 mb-6 border border-slate-200 shadow-sm">
@@ -165,37 +165,53 @@ const services = [
           />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-          {testimonials.map((testimonial, index) => (
-            <Reveal key={index} delay={index * 0.1}>
-              <div className="bg-white/40 backdrop-blur-md p-8 md:p-10 rounded-2xl md:rounded-[2rem] border border-black/5 luxury-shadow h-[450px] md:h-[550px] flex flex-col justify-between relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
-                <div className="relative z-10 flex flex-col h-full uppercase-none">
-                  <div className="flex gap-1 mb-6 md:mb-8 flex-shrink-0">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
-                    ))}
-                  </div>
-                  
-                  <div className="relative flex-grow overflow-hidden mb-6 md:mb-8">
-                    <div 
-                      className="animate-marquee-vertical flex flex-col gap-12 py-4" 
-                      style={{ '--duration': `${testimonial.quote.length * 0.1 + 10}s` } as React.CSSProperties}
-                    >
-                      <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line">
-                        {testimonial.quote}
-                      </p>
-                      <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line" aria-hidden="true">
-                        {testimonial.quote}
-                      </p>
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+            {testimonials.map((testimonial, index) => (
+              <Reveal key={index} delay={index * 0.1}>
+                <div className={cn(
+                  "bg-white/40 backdrop-blur-md p-8 md:p-10 rounded-2xl md:rounded-[2rem] border border-black/5 luxury-shadow flex flex-col justify-between relative overflow-hidden group mb-4 md:mb-0",
+                  isMobile ? "h-auto" : "h-[550px]"
+                )}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
+                  <div className="relative z-10 flex flex-col h-full uppercase-none">
+                    <div className="flex gap-1 mb-6 md:mb-8 flex-shrink-0">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
+                      ))}
                     </div>
+                    
+                    <div className={cn(
+                      "relative flex-grow overflow-hidden mb-6 md:mb-8",
+                      isMobile ? "h-auto" : "overflow-hidden"
+                    )}>
+                      <div 
+                        className={cn(
+                          "flex flex-col gap-12 py-4",
+                          !isMobile && "animate-marquee-vertical"
+                        )} 
+                        style={!isMobile ? { '--duration': `${testimonial.quote.length * 0.1 + 10}s` } as React.CSSProperties : {}}
+                      >
+                        <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line">
+                          {testimonial.quote}
+                        </p>
+                        {!isMobile && (
+                          <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line" aria-hidden="true">
+                            {testimonial.quote}
+                          </p>
+                        )}
+                      </div>
 
-                    {/* Gradient masks */}
-                    <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
-                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
-                  </div>
-                  
-                  <div className="flex items-center gap-5 pt-8 border-t border-black/5 flex-shrink-0">
+                      {/* Gradient masks (only for desktop scrolling) */}
+                      {!isMobile && (
+                        <>
+                          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
+                          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
+                        </>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center gap-5 pt-8 border-t border-black/5 flex-shrink-0">
+
                     <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
                       {testimonial.name.charAt(0)}
                     </div>

@@ -98,10 +98,11 @@ export function TrustExperience() {
                 </motion.div>
 
   
-                <motion.div
-                  style={{ y: y2 }}
-                  className="mt-8 lg:mt-0 lg:absolute -left-32 top-1/3 w-full lg:w-[110%] bg-transparent md:bg-white p-0 md:p-12 lg:p-16 flex flex-col justify-center rounded-none md:rounded-[2.5rem] md:luxury-shadow z-20 border-none md:border md:border-black/5"
-                >
+                  <motion.div
+                    style={!isMobile ? { y: y2 } : {}}
+                    className="mt-8 lg:mt-0 lg:absolute -left-32 top-1/3 w-full lg:w-[110%] bg-transparent md:bg-white p-0 md:p-12 lg:p-16 flex flex-col justify-center rounded-none md:rounded-[2.5rem] md:luxury-shadow z-20 border-none md:border md:border-black/5"
+                  >
+
                   <div className="luxury-card-glow opacity-50 hidden md:block" />
                   <Reveal>
                     <div className="flex gap-1.5 mb-6 md:mb-8">
