@@ -48,11 +48,11 @@ export function BackgroundGradient() {
               envPreset="lobby"
               format="gif"
                   fov={45}
-                  frameRate={30}
+                  frameRate={24}
                   gizmoHelper="hide"
                   grain="off"
                   lightType="3d"
-                  pixelDensity={1}
+                  pixelDensity={0.8}
                   positionX={-1.4}
               positionY={0}
               positionZ={0}
