@@ -68,52 +68,29 @@ export const Reveal = ({
 
 export const TextReveal = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
   const words = text.split(" ");
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
   
-  const container = {
-    hidden: { opacity: 0 },
-    visible: (i: number = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: delay * i },
-    }),
-  };
-
-  const child = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 25,
-        stiffness: 100,
-        duration: 1.2,
-        ease: [0.22, 1, 0.36, 1]
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: "100%",
-    },
-  };
-
   return (
-    <motion.div
-      className={cn("flex flex-wrap", className)}
-      variants={container}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0 }}
-    >
+    <div ref={ref} className={cn("relative flex flex-wrap", className)}>
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden mr-[0.2em] pb-[0.1em]">
+        <span key={i} className="inline-block overflow-hidden mr-[0.2em] py-2">
           <motion.span
-            variants={child}
+            initial={{ y: 100, opacity: 0 }}
+            animate={isInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
+            transition={{
+              duration: 1.5,
+              delay: delay + (i * 0.15),
+              ease: [0.22, 1, 0.36, 1]
+            }}
             className="inline-block"
+            style={{ display: "inline-block" }}
           >
             {word}
           </motion.span>
         </span>
       ))}
-    </motion.div>
+    </div>
   );
 };
 
