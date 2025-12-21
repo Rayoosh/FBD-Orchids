@@ -9,16 +9,8 @@ export function SpotlightOverlay() {
   const mouseY = useMotionValue(0);
 
   const springConfig = { stiffness: 150, damping: 20, mass: 0.1 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
-
-    const xPos = useTransform(smoothX, (v) => `${v}px`);
-    const yPos = useTransform(smoothY, (v) => `${v}px`);
-    
-    const backgroundTransform = useTransform(
-      [xPos, yPos],
-      ([x, y]) => `radial-gradient(600px circle at ${x} ${y}, rgba(59, 130, 246, 0.08), transparent 80%)`
-    );
+    const smoothX = useSpring(mouseX, springConfig);
+    const smoothY = useSpring(mouseY, springConfig);
 
     useEffect(() => {
       setIsMounted(true);
@@ -33,11 +25,19 @@ export function SpotlightOverlay() {
     if (!isMounted) return null;
 
     return (
-      <motion.div
-        className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
-        style={{ 
-          background: backgroundTransform
-        }}
-      />
+      <div className="pointer-events-none fixed inset-0 z-30 overflow-hidden">
+        <motion.div
+          className="absolute opacity-100 will-change-transform"
+          style={{ 
+            x: smoothX,
+            y: smoothY,
+            background: "radial-gradient(circle at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%)",
+            width: 600,
+            height: 600,
+            left: -300,
+            top: -300,
+          }}
+        />
+      </div>
     );
 }

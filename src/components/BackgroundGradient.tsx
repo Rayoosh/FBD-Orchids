@@ -1,11 +1,32 @@
 "use client";
 
 import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
-import React, { Suspense } from "react";
+import React, { Suspense, useState, useEffect, useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function BackgroundGradient() {
   const isMobile = useIsMobile();
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimeout = useRef<any>(null);
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const handleScroll = () => {
+      if (!isScrolling) setIsScrolling(true);
+      
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 200);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    };
+  }, [isMobile, isScrolling]);
 
     if (isMobile) {
       return (
@@ -33,7 +54,7 @@ export function BackgroundGradient() {
           }}
         >
             <ShaderGradient
-              animate="on"
+              animate={isScrolling ? "off" : "on"}
               axesHelper="off"
               brightness={1.3}
               cAzimuthAngle={180}

@@ -154,7 +154,7 @@ export function SectionCard({
                       willChange: "transform, opacity, scale, backdrop-filter",
                     }}
                   className={cn(
-                    "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] ring-1 backdrop-blur-md md:backdrop-blur-lg transform-gpu",
+                    "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] ring-1 transform-gpu",
                     isDark ? "ring-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)]" : "ring-black/5",
                     bgColor,
                     className
