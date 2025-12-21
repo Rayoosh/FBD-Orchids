@@ -65,50 +65,44 @@ export function CursorTrail() {
 
       pointsRef.current = tempPoints;
 
-      if (tempPoints.length > 2) {
-        ctx.beginPath();
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.globalCompositeOperation = "screen";
+        if (tempPoints.length > 2) {
+          ctx.beginPath();
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.globalCompositeOperation = "screen";
 
-          // Subtle gradient from head to tail
+          // Draw the path once with a wider, fainter stroke for "glow"
+          ctx.strokeStyle = "rgba(0, 163, 255, 0.15)";
+          ctx.moveTo(tempPoints[0].x, tempPoints[0].y);
+          for (let i = 1; i < tempPoints.length - 1; i++) {
+            const xc = (tempPoints[i].x + tempPoints[i + 1].x) / 2;
+            const yc = (tempPoints[i].y + tempPoints[i + 1].y) / 2;
+            ctx.lineWidth = Math.max(2, 12 * (1 - i / maxPoints));
+            ctx.quadraticCurveTo(tempPoints[i].x, tempPoints[i].y, xc, yc);
+          }
+          ctx.stroke();
+
+          // Draw the main sharp trail
+          ctx.beginPath();
           const gradient = ctx.createLinearGradient(
             tempPoints[0].x, tempPoints[0].y,
             tempPoints[tempPoints.length - 1].x, tempPoints[tempPoints.length - 1].y
           );
-          gradient.addColorStop(0, "rgba(255, 255, 255, 0.7)");
-          gradient.addColorStop(0.1, "rgba(0, 163, 255, 0.5)");
-          gradient.addColorStop(0.5, "rgba(0, 163, 255, 0.2)");
+          gradient.addColorStop(0, "rgba(255, 255, 255, 0.8)");
+          gradient.addColorStop(0.2, "rgba(0, 163, 255, 0.6)");
           gradient.addColorStop(1, "rgba(0, 163, 255, 0)");
 
           ctx.strokeStyle = gradient;
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = "rgba(0, 163, 255, 0.4)";
-
-          // Draw smooth path using quadratic curves
           ctx.moveTo(tempPoints[0].x, tempPoints[0].y);
           
-          for (let i = 1; i < tempPoints.length - 2; i++) {
+          for (let i = 1; i < tempPoints.length - 1; i++) {
             const xc = (tempPoints[i].x + tempPoints[i + 1].x) / 2;
             const yc = (tempPoints[i].y + tempPoints[i + 1].y) / 2;
-            
-            // Tapered width starting smaller
-            ctx.lineWidth = Math.max(0.5, 6 * (1 - i / maxPoints));
+            ctx.lineWidth = Math.max(0.5, 5 * (1 - i / maxPoints));
             ctx.quadraticCurveTo(tempPoints[i].x, tempPoints[i].y, xc, yc);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(xc, yc);
           }
-
-        // Final segments
-        ctx.quadraticCurveTo(
-          tempPoints[tempPoints.length - 2].x,
-          tempPoints[tempPoints.length - 2].y,
-          tempPoints[tempPoints.length - 1].x,
-          tempPoints[tempPoints.length - 1].y
-        );
-        ctx.stroke();
-      }
+          ctx.stroke();
+        }
 
       animationFrameId = requestAnimationFrame(render);
     };

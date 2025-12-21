@@ -47,19 +47,17 @@ export function CustomCursor() {
     const opacity = isVisible ? 1 : 0;
     
       return (
-      <>
-        {/* Spotlight Glow - keeping this as it's not the 'dot' but adds atmosphere */}
         <motion.div
-          className="fixed top-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px] pointer-events-none z-[9997]"
+          className="fixed top-0 left-0 w-3 h-3 bg-blue-500 rounded-full pointer-events-none z-[9999] mix-blend-difference"
           style={{
             x: smoothX,
             y: smoothY,
             translateX: "-50%",
             translateY: "-50%",
-            opacity: isVisible ? 1 : 0,
+            scale,
+            opacity,
             willChange: "transform, opacity"
           }}
         />
-      </>
-    );
+      );
 }
