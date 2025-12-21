@@ -53,7 +53,7 @@ export const Reveal = ({
   }, []);
 
   const shouldAnimate = once ? hasInView : isInView;
-  const mobileY = isMobile ? Math.min(y, 20) : y;
+  const mobileY = isMobile ? Math.min(y, 10) : y;
 
   return (
     <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
@@ -69,6 +69,7 @@ export const Reveal = ({
 };
 
 export const TextReveal = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
+  const isMobile = useIsMobile();
   const words = text.split(" ");
   const ref = useRef<HTMLDivElement>(null);
   const [hasInView, setHasInView] = useState(false);
@@ -110,20 +111,20 @@ export const TextReveal = ({ text, className, delay = 0 }: { text: string, class
     },
   };
 
-    const childVariants = {
-      hidden: { 
-        y: "110%",
-        opacity: 0 
+  const childVariants = {
+    hidden: { 
+      y: isMobile ? "30%" : "110%",
+      opacity: 0 
+    },
+    visible: { 
+      y: 0,
+      opacity: 1,
+      transition: {
+        y: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+        opacity: { duration: 0.8, ease: "linear" }
       },
-      visible: { 
-        y: 0,
-        opacity: 1,
-        transition: {
-          y: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
-          opacity: { duration: 0.8, ease: "linear" }
-        },
-      },
-    };
+    },
+  };
     
     return (
       <motion.div 

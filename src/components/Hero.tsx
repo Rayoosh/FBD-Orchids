@@ -19,9 +19,9 @@ export function Hero() {
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "10%" : "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, isMobile ? 0.3 : 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, isMobile ? 1.02 : 1.1]);
 
     return (
       <section ref={containerRef} className="relative h-full min-h-screen flex items-center pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-transparent">
@@ -46,7 +46,7 @@ export function Hero() {
                 
                   <TextReveal 
                     text="Elite Dental Excellence" 
-                    className="text-5xl md:text-9xl font-light text-brand-blue-900 leading-[0.95] md:leading-[0.85] tracking-tighter mb-8 md:mb-10 premium-gradient-text"
+                    className="text-4xl md:text-9xl font-light text-brand-blue-900 leading-[1.1] md:leading-[0.85] tracking-tighter mb-8 md:mb-10 premium-gradient-text"
                     delay={0.2}
                   />
                 
@@ -123,7 +123,7 @@ export function Hero() {
               style={{ y, opacity, scale }}
               className="relative"
             >
-              <div className="relative z-10 aspect-[3/4] rounded-2xl overflow-hidden editorial-shadow group">
+              <div className="relative z-10 aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden editorial-shadow group">
                 <div className="absolute inset-0 bg-brand-blue-900/10 group-hover:bg-transparent transition-colors duration-700 z-10" />
                 <img 
                   src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop" 

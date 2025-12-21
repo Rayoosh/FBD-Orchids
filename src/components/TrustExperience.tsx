@@ -32,7 +32,7 @@ export function TrustExperience() {
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Minimalist Trust Bar - Editorial Style */}
-        <div className="flex flex-wrap items-center justify-between gap-6 md:gap-12 mb-20 md:mb-48 border-y border-black/5 py-8 md:py-10">
+        <div className="flex flex-wrap items-center justify-between gap-6 md:gap-12 mb-12 md:mb-48 border-y border-black/5 py-8 md:py-10">
           {trustSignals.map((signal, index) => (
             <Reveal key={index} delay={index * 0.1} y={10}>
               <div className="flex items-center space-x-4 group">
@@ -46,7 +46,7 @@ export function TrustExperience() {
         </div>
 
         {/* Asymmetrical Layout */}
-        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 md:gap-32 items-start">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 md:gap-32 items-start">
           <div className="relative">
             <div className="md:sticky md:top-40">
               <Reveal>
@@ -58,7 +58,7 @@ export function TrustExperience() {
               
                   <TextReveal 
                     text="Modern Dental Care." 
-                    className="text-5xl md:text-8xl font-serif text-slate-900 leading-[0.95] md:leading-[0.9] mb-8 md:mb-12 tracking-tighter premium-gradient-text"
+                    className="text-4xl md:text-8xl font-serif text-slate-900 leading-[1.1] md:leading-[0.9] mb-8 md:mb-12 tracking-tighter premium-gradient-text"
                   />
                   
                   <Reveal delay={0.4}>
@@ -100,7 +100,7 @@ export function TrustExperience() {
   
               <motion.div
                 style={{ y: y2 }}
-                className="lg:absolute -left-32 top-1/3 w-full lg:w-[110%] bg-white p-8 md:p-12 lg:p-16 flex flex-col justify-center rounded-[2rem] md:rounded-[2.5rem] luxury-shadow z-20 border border-black/5"
+                className="mt-8 lg:mt-0 lg:absolute -left-32 top-1/3 w-full lg:w-[110%] bg-white p-8 md:p-12 lg:p-16 flex flex-col justify-center rounded-[2rem] md:rounded-[2.5rem] luxury-shadow z-20 border border-black/5"
               >
                 <div className="luxury-card-glow opacity-50" />
                 <Reveal>
@@ -124,7 +124,7 @@ export function TrustExperience() {
               </motion.div>
 
 
-              <div className="mt-20 md:mt-64 lg:ml-auto max-w-sm text-right">
+              <div className="mt-12 md:mt-64 lg:ml-auto max-w-sm text-right">
                 <Reveal delay={0.6}>
                    <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 mb-6 flex items-center justify-end gap-3">
                       <span className="w-8 h-[1px] bg-blue-500/30" />
