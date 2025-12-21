@@ -171,6 +171,19 @@ html {
     scrollbar-width: none;
   }
 
+  @keyframes marquee-vertical {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+
+  .animate-marquee-vertical {
+    animation: marquee-vertical var(--duration, 40s) linear infinite;
+  }
+
+  .animate-marquee-vertical:hover {
+    animation-play-state: paused;
+  }
+
   .mask-fade-in {
     mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
   }
