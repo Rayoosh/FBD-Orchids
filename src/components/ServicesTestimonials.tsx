@@ -77,33 +77,32 @@ export function ServicesTestimonials() {
 
         </div>
 
-        {/* Mobile Carousel */}
-        <div className="md:hidden -mx-6 px-6 flex overflow-x-auto gap-6 no-scrollbar pb-8 snap-x snap-mandatory">
-          {services.map((service, index) => (
-            <div key={index} className="flex-shrink-0 w-[85vw] snap-center">
-              <div className="bg-white/40 backdrop-blur-md rounded-3xl border border-black/5 overflow-hidden p-6">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-6 border border-black/5">
-                  <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+          <div className="md:hidden -mx-6 px-6 flex overflow-x-auto gap-6 no-scrollbar pb-8 snap-x snap-mandatory">
+            {services.map((service, index) => (
+              <div key={index} className="flex-shrink-0 w-[85vw] snap-center">
+                <div className="bg-transparent overflow-hidden">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-6 border border-black/5">
+                    <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-brand-blue-400 mb-6 border border-slate-200 shadow-sm">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-serif text-slate-900 mb-4 tracking-tight">{service.title}</h3>
+                  <p className="text-slate-500 leading-relaxed text-sm font-light mb-8">
+                    {service.description}
+                  </p>
+                  <Link href="#booking">
+                    <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
+                      Explore
+                      <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center">
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </button>
+                  </Link>
                 </div>
-                <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-brand-blue-400 mb-6 border border-slate-200 shadow-sm">
-                  {service.icon}
-                </div>
-                <h3 className="text-2xl font-serif text-slate-900 mb-4 tracking-tight">{service.title}</h3>
-                <p className="text-slate-500 leading-relaxed text-sm font-light mb-8">
-                  {service.description}
-                </p>
-                <Link href="#booking">
-                  <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
-                    Explore
-                    <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center">
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </button>
-                </Link>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
         {/* Desktop List */}
         <div className="hidden md:block space-y-40">
@@ -164,40 +163,40 @@ export function ServicesTestimonials() {
           />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Reveal key={index} delay={index * 0.2} y={30}>
-              <div className="bg-white/40 backdrop-blur-md p-10 rounded-[2rem] border border-black/5 luxury-shadow h-full flex flex-col justify-between relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <div className="relative z-10">
-                  <div className="flex gap-1 mb-8">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
-                    ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Reveal key={index} delay={index * 0.2} y={30}>
+                <div className="bg-transparent md:bg-white/40 md:backdrop-blur-md p-0 md:p-10 rounded-none md:rounded-[2rem] border-none md:border md:border-black/5 md:luxury-shadow h-full flex flex-col justify-between relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
+                  <div className="relative z-10">
+                    <div className="flex gap-1 mb-6 md:mb-8">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
+                      ))}
+                    </div>
+                    
+                      <div className="md:max-h-[300px] overflow-y-auto no-scrollbar">
+                        <p className="text-lg text-slate-800 font-serif leading-relaxed mb-8 md:mb-12 whitespace-pre-line">
+                          {testimonial.quote}
+                        </p>
+                      </div>
+
                   </div>
                   
-                    <div className="max-h-[300px] overflow-y-auto no-scrollbar">
-                      <p className="text-lg text-slate-800 font-serif leading-relaxed mb-4 md:mb-12 whitespace-pre-line">
-                        {testimonial.quote}
-                      </p>
+                  <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">
+                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
+                      {testimonial.name.charAt(0)}
                     </div>
 
-                </div>
-                
-                <div className="flex items-center gap-5 pt-8 border-t border-black/5 relative z-10">
-                  <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
-                    {testimonial.name.charAt(0)}
-                  </div>
-
-                  <div>
-                    <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
-                    <p className="text-[8px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>
+                    <div>
+                      <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">{testimonial.name}</h4>
+                      <p className="text-[8px] text-brand-blue-400 uppercase tracking-[0.2em] font-medium mt-1">{testimonial.role}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+              </Reveal>
+            ))}
+          </div>
 
         <div className="mt-20 text-center">
           <Reveal delay={0.6}>

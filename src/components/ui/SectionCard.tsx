@@ -112,20 +112,15 @@ export function SectionCard({
       <div 
         id={id}
         ref={containerRef} 
-        className={cn("relative w-full px-4 py-3")}
+        className={cn(
+          "relative w-full",
+          isDark ? "bg-slate-900" : bgColor,
+          className
+        )}
         style={{ zIndex: zIndexValue }}
       >
-        <div
-          className={cn(
-            "relative w-full overflow-hidden rounded-[2rem] shadow-sm ring-1",
-            isDark ? "bg-slate-900 ring-white/10" : "ring-black/5",
-            bgColor,
-            className
-          )}
-        >
-          <div ref={contentRef} className="w-full flex flex-col">
-            {children}
-          </div>
+        <div ref={contentRef} className="w-full flex flex-col">
+          {children}
         </div>
       </div>
     );

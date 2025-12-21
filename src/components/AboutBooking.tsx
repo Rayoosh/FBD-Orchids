@@ -100,9 +100,9 @@ export function AboutBooking() {
         </div>
 
         {/* Concierge Inquiry Experience */}
-        <Reveal width="100%" y={40}>
-            <div id="booking" className="grid lg:grid-cols-[0.8fr_1.2fr] bg-brand-blue-900 rounded-3xl overflow-hidden editorial-shadow border border-white/5 scroll-mt-24">
-            <div className="p-8 md:p-16 lg:p-24 bg-brand-blue-900 text-white flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/5">
+          <Reveal width="100%" y={40}>
+              <div id="booking" className="grid lg:grid-cols-[0.8fr_1.2fr] bg-brand-blue-900 rounded-none md:rounded-3xl overflow-hidden md:editorial-shadow md:border md:border-white/5 scroll-mt-24">
+              <div className="p-8 md:p-16 lg:p-24 bg-brand-blue-900 text-white flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/5">
               <div>
                 <div className="inline-flex items-center gap-3 mb-8 md:mb-12">
                    <div className="w-1 h-1 rounded-full bg-brand-blue-400" />

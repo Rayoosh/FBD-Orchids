@@ -98,30 +98,30 @@ export function TrustExperience() {
                 </motion.div>
 
   
-              <motion.div
-                style={{ y: y2 }}
-                className="mt-8 lg:mt-0 lg:absolute -left-32 top-1/3 w-full lg:w-[110%] bg-white p-8 md:p-12 lg:p-16 flex flex-col justify-center rounded-[2rem] md:rounded-[2.5rem] luxury-shadow z-20 border border-black/5"
-              >
-                <div className="luxury-card-glow opacity-50" />
-                <Reveal>
-                  <div className="flex gap-1.5 mb-6 md:mb-8">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-2.5 md:w-3 h-2.5 md:h-3 text-brand-blue-400 fill-brand-blue-400" />
-                    ))}
-                  </div>
-                </Reveal>
-                <Reveal delay={0.2}>
-                  <p className="text-2xl md:text-3xl font-serif italic text-slate-800 mb-8 md:mb-10 leading-snug tracking-tight">
-                    "Their approach to patient care is fundamentally different. It's the first time I've felt truly understood by a clinician."
-                  </p>
-                </Reveal>
-                <Reveal delay={0.3}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-px bg-brand-blue-100" />
-                    <p className="text-[9px] tracking-[0.4em] font-bold uppercase text-brand-blue-400 italic">James Harrington — Patient</p>
-                  </div>
-                </Reveal>
-              </motion.div>
+                <motion.div
+                  style={{ y: y2 }}
+                  className="mt-8 lg:mt-0 lg:absolute -left-32 top-1/3 w-full lg:w-[110%] bg-transparent md:bg-white p-0 md:p-12 lg:p-16 flex flex-col justify-center rounded-none md:rounded-[2.5rem] md:luxury-shadow z-20 border-none md:border md:border-black/5"
+                >
+                  <div className="luxury-card-glow opacity-50 hidden md:block" />
+                  <Reveal>
+                    <div className="flex gap-1.5 mb-6 md:mb-8">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-2.5 md:w-3 h-2.5 md:h-3 text-brand-blue-400 fill-brand-blue-400" />
+                      ))}
+                    </div>
+                  </Reveal>
+                  <Reveal delay={0.2}>
+                    <p className="text-2xl md:text-3xl font-serif italic text-slate-800 mb-8 md:mb-10 leading-snug tracking-tight">
+                      "Their approach to patient care is fundamentally different. It's the first time I've felt truly understood by a clinician."
+                    </p>
+                  </Reveal>
+                  <Reveal delay={0.3}>
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-px bg-brand-blue-100" />
+                      <p className="text-[9px] tracking-[0.4em] font-bold uppercase text-brand-blue-400 italic">James Harrington — Patient</p>
+                    </div>
+                  </Reveal>
+                </motion.div>
 
 
               <div className="mt-12 md:mt-64 lg:ml-auto max-w-sm text-right">
