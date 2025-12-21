@@ -1,6 +1,7 @@
 "use client";
 
 import { Navbar } from "@/components/Navbar";
+import { ConciergeBar } from "@/components/ConciergeBar";
 import { Hero } from "@/components/Hero";
 import { TrustExperience } from "@/components/TrustExperience";
 import { ServicesTestimonials } from "@/components/ServicesTestimonials";
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <main className="relative w-full bg-transparent selection:bg-brand-blue-100 selection:text-brand-blue-900">
       <Navbar />
+      <ConciergeBar />
       <SectionIndex />
       
       <div className="relative w-full">

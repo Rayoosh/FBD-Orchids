@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface RevealProps {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ export const Reveal = ({
     once = true
 }: RevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   const [hasInView, setHasInView] = useState(false);
   const isInView = useInView(ref, { 
     once,
@@ -51,12 +53,13 @@ export const Reveal = ({
   }, []);
 
   const shouldAnimate = once ? hasInView : isInView;
+  const mobileY = isMobile ? Math.min(y, 20) : y;
 
   return (
     <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
       <motion.div
-        initial={{ opacity: 0, y }}
-        animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y }}
+        initial={{ opacity: 0, y: mobileY }}
+        animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: mobileY }}
         transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}

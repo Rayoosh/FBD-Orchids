@@ -7,6 +7,7 @@ import { Magnetic } from "./ui/Magnetic";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { MobileNav } from "./MobileNav";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -119,49 +120,17 @@ export function Navbar() {
             </Button>
           </Magnetic>
           
-          <button 
-            className="md:hidden text-slate-900 p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+            <button 
+              className="md:hidden text-slate-900 p-2"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu size={20} />
+            </button>
+          </div>
         </div>
-      </div>
 
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -20 }}
-            className="lg:hidden absolute top-[calc(100%+1rem)] left-0 w-full bg-white/90 backdrop-blur-2xl rounded-[2rem] border border-slate-100 shadow-2xl overflow-hidden p-6"
-          >
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.name} 
-                  href={link.href} 
-                  className="flex items-center gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <link.icon className="w-5 h-5 text-slate-400" />
-                  <span className="text-lg font-medium text-slate-900">{link.name}</span>
-                </Link>
-              ))}
-              <div className="h-px bg-slate-100 my-2" />
-              <button 
-                className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm uppercase tracking-widest"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  handleBookClick();
-                }}
-              >
-                Book Online
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  );
-}
+        <MobileNav isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      </nav>
+    );
+  }
+

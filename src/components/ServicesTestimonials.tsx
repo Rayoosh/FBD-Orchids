@@ -59,23 +59,52 @@ const testimonials = [
 export function ServicesTestimonials() {
   const isMobile = useIsMobile();
   return (
-    <section className="bg-transparent h-full no-scrollbar py-24 md:py-32 px-6 md:px-24">
+    <section className="bg-transparent h-full no-scrollbar py-16 md:py-32 px-6 md:px-24">
       {/* Services Section */}
-      <div className="max-w-7xl mx-auto mb-48">
-        <div className="mb-32">
+      <div className="max-w-7xl mx-auto mb-24 md:mb-48">
+        <div className="mb-16 md:mb-32">
           <Reveal>
-            <div className="inline-flex items-center gap-3 mb-8">
+            <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
               <div className="w-8 h-[1px] bg-blue-400" />
               <span className="text-[10px] text-blue-400 font-bold uppercase tracking-[0.3em]">Curated Procedures</span>
             </div>
           </Reveal>
           <TextReveal 
             text="Clinical Mastery. Artistically Delivered." 
-            className="text-6xl md:text-8xl font-serif text-slate-900 leading-[0.9] tracking-tighter premium-gradient-text"
+            className="text-5xl md:text-8xl font-serif text-slate-900 leading-[0.95] md:leading-[0.9] tracking-tighter premium-gradient-text"
           />
         </div>
 
-        <div className="space-y-40">
+        {/* Mobile Carousel */}
+        <div className="md:hidden -mx-6 px-6 flex overflow-x-auto gap-6 no-scrollbar pb-8 snap-x snap-mandatory">
+          {services.map((service, index) => (
+            <div key={index} className="flex-shrink-0 w-[85vw] snap-center">
+              <div className="bg-white/40 backdrop-blur-md rounded-3xl border border-black/5 overflow-hidden p-6">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-6 border border-black/5">
+                  <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+                </div>
+                <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-brand-blue-400 mb-6 border border-slate-200 shadow-sm">
+                  {service.icon}
+                </div>
+                <h3 className="text-2xl font-serif text-slate-900 mb-4 tracking-tight">{service.title}</h3>
+                <p className="text-slate-500 leading-relaxed text-sm font-light mb-8">
+                  {service.description}
+                </p>
+                <Link href="#booking">
+                  <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
+                    Explore
+                    <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center">
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop List */}
+        <div className="hidden md:block space-y-40">
           {services.map((service, index) => (
             <div key={index} className={`grid lg:grid-cols-12 gap-20 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
                 <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
