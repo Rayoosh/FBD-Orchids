@@ -15,10 +15,10 @@ interface RevealProps {
 export const Reveal = ({ 
   children, 
   width = "fit-content", 
-  delay = 0.2, 
-  duration = 0.8,
-  y = 20,
-  once = true
+    delay = 0.2, 
+    duration = 1.2,
+    y = 40,
+    once = true
 }: RevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [hasInView, setHasInView] = useState(false);
@@ -101,11 +101,11 @@ export const TextReveal = ({ text, className, delay = 0 }: { text: string, class
       {words.map((word, i) => (
           <span key={i} className="inline-block overflow-hidden mr-[0.2em] pb-[0.1em]">
             <motion.span
-              initial={{ y: "100%" }}
-              animate={hasInView ? { y: 0 } : { y: "100%" }}
+              initial={{ y: "20%", opacity: 0, scale: 0.98 }}
+              animate={hasInView ? { y: 0, opacity: 1, scale: 1 } : { y: "20%", opacity: 0, scale: 0.98 }}
               transition={{
-                duration: 1,
-                delay: delay + i * 0.05,
+                duration: 1.5,
+                delay: delay + i * 0.15,
                 ease: [0.22, 1, 0.36, 1]
               }}
               className="inline-block"
