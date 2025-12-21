@@ -38,9 +38,9 @@ export function Navbar() {
   return (
     <nav 
       className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 rounded-full border ring-1 ${
-          (isScrolled || isMobile)
-            ? "py-2 px-3 bg-white/70 backdrop-blur-3xl backdrop-saturate-[1.8] border-white ring-slate-900/5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.2),0_8px_20px_-8px_rgba(0,0,0,0.1)] w-auto min-w-[280px] md:min-w-0" 
-            : "py-4 px-6 bg-white/40 backdrop-blur-2xl backdrop-saturate-[1.4] border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl editorial-shadow"
+            (isScrolled || isMobile)
+              ? "py-2 px-3 bg-white/70 backdrop-blur-2xl backdrop-saturate-[1.8] border-white ring-slate-900/5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.2),0_8px_20px_-8px_rgba(0,0,0,0.1)] w-auto min-w-[280px] md:min-w-0" 
+              : "py-4 px-6 bg-white/40 backdrop-blur-xl backdrop-saturate-[1.4] border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl editorial-shadow"
       }`}
     >
       {/* Prism Rim - Dual Layer Highlights */}
