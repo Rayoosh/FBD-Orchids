@@ -1,45 +1,23 @@
 "use client";
 
 import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
-import React, { Suspense, useState, useEffect, useRef } from "react";
+import React, { Suspense } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function BackgroundGradient() {
   const isMobile = useIsMobile();
-  const [isScrolling, setIsScrolling] = useState(false);
-  const scrollTimeout = useRef<any>(null);
 
-  useEffect(() => {
-    if (isMobile) return;
-
-    const handleScroll = () => {
-      if (!isScrolling) setIsScrolling(true);
-      
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = setTimeout(() => {
-        setIsScrolling(false);
-      }, 200);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-    };
-  }, [isMobile, isScrolling]);
-
-    if (isMobile) {
-      return (
-        <div 
-          className="fixed inset-0 -z-10 h-screen w-screen overflow-hidden pointer-events-none"
-          style={{
-            background: "linear-gradient(135deg, #00ccff 0%, #ffffff 50%, #008ef3 100%)",
-            opacity: 0.6
-          }}
-        />
-      );
-    }
-
+  if (isMobile) {
+    return (
+      <div 
+        className="fixed inset-0 -z-10 h-screen w-screen overflow-hidden pointer-events-none"
+        style={{
+          background: "linear-gradient(135deg, #00ccff 0%, #ffffff 50%, #008ef3 100%)",
+          opacity: 0.6
+        }}
+      />
+    );
+  }
 
   return (
     <div className="fixed inset-0 -z-10 h-screen w-screen overflow-hidden pointer-events-none">
@@ -53,9 +31,9 @@ export function BackgroundGradient() {
             height: "100%",
           }}
         >
-            <ShaderGradient
-              animate={isScrolling ? "off" : "on"}
-              axesHelper="off"
+          <ShaderGradient
+            animate="on"
+            axesHelper="off"
               brightness={1.3}
               cAzimuthAngle={180}
               cDistance={3.62}
