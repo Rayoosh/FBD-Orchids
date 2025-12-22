@@ -15,8 +15,8 @@ export function SmoothScroll({
   }, []);
 
     const options = useMemo(() => ({
-      lerp: 0.1, 
-      duration: 1.5,
+      lerp: 0.15, 
+      duration: 1.0,
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
