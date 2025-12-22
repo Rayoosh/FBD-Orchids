@@ -165,37 +165,54 @@ const services = [
           />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-          {testimonials.map((testimonial, index) => (
-            <Reveal key={index} delay={index * 0.1}>
-              <div className="bg-white/40 backdrop-blur-md p-8 md:p-10 rounded-2xl md:rounded-[2rem] border border-black/5 luxury-shadow h-[450px] md:h-[550px] flex flex-col justify-between relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
-                <div className="relative z-10 flex flex-col h-full uppercase-none">
-                  <div className="flex gap-1 mb-6 md:mb-8 flex-shrink-0">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
-                    ))}
-                  </div>
-                  
-                  <div className="relative flex-grow overflow-hidden mb-6 md:mb-8">
-                    <div 
-                      className="animate-marquee-vertical flex flex-col gap-12 py-4" 
-                      style={{ '--duration': `${testimonial.quote.length * 0.1 + 10}s` } as React.CSSProperties}
-                    >
-                      <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line">
-                        {testimonial.quote}
-                      </p>
-                      <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line" aria-hidden="true">
-                        {testimonial.quote}
-                      </p>
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+            {testimonials.map((testimonial, index) => (
+              <Reveal key={index} delay={index * 0.1}>
+                <div className={cn(
+                  "relative flex flex-col justify-between overflow-hidden group transition-all duration-700",
+                  isMobile 
+                    ? "bg-white p-6 rounded-2xl border border-slate-100 shadow-sm" 
+                    : "bg-white/40 backdrop-blur-md p-10 rounded-[2rem] border border-black/5 luxury-shadow h-[550px]"
+                )}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
+                  <div className="relative z-10 flex flex-col h-full uppercase-none">
+                    <div className="flex gap-1 mb-6 md:mb-8 flex-shrink-0">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
+                      ))}
                     </div>
+                    
+                    <div className={cn(
+                      "relative flex-grow mb-6 md:mb-8",
+                      isMobile ? "overflow-visible" : "overflow-hidden"
+                    )}>
+                      <div 
+                        className={cn(
+                          "flex flex-col gap-12",
+                          !isMobile && "animate-marquee-vertical py-4"
+                        )}
+                        style={(!isMobile ? { '--duration': `${testimonial.quote.length * 0.1 + 10}s` } : {}) as React.CSSProperties}
+                      >
+                        <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line">
+                          {testimonial.quote}
+                        </p>
+                        {!isMobile && (
+                          <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line" aria-hidden="true">
+                            {testimonial.quote}
+                          </p>
+                        )}
+                      </div>
 
-                    {/* Gradient masks */}
-                    <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
-                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
-                  </div>
-                  
-                  <div className="flex items-center gap-5 pt-8 border-t border-black/5 flex-shrink-0">
+                      {/* Gradient masks - only on desktop for marquee */}
+                      {!isMobile && (
+                        <>
+                          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
+                          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
+                        </>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center gap-5 pt-8 border-t border-black/5 flex-shrink-0">
                     <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
                       {testimonial.name.charAt(0)}
                     </div>

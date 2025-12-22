@@ -28,6 +28,16 @@ export function SectionCard({
   const [viewportHeight, setViewportHeight] = useState(0);
   const isMobile = useIsMobile();
 
+  // Helper to get solid background color for mobile
+  const mobileBg = useMemo(() => {
+    if (!bgColor) return isDark ? "bg-slate-900" : "bg-white";
+    // Strip transparency and backdrop blurs for standard mobile look
+    return bgColor
+      .replace(/\/70|\/80|\/90/g, "")
+      .replace(/backdrop-blur-\w+/g, "")
+      .trim();
+  }, [bgColor, isDark]);
+
   useEffect(() => {
     const updateDimensions = () => {
       if (contentRef.current) {
@@ -114,10 +124,9 @@ export function SectionCard({
         ref={containerRef} 
         className={cn(
           "relative w-full",
-          isDark ? "bg-slate-900" : bgColor,
+          isDark ? "bg-slate-900" : mobileBg,
           className
         )}
-        style={{ zIndex: zIndexValue }}
       >
         <div ref={contentRef} className="w-full flex flex-col">
           {children}
