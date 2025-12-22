@@ -21,12 +21,13 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] bg-white md:hidden overflow-hidden"
-        >
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-[1000] bg-white md:hidden overflow-y-auto"
+          >
+
           {/* Decorative background elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-brand-blue-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
