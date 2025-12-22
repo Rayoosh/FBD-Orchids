@@ -87,30 +87,22 @@ export function TrustExperience() {
               </div>
             </div>
 
-            <div className={`lg:col-span-5 relative mt-8 md:mt-0`}>
+            <div className="relative pt-12 md:pt-12">
               {/* Parallax Image Grid with Luxury Shadows */}
-                <motion.div style={{ y: y1 }} className="mb-12 md:mb-24 px-0 md:px-0">
+                <motion.div style={{ y: y1 }} className="mb-16 md:mb-24">
                     <ImageReveal 
                       src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2000" 
                       alt="Modern Dentistry"
-                      className={cn(
-                        "aspect-[4/5] overflow-hidden transition-all duration-1000",
-                        isMobile ? "rounded-2xl shadow-md grayscale-0" : "rounded-3xl editorial-shadow grayscale hover:grayscale-0"
-                      )}
+                      className={`editorial-shadow aspect-[4/5] rounded-3xl overflow-hidden transition-all duration-1000 ${isMobile ? "grayscale-0" : "grayscale hover:grayscale-0"}`}
                     />
                 </motion.div>
 
   
                 <motion.div
                   style={{ y: y2 }}
-                  className={cn(
-                    "mt-8 lg:mt-0 lg:absolute -left-32 top-1/3 w-full lg:w-[110%] z-20",
-                    isMobile 
-                      ? "bg-white p-6 rounded-2xl shadow-sm border border-slate-100" 
-                      : "bg-white md:bg-white p-0 md:p-12 lg:p-16 flex flex-col justify-center rounded-[2.5rem] md:luxury-shadow border border-black/5"
-                  )}
+                  className="mt-8 lg:mt-0 lg:absolute -left-32 top-1/3 w-full lg:w-[110%] bg-transparent md:bg-white p-0 md:p-12 lg:p-16 flex flex-col justify-center rounded-none md:rounded-[2.5rem] md:luxury-shadow z-20 border-none md:border md:border-black/5"
                 >
-                  {!isMobile && <div className="luxury-card-glow opacity-50" />}
+                  <div className="luxury-card-glow opacity-50 hidden md:block" />
                   <Reveal>
                     <div className="flex gap-1.5 mb-6 md:mb-8">
                       {[...Array(5)].map((_, i) => (

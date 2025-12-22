@@ -79,27 +79,29 @@ const services = [
 
         </div>
 
-          <div className="md:hidden space-y-12">
+          <div className="md:hidden -mx-6 px-6 flex overflow-x-auto gap-6 no-scrollbar pb-8 snap-x snap-mandatory">
             {services.map((service, index) => (
-              <div key={index} className="flex flex-col">
-                <div className="aspect-[16/9] rounded-xl overflow-hidden mb-6 border border-slate-100 shadow-sm">
-                  <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+              <div key={index} className="flex-shrink-0 w-[85vw] snap-center">
+                <div className="bg-transparent overflow-hidden">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-6 border border-black/5">
+                    <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-brand-blue-400 mb-6 border border-slate-200 shadow-sm">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-serif text-slate-900 mb-4 tracking-tight">{service.title}</h3>
+                  <p className="text-slate-500 leading-relaxed text-sm font-light mb-8">
+                    {service.description}
+                  </p>
+                  <Link href="#booking">
+                    <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
+                      Explore
+                      <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center">
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </button>
+                  </Link>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-brand-blue-400 mb-4 border border-slate-100 shadow-sm">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-serif text-slate-900 mb-3 tracking-tight">{service.title}</h3>
-                <p className="text-slate-500 leading-relaxed text-sm font-light mb-6">
-                  {service.description}
-                </p>
-                <Link href="#booking">
-                  <button className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-900 group">
-                    Explore
-                    <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center">
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </button>
-                </Link>
               </div>
             ))}
           </div>
@@ -163,52 +165,38 @@ const services = [
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
           {testimonials.map((testimonial, index) => (
             <Reveal key={index} delay={index * 0.1}>
-              <div className={cn(
-                "flex flex-col relative overflow-hidden group transition-all duration-500",
-                "h-auto md:h-[550px] p-6 md:p-10",
-                "bg-white md:bg-white/40 backdrop-blur-none md:backdrop-blur-md rounded-2xl md:rounded-[2rem]",
-                "border border-slate-100 md:border-black/5 shadow-sm md:luxury-shadow"
-              )}>
-                {!isMobile && <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />}
-                
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex gap-1 mb-6 flex-shrink-0">
+              <div className="bg-white/40 backdrop-blur-md p-8 md:p-10 rounded-2xl md:rounded-[2rem] border border-black/5 luxury-shadow h-[450px] md:h-[550px] flex flex-col justify-between relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden md:block" />
+                <div className="relative z-10 flex flex-col h-full uppercase-none">
+                  <div className="flex gap-1 mb-6 md:mb-8 flex-shrink-0">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={isMobile ? 12 : 14} className="text-brand-blue-400 fill-brand-blue-400" />
+                      <Star key={i} className="w-2.5 h-2.5 text-brand-blue-400 fill-brand-blue-400" />
                     ))}
                   </div>
                   
-                  <div className="relative flex-grow mb-8">
+                  <div className="relative flex-grow overflow-hidden mb-6 md:mb-8">
                     <div 
-                      className={cn(
-                        "flex flex-col gap-8",
-                        !isMobile && "animate-marquee-vertical py-4"
-                      )}
-                      style={!isMobile ? { '--duration': `${testimonial.quote.length * 0.1 + 10}s` } as React.CSSProperties : {}}
+                      className="animate-marquee-vertical flex flex-col gap-12 py-4" 
+                      style={{ '--duration': `${testimonial.quote.length * 0.1 + 10}s` } as React.CSSProperties}
                     >
-                      <p className="text-base md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line">
+                      <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line">
                         {testimonial.quote}
                       </p>
-                      {!isMobile && (
-                        <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line" aria-hidden="true">
-                          {testimonial.quote}
-                        </p>
-                      )}
+                      <p className="text-lg md:text-xl text-slate-800 font-serif leading-relaxed whitespace-pre-line" aria-hidden="true">
+                        {testimonial.quote}
+                      </p>
                     </div>
 
-                    {!isMobile && (
-                      <>
-                        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
-                        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
-                      </>
-                    )}
+                    {/* Gradient masks */}
+                    <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
+                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/80 via-white/20 to-transparent pointer-events-none z-20" />
                   </div>
                   
-                  <div className="flex items-center gap-4 pt-6 md:pt-8 border-t border-slate-100 md:border-black/5 flex-shrink-0">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-slate-50 md:bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-lg md:text-xl border border-slate-200 uppercase">
+                  <div className="flex items-center gap-5 pt-8 border-t border-black/5 flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue-400 font-serif text-xl border border-slate-200 uppercase">
                       {testimonial.name.charAt(0)}
                     </div>
 

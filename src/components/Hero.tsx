@@ -35,137 +35,136 @@ export function Hero() {
         <div className="light-leak bottom-[-10%] right-[-10%] opacity-15 rotate-180" />
         
         <div className="container mx-auto px-6 md:px-24 relative z-10">
-            <div className="lg:col-span-12">
-              <Reveal delay={0.1}>
-                <div className="inline-flex items-center gap-3 px-4 md:px-5 py-2 md:py-2.5 bg-brand-blue-50/50 backdrop-blur-sm border border-brand-blue-100/50 rounded-xl text-brand-blue-900 text-[10px] md:text-xs font-display uppercase tracking-[0.2em] mb-6 md:mb-10 editorial-shadow">
-                  <Shield className="w-3.5 h-3.5 md:w-4 h-4 text-brand-blue-500" />
-                  <span>Central Auckland's Premier Clinic</span>
-                </div>
-              </Reveal>
-              
-                <TextReveal 
-                  text="Elite Dental Excellence" 
-                  className="text-5xl md:text-9xl font-light text-brand-blue-900 leading-[1.1] md:leading-[0.85] tracking-tighter mb-6 md:mb-10 premium-gradient-text"
-                  delay={0.2}
-                />
-              
-              <Reveal delay={0.6}>
-                <p className="text-lg md:text-2xl text-slate-600 max-w-xl mb-8 md:mb-14 leading-relaxed font-light">
-                  Modern dentistry with a gentle touch. Located at 40 College Hill, we provide comprehensive care for the whole family at accessible prices.
-                </p>
-              </Reveal>
-            
-            <Reveal delay={0.8}>
-              <div className="flex flex-col sm:flex-row gap-4 md:gap-8 items-stretch md:items-center">
-                  <Magnetic>
-                    <Link href="#booking">
-                      <Button variant="premium" size="lg" className="w-full sm:w-auto h-16 px-10 md:px-12 luxury-shadow group text-sm md:text-base">
-                        Book Consultation
-                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </Magnetic>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
+            <div className="lg:col-span-7">
+                <Reveal delay={0.1}>
+                  <div className="inline-flex items-center gap-3 px-4 md:px-5 py-2 md:py-2.5 bg-brand-blue-50/50 backdrop-blur-sm border border-brand-blue-100/50 rounded-xl text-brand-blue-900 text-[10px] md:text-xs font-display uppercase tracking-[0.2em] mb-8 md:mb-10 editorial-shadow">
+                    <Shield className="w-3.5 h-3.5 md:w-4 h-4 text-brand-blue-500" />
+                    <span>Central Auckland's Premier Clinic</span>
+                  </div>
+                </Reveal>
                 
-                  <Magnetic strength={0.2}>
-                    <Link href="#services">
-                      <Button variant="premium-outline" size="lg" className="w-full sm:w-auto h-16 px-8 md:px-10 text-sm md:text-base">
-                        Our Services
-                      </Button>
-                    </Link>
-                  </Magnetic>
+                  <TextReveal 
+                    text="Elite Dental Excellence" 
+                    className="text-4xl md:text-9xl font-light text-brand-blue-900 leading-[1.1] md:leading-[0.85] tracking-tighter mb-8 md:mb-10 premium-gradient-text"
+                    delay={0.2}
+                  />
+                
+                <Reveal delay={0.6}>
+                  <p className="text-lg md:text-2xl text-slate-600 max-w-xl mb-10 md:mb-14 leading-relaxed font-light">
+                    Modern dentistry with a gentle touch. Located at 40 College Hill, we provide comprehensive care for the whole family at accessible prices.
+                  </p>
+                </Reveal>
+              
+              <Reveal delay={0.8}>
+                <div className="flex flex-col sm:flex-row gap-4 md:gap-8 items-stretch md:items-center">
+                    <Magnetic>
+                      <Link href="#booking">
+                        <Button variant="premium" size="lg" className="w-full sm:w-auto h-14 md:h-16 px-10 md:px-12 luxury-shadow group">
+                          Book Consultation
+                          <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </Button>
+                      </Link>
+                    </Magnetic>
+                  
+                    <Magnetic strength={0.2}>
+                      <Link href="#services">
+                        <Button variant="premium-outline" size="lg" className="w-full sm:w-auto h-14 md:h-16 px-8 md:px-10">
+                          Our Services
+                        </Button>
+                      </Link>
+                    </Magnetic>
+                  </div>
+                </Reveal>
+  
+              {/* Mobile Badges */}
+              <Reveal delay={0.9}>
+                <div className="mt-10 flex flex-wrap gap-3 md:hidden">
+                  <div className="flex items-center gap-2.5 px-4 py-2 bg-slate-50 rounded-full border border-slate-100">
+                    <div className="w-2 h-2 rounded-full bg-brand-blue-500 animate-pulse" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-900 italic">Emergency Same-day</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 px-4 py-2 bg-brand-blue-900 text-white rounded-full border border-brand-blue-800">
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Free for Under 18s</span>
+                  </div>
                 </div>
               </Reveal>
 
-            <div className="grid lg:grid-cols-12 gap-12 md:gap-16 items-center mt-12 md:mt-24">
-              <div className="lg:col-span-7">
-                {/* Mobile Badges */}
-                <Reveal delay={0.9}>
-                  <div className="flex flex-wrap gap-3 md:hidden mb-10">
-                    <div className="flex items-center gap-2.5 px-4 py-2 bg-slate-50 rounded-full border border-slate-100">
-                      <div className="w-2 h-2 rounded-full bg-brand-blue-500 animate-pulse" />
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-slate-900 italic">Emergency Same-day</span>
-                    </div>
-                    <div className="flex items-center gap-2.5 px-4 py-2 bg-brand-blue-900 text-white rounded-full border border-brand-blue-800">
-                      <span className="text-[10px] font-bold uppercase tracking-widest">Free for Under 18s</span>
-                    </div>
-                  </div>
-                </Reveal>
+              <Reveal delay={1}>
+                <div className="mt-12 md:mt-20 flex items-center gap-8 md:gap-12">
 
-                <Reveal delay={1}>
-                  <div className="flex items-center gap-8 md:gap-12">
-                    <div className="flex -space-x-4">
-                      {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="w-12 h-12 md:w-14 md:h-14 rounded-xl border-4 border-white overflow-hidden luxury-shadow">
-                          <img 
-                            src={`https://i.pravatar.cc/150?u=${i + 20}`} 
-                            alt="Patient" 
-                            className={cn(
-                              "w-full h-full object-cover transition-all duration-500",
-                              isMobile ? "grayscale-0" : "grayscale hover:grayscale-0"
-                            )} 
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    <div>
-                      <div className="flex gap-1.5 text-brand-blue-500 mb-1.5">
-                        {[1, 2, 3, 4, 5].map((i) => <Star key={i} size={14} fill="currentColor" />)}
+                  <div className="flex -space-x-4">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i} className="w-14 h-14 rounded-xl border-4 border-white overflow-hidden luxury-shadow">
+                        <img 
+                          src={`https://i.pravatar.cc/150?u=${i + 20}`} 
+                          alt="Patient" 
+                          className={cn(
+                            "w-full h-full object-cover transition-all duration-500",
+                            isMobile ? "grayscale-0" : "grayscale hover:grayscale-0"
+                          )} 
+                        />
                       </div>
-                      <p className="text-sm font-display uppercase tracking-widest text-brand-blue-900">1.2k+ Bespoke Reviews</p>
-                    </div>
+                    ))}
                   </div>
-                </Reveal>
-              </div>
 
-              <div className="lg:col-span-5 relative mt-8 md:mt-0">
-                <motion.div
-                  style={{ y, opacity, scale }}
-                  className="relative"
-                >
-                  <div className="relative z-10 aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden editorial-shadow group">
-                    <div className="absolute inset-0 bg-brand-blue-900/10 group-hover:bg-transparent transition-colors duration-700 z-10" />
-                    <img 
-                      src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop" 
-                      alt="Modern Dental Studio" 
-                      className="w-full h-full object-cover"
-                    />
+                <div>
+                  <div className="flex gap-1.5 text-brand-blue-500 mb-1.5">
+                    {[1, 2, 3, 4, 5].map((i) => <Star key={i} size={14} fill="currentColor" />)}
                   </div>
-                  
-                  {/* Floating Cards */}
-                  <motion.div 
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.2, duration: 1 }}
-                    className="absolute -top-12 -right-8 bg-white/90 backdrop-blur-md p-7 rounded-2xl luxury-shadow z-20 hidden md:block border border-white/20"
-                  >
-                    <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 bg-brand-blue-50 rounded-xl flex items-center justify-center text-brand-blue-900">
-                          <Users className="w-7 h-7" />
-                        </div>
-                        <div>
-                          <p className="text-[10px] text-brand-blue-500 uppercase tracking-[0.2em] font-bold mb-0.5">Emergency</p>
-                          <p className="text-xl font-serif text-brand-blue-950 italic">Same-day Care</p>
-                        </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div 
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.4, duration: 1 }}
-                    className="absolute -bottom-12 -left-8 bg-brand-blue-900 p-10 rounded-2xl luxury-shadow z-20 hidden md:block text-white"
-                  >
-                    <p className="text-5xl font-light mb-2 tracking-tighter italic">Free</p>
-                    <p className="text-brand-blue-200 text-[10px] uppercase tracking-[0.2em] leading-relaxed font-medium">Dental Care for <br /> Year 9 to 18</p>
-                  </motion.div>
-                </motion.div>
+                  <p className="text-sm font-display uppercase tracking-widest text-brand-blue-900">1.2k+ Bespoke Reviews</p>
+                </div>
               </div>
-            </div>
+            </Reveal>
+          </div>
+
+          <div className="lg:col-span-5 relative">
+            <motion.div
+              style={{ y, opacity, scale }}
+              className="relative"
+            >
+              <div className="relative z-10 aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden editorial-shadow group">
+                <div className="absolute inset-0 bg-brand-blue-900/10 group-hover:bg-transparent transition-colors duration-700 z-10" />
+                <img 
+                  src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop" 
+                  alt="Modern Dental Studio" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Floating Cards */}
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.2, duration: 1 }}
+                className="absolute -top-12 -right-8 bg-white/90 backdrop-blur-md p-7 rounded-2xl luxury-shadow z-20 hidden md:block border border-white/20"
+              >
+                <div className="flex items-center gap-5">
+                    <div className="w-14 h-14 bg-brand-blue-50 rounded-xl flex items-center justify-center text-brand-blue-900">
+                      <Users className="w-7 h-7" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-brand-blue-500 uppercase tracking-[0.2em] font-bold mb-0.5">Emergency</p>
+                      <p className="text-xl font-serif text-brand-blue-950 italic">Same-day Care</p>
+                    </div>
+                </div>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.4, duration: 1 }}
+                className="absolute -bottom-12 -left-8 bg-brand-blue-900 p-10 rounded-2xl luxury-shadow z-20 hidden md:block text-white"
+              >
+                <p className="text-5xl font-light mb-2 tracking-tighter italic">Free</p>
+                <p className="text-brand-blue-200 text-[10px] uppercase tracking-[0.2em] leading-relaxed font-medium">Dental Care for <br /> Year 9 to 18</p>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
-      </section>
-    );
+      </div>
+    </section>
+  );
 }

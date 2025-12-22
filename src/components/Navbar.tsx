@@ -8,7 +8,6 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileNav } from "./MobileNav";
-import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,50 +38,31 @@ export function Navbar() {
 
   return (
     <nav 
-      className={cn(
-        "fixed transition-all duration-700 z-[100]",
-        isMobile 
-          ? "top-0 left-0 w-full rounded-none border-b bg-white/80 backdrop-blur-xl px-4 py-3 border-slate-100"
-          : cn(
-            "top-6 left-1/2 -translate-x-1/2 rounded-full border ring-1",
-            isScrolled
-              ? "py-2 px-3 bg-white/70 backdrop-blur-2xl backdrop-saturate-[1.8] border-white ring-slate-900/5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.2),0_8px_20px_-8px_rgba(0,0,0,0.1)] w-auto md:min-w-0" 
+      className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 rounded-full border ring-1 ${
+            (isScrolled || isMobile)
+              ? "py-2 px-3 bg-white/70 backdrop-blur-2xl backdrop-saturate-[1.8] border-white ring-slate-900/5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.2),0_8px_20px_-8px_rgba(0,0,0,0.1)] w-auto min-w-[280px] md:min-w-0" 
               : "py-4 px-6 bg-white/40 backdrop-blur-xl backdrop-saturate-[1.4] border-white ring-slate-900/5 w-[90%] md:w-[85%] max-w-7xl editorial-shadow"
-          )
-      )}
+      }`}
     >
-      {!isMobile && (
-        <>
-          {/* Prism Rim - Dual Layer Highlights */}
-          <div className="absolute inset-0 rounded-full pointer-events-none border-[0.5px] border-white/40" />
-          <div className="absolute inset-0 rounded-full pointer-events-none border-t border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]" />
-          <div className="absolute -inset-[1px] rounded-full pointer-events-none border border-black/5 opacity-10" />
-        </>
-      )}
+      {/* Prism Rim - Dual Layer Highlights */}
+      <div className="absolute inset-0 rounded-full pointer-events-none border-[0.5px] border-white/40" />
+      <div className="absolute inset-0 rounded-full pointer-events-none border-t border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]" />
+      <div className="absolute -inset-[1px] rounded-full pointer-events-none border border-black/5 opacity-10" />
       
-        <div className={cn(
-          "flex items-center justify-between w-full",
-          !isMobile && (isScrolled ? "gap-12" : "")
-        )}>
+        <div className={`flex items-center justify-between ${(isScrolled || isMobile) ? "w-full gap-2 md:gap-12" : "w-full"}`}>
           <div className="flex-shrink-0">
             <Magnetic strength={0.1}>
                   <Link href="/" className="flex items-center gap-3 group">
                     <img 
                       src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/logo-1766284403960.png?width=800&height=800&resize=contain" 
                       alt="Freemans Bay Dental Centre" 
-                      className={cn(
-                        "transition-all duration-500 object-contain",
-                        isMobile ? "h-10" : (isScrolled ? "h-10" : "h-14 md:h-16")
-                      )}
+                      className={`transition-all duration-500 object-contain ${(isScrolled || isMobile) ? "h-8 md:h-10" : "h-14 md:h-16"}`}
                     />
                   </Link>
             </Magnetic>
           </div>
 
-          <div className={cn(
-            "hidden md:flex items-center",
-            isScrolled ? "gap-2" : "gap-6 lg:gap-10"
-          )}>
+          <div className={`hidden md:flex items-center ${(isScrolled || isMobile) ? "gap-2" : "gap-6 lg:gap-10"}`}>
 
           {navLinks.map((link, index) => (
               <Link 

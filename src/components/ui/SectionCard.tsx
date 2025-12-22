@@ -113,13 +113,13 @@ export function SectionCard({
         id={id}
         ref={containerRef} 
         className={cn(
-          "relative w-full py-12",
+          "relative w-full",
           isDark ? "bg-slate-900" : bgColor,
           className
         )}
         style={{ zIndex: zIndexValue }}
       >
-        <div ref={contentRef} className="w-full flex flex-col px-4">
+        <div ref={contentRef} className="w-full flex flex-col">
           {children}
         </div>
       </div>
