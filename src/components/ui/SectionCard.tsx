@@ -113,13 +113,13 @@ export function SectionCard({
         id={id}
         ref={containerRef} 
         className={cn(
-          "relative w-full",
+          "relative w-full py-12",
           isDark ? "bg-slate-900" : bgColor,
           className
         )}
         style={{ zIndex: zIndexValue }}
       >
-        <div ref={contentRef} className="w-full flex flex-col">
+        <div ref={contentRef} className="w-full flex flex-col px-4">
           {children}
         </div>
       </div>
@@ -146,7 +146,7 @@ export function SectionCard({
                         willChange: "transform, opacity",
                       }}
                   className={cn(
-                    "relative w-full h-full overflow-hidden rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] ring-1 transform-gpu",
+                    "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] ring-1 transform-gpu",
                     isDark ? "ring-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)]" : "ring-black/5",
                     bgColor,
                     className
