@@ -61,10 +61,10 @@ const services = [
 
   const isMobile = useIsMobile();
   return (
-    <section className="bg-transparent h-full no-scrollbar py-16 md:py-32 px-6 md:px-24">
+    <section className="bg-transparent h-full no-scrollbar py-12 md:py-32 px-6 md:px-24">
       {/* Services Section */}
-        <div className="max-w-7xl mx-auto mb-16 md:mb-48">
-          <div className="mb-12 md:mb-32">
+        <div className="max-w-7xl mx-auto mb-12 md:mb-48">
+          <div className="mb-8 md:mb-32">
 
           <Reveal>
             <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
@@ -154,8 +154,8 @@ const services = [
       </div>
 
       {/* Testimonials */}
-      <div className="max-w-7xl mx-auto relative z-10 pb-20">
-        <div className="text-center mb-16 md:mb-32">
+      <div className="max-w-7xl mx-auto relative z-10 pb-10">
+        <div className="text-center mb-12 md:mb-32">
           <Reveal width="100%">
              <Quote className="w-12 h-12 md:w-16 md:h-16 text-brand-blue-400/20 mx-auto mb-6 md:mb-10" strokeWidth={1} />
           </Reveal>
@@ -229,7 +229,7 @@ const services = [
         </div>
 
 
-        <div className="mt-20 text-center">
+        <div className="mt-12 text-center">
           <Reveal delay={0.6}>
             <Magnetic strength={0.1}>
               <Link href="/testimonials">
