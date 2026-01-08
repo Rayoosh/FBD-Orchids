@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useMemo } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import React, { useRef, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useScrollState } from "@/components/ScrollProvider";
 
 interface SectionCardProps {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ interface SectionCardProps {
   index: number;
   bgColor?: string;
   isDark?: boolean;
-  id?: string;
+  id: string; // id is now required for tracking
 }
 
 export function SectionCard({ 
@@ -22,169 +23,101 @@ export function SectionCard({
   isDark = false,
   id,
 }: SectionCardProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(0);
+  const { activeSection } = useScrollState();
   const isMobile = useIsMobile();
 
-  // Helper to get solid background color for mobile
+  const isActive = activeSection === id;
+  
+  // Define sections in order to determine "past" and "future"
+  const sectionIds = ["home", "experience", "services", "partnership"];
+  const currentIndex = sectionIds.indexOf(id);
+  const activeIndex = sectionIds.indexOf(activeSection);
+  
+  const isPast = currentIndex < activeIndex;
+  const isFuture = currentIndex > activeIndex;
+
+  // Helper for mobile background
   const mobileBg = useMemo(() => {
     if (!bgColor) return isDark ? "bg-slate-900" : "bg-white";
-    // Strip transparency and backdrop blurs for standard mobile look
     return bgColor
       .replace(/\/70|\/80|\/90/g, "")
       .replace(/backdrop-blur-\w+/g, "")
       .trim();
   }, [bgColor, isDark]);
 
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (contentRef.current) {
-        setContentHeight(contentRef.current.scrollHeight);
-      }
-      setViewportHeight(window.innerHeight);
-    };
-
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    const timer = setTimeout(updateDimensions, 500);
-    
-    return () => {
-      window.removeEventListener("resize", updateDimensions);
-      clearTimeout(timer);
-    };
-  }, [children]);
-
-  const cardVisibleHeight = viewportHeight;
-  const scrollDistance = Math.max(0, contentHeight - cardVisibleHeight);
-  
-  const overlapAmount = viewportHeight;
-  const bufferAmount = viewportHeight * 0.5;
-  
-  const totalContainerHeight = isMobile ? "auto" : Math.max(1, viewportHeight + scrollDistance + overlapAmount + bufferAmount);
-
-    const { scrollYProgress: internalProgress } = useScroll({
-      target: containerRef,
-      offset: ["start end", "end end"],
-    });
-  
-    // Use raw progress to avoid "double-smoothing" with Lenis
-    const safeProgress = internalProgress;
-
-
-  // Calculate the progress points based on the new total height
-  const points = useMemo(() => {
-    if (isMobile || typeof totalContainerHeight !== "number" || totalContainerHeight <= 0) {
-      return { entryEnd: 0, contentEnd: 0.5, coverEnd: 1 };
-    }
-    return {
-      entryEnd: viewportHeight / totalContainerHeight,
-      contentEnd: (viewportHeight + scrollDistance) / totalContainerHeight,
-      coverEnd: (viewportHeight + scrollDistance + overlapAmount) / totalContainerHeight
-    };
-  }, [isMobile, totalContainerHeight, viewportHeight, scrollDistance, overlapAmount]);
-
-  // Use array-based transforms for better performance in Chrome
-  // This avoids running JS functions on every scroll frame
-  const yEntry = useTransform(
-    safeProgress, 
-    [0, Math.max(0.001, points.entryEnd)], 
-    [viewportHeight, 0],
-    { clamp: true }
-  );
-
-  const scale = useTransform(
-    safeProgress,
-    [points.contentEnd, Math.max(points.contentEnd + 0.001, points.coverEnd)],
-    [1, 0.96],
-    { clamp: true }
-  );
-
-  const opacity = useTransform(
-    safeProgress,
-    [points.contentEnd, Math.max(points.contentEnd + 0.001, points.coverEnd)],
-    [1, 0],
-    { clamp: true }
-  );
-
-  const contentY = useTransform(
-    safeProgress,
-    [points.entryEnd, Math.max(points.entryEnd + 0.001, points.contentEnd)],
-    [0, -scrollDistance],
-    { clamp: true }
-  );
-
-  const zIndexValue = (index + 1) * 10;
-
   if (isMobile) {
     return (
-      <div 
+      <section 
         id={id}
-        ref={containerRef} 
         className={cn(
-          "relative w-full",
+          "relative w-full py-12 px-4",
           isDark ? "bg-slate-900" : mobileBg,
           className
         )}
       >
-        <div ref={contentRef} className="w-full flex flex-col">
+        <div className="w-full flex flex-col">
           {children}
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-        <div 
-          id={id}
-          ref={containerRef} 
-          className={cn("relative w-full")}
-          style={{ 
-            height: totalContainerHeight,
-            zIndex: zIndexValue,
-            marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`,
+    <section 
+      id={id}
+      className="relative w-full h-[120vh]" // Extra height for overlap
+      style={{ zIndex: (index + 1) * 10 }}
+    >
+      <div className="sticky top-0 h-screen w-full p-6 lg:p-8 overflow-hidden">
+        <motion.div
+          initial={index === 0 ? "active" : "future"}
+          animate={isPast ? "past" : isActive ? "active" : "future"}
+          variants={{
+            active: { 
+              y: 0, 
+              scale: 1, 
+              opacity: 1,
+              transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+            },
+            past: { 
+              y: 0, 
+              scale: 0.95, 
+              opacity: 0,
+              transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+            },
+            future: { 
+              y: "100%", 
+              scale: 1, 
+              opacity: 1,
+              transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+            }
           }}
+          className={cn(
+            "relative w-full h-full overflow-y-auto rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] ring-1 transform-gpu no-scrollbar",
+            isDark ? "ring-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)]" : "ring-black/5",
+            bgColor,
+            className
+          )}
         >
-            <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden" style={{ contain: "paint" }}>
-                <motion.div
-                      style={{ 
-                        y: index === 0 ? 0 : yEntry,
-                        scale, 
-                        opacity,
-                        willChange: "transform, opacity",
-                        isolation: "isolate",
-                      }}
-                  className={cn(
-                    "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] ring-1 transform-gpu",
-                    isDark ? "ring-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)]" : "ring-black/5",
-                    bgColor,
-                    className
-                  )}
-                >
-              {/* Premium Inner Glow */}
-              <div className={cn(
-                "absolute inset-0 pointer-events-none",
-                isDark ? "inner-glow-dark" : "inner-glow"
-              )} />
-              
-              <div className={cn(
-                "absolute top-12 left-12 z-50 flex items-center gap-4 pointer-events-none opacity-40",
-                isDark ? "text-white" : "text-black"
-              )}>
-                <span className="font-display text-sm tracking-[0.3em]">0{index + 1}</span>
-                <div className={cn("w-8 h-[1px]", isDark ? "bg-white/20" : "bg-black/10")} />
-              </div>
-
-              <motion.div 
-                ref={contentRef}
-                style={{ y: contentY }}
-                className="w-full flex flex-col"
-              >
-                {children}
-              </motion.div>
-            </motion.div>
+          {/* Premium Inner Glow */}
+          <div className={cn(
+            "absolute inset-0 pointer-events-none sticky top-0 h-full w-full z-50",
+            isDark ? "inner-glow-dark" : "inner-glow"
+          )} />
+          
+          <div className={cn(
+            "absolute top-12 left-12 z-50 flex items-center gap-4 pointer-events-none opacity-40",
+            isDark ? "text-white" : "text-black"
+          )}>
+            <span className="font-display text-sm tracking-[0.3em]">0{index + 1}</span>
+            <div className={cn("w-8 h-[1px]", isDark ? "bg-white/20" : "bg-black/10")} />
           </div>
-        </div>
-    );
+
+          <div className="w-full flex flex-col">
+            {children}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

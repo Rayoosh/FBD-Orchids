@@ -8,18 +8,13 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileNav } from "./MobileNav";
+import { useScrollState } from "./ScrollProvider";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { isScrolled } = useScrollState();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
     const navLinks = [
       { name: "Quality", href: "#experience", icon: Shield },

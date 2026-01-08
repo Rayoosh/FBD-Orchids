@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cormorant_Garamond, Syne } from "next/font/google";
 import "./globals.css";
 import { VisualEditsMessenger } from "orchids-visual-edits";
-import { SmoothScroll } from "@/components/SmoothScroll";
+import { ScrollProvider } from "@/components/ScrollProvider";
 import { Toaster } from "sonner";
 import { GlobalEffects } from "@/components/GlobalEffects";
 
@@ -43,10 +43,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} ${syne.variable} antialiased`}
       >
-        <SmoothScroll>
+        <ScrollProvider>
           <GlobalEffects />
           {children}
-        </SmoothScroll>
+        </ScrollProvider>
         <Toaster position="top-center" richColors />
         <VisualEditsMessenger />
       </body>
