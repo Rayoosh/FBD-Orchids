@@ -1,11 +1,23 @@
 "use client";
 
 import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
-import React, { Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function BackgroundGradient() {
   const isMobile = useIsMobile();
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsVisible(document.visibilityState === "visible");
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   if (isMobile) {
     return (
@@ -32,7 +44,7 @@ export function BackgroundGradient() {
           }}
         >
           <ShaderGradient
-            animate="on"
+            animate={isVisible ? "on" : "off"}
             axesHelper="off"
               brightness={1.3}
               cAzimuthAngle={180}
