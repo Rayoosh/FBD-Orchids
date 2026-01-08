@@ -146,13 +146,14 @@ export function SectionCard({
             marginTop: index === 0 ? 0 : `-${overlapAmount + bufferAmount}px`,
           }}
         >
-            <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden">
+            <div className="sticky top-0 h-screen w-full p-4 md:p-6 lg:p-8 overflow-hidden" style={{ contain: "paint" }}>
                 <motion.div
                       style={{ 
                         y: index === 0 ? 0 : yEntry,
                         scale, 
                         opacity,
                         willChange: "transform, opacity",
+                        isolation: "isolate",
                       }}
                   className={cn(
                     "relative w-full h-full overflow-hidden rounded-[32px] md:rounded-[48px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] ring-1 transform-gpu",

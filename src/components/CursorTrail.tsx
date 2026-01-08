@@ -10,9 +10,9 @@ interface Point {
 export function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointsRef = useRef<Point[]>([]);
-  const mouseRef = useRef<Point>({ x: 0, y: 0 });
-    const maxPoints = 20; // Reduced for shorter, cleaner trail
-
+    const mouseRef = useRef<Point>({ x: 0, y: 0 });
+    const maxPoints = 12; // Further reduced for performance
+  
     useEffect(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
